@@ -1,0 +1,61 @@
+[
+  {
+    "id": "dispatch-2026-11-06",
+    "issueNumber": "066",
+    "date": "6 THÁNG 11, 2026",
+    "timestamp": 1793977950375,
+    "headline": "TỐI ƯU HÓA INFERENCE & BĂNG THÔNG HBM CHO MÔ HÌNH SUY LUẬN",
+    "tag": "LIVE INTELLIGENCE",
+    "quote": "Tối ưu hóa Tensor Cores và giảm độ chính xác xuống INT4 không làm suy giảm năng lực suy luận đa bước, mà ngược lại tăng thông lượng tính toán lên gấp 3.2 lần trên phần cứng phổ thông.",
+    "keyTakeaway": "Lời khuyên cho AI Engineer: Băng thông bộ nhớ (Memory Bandwidth) là nút thắt cổ chai lớn nhất khi chạy suy luận LLM, chứ không phải xung nhịp tính toán thuần túy. Hãy luôn bắt đầu từ việc tối ưu hóa Memory-bound.",
+    "hotRepo": {
+      "name": "vllm-project/vllm",
+      "description": "Thư viện phục vụ inference và serving LLM với thông lượng cao nhất hiện nay nhờ PagedAttention và nhân FP8 GEMM tối ưu.",
+      "url": "https://github.com/vllm-project/vllm",
+      "stars": "35.2k",
+      "forks": "5.3k",
+      "whyItMatters": "Giảm 60% lãng phí VRAM thông qua quản lý bộ nhớ phân trang PagedAttention và hỗ trợ FP8 GEMM kernels trực tiếp.",
+      "howToTry": [
+        "git clone https://github.com/vllm-project/vllm",
+        "pip install vllm",
+        "vllm serve meta-llama/Llama-3.2-3B-Instruct --port 8000"
+      ]
+    },
+    "otherTopRepos": [
+      {
+        "name": "deepseek-ai/DeepSeek-V3",
+        "url": "https://github.com/deepseek-ai/DeepSeek-V3",
+        "stars": "48.9k",
+        "description": "An advanced strong Mixture-of-Experts (MoE) language model with Multi-head Latent Attention (MLA) and DeepSeekMoE architecture.",
+        "highlight": "Chủ đề hot: llm, moe, deep-learning"
+      },
+      {
+        "name": "ggerganov/llama.cpp",
+        "url": "https://github.com/ggerganov/llama.cpp",
+        "stars": "72.4k",
+        "description": "LLM inference in C/C++ with 1.5-bit to 8-bit quantization on CPUs and commodity GPUs without dependencies.",
+        "highlight": "Chủ đề hot: llm, quantization, gguf"
+      },
+      {
+        "name": "ollama/ollama",
+        "url": "https://github.com/ollama/ollama",
+        "stars": "112.0k",
+        "description": "Get up and running with Llama 3.3, Mistral, Gemma 2, and other large language models locally.",
+        "highlight": "Chủ đề hot: llm, local-ai, inference"
+      },
+      {
+        "name": "modelcontextprotocol/servers",
+        "url": "https://github.com/modelcontextprotocol/servers",
+        "stars": "28.5k",
+        "description": "Model Context Protocol (MCP) reference servers enabling LLMs to securely interact with local databases, tools, and developer environments.",
+        "highlight": "Chủ đề hot: mcp, agents, llm-tools"
+      }
+    ],
+    "microChallenge": {
+      "title": "Chạy thử nghiệm Serving API với mô hình cục bộ",
+      "task": "Tải vllm hoặc llama.cpp về, khởi chạy một OpenAI-compatible API server cục bộ trên máy và dùng curl để test sinh 50 tokens.",
+      "expectedOutcome": "Làm chủ việc dựng API endpoint AI cục bộ thay vì chỉ phụ thuộc vào OpenAI Cloud API."
+    },
+    "generatedBy": "curated_fallback"
+  }
+]

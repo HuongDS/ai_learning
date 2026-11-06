@@ -1,26 +1,90 @@
 @import "tailwindcss";
 
+@theme {
+  --color-warm-cream: #ffedd7;
+  --color-walnut-shadow: #100904;
+  --color-bark-brown: #382416;
+  --color-cork-border: #40372e;
+  --color-driftwood: #6c5f51;
+  --color-ember-accent: #dc5000;
+  --color-pure-black: #000000;
+
+  --radius-xl: 12px;
+  --radius-2xl: 22.5px;
+  --radius-3xl: 36px;
+  --radius-full: 9999px;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Dark Mode Default (Per DESIGN.md: Darkroom Product Editorial) */
+  --bg-canvas: #100904;
+  --text-primary: #ffedd7;
+  --text-secondary: #8c7b6a;
+  --surface-card: #18100a;
+  --surface-elevated: #24160d;
+  --border-main: #40372e;
+  --border-secondary: #6c5f51;
+  --btn-solid-bg: #382416;
+  --btn-solid-hover: #4a301e;
+  --btn-solid-text: #ffedd7;
+  --accent-ember: #dc5000;
+  --glass-bg: rgba(24, 16, 10, 0.85);
+
+  /* Typography Scale */
+  --text-subheading: 18px;
+  --leading-subheading: 1;
+  --text-heading-sm: 24px;
+  --leading-heading-sm: 1.09;
+  --text-body: 29px;
+  --leading-body: 1.26;
+  --text-heading: 41px;
+  --leading-heading: 0.9;
+  --text-display: 51px;
+  --leading-display: 0.9;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html.light {
+  /* Warm Minimalist Editorial Light Mode (Sand Gallery / Clean Apple Studio) */
+  --bg-canvas: #f6f1e8;
+  --text-primary: #18120c;
+  --text-secondary: #7a6c5c;
+  --surface-card: #ece3d3;
+  --surface-elevated: #e2d6c3;
+  --border-main: #d5c4af;
+  --border-secondary: #a3937f;
+  --btn-solid-bg: #23160e;
+  --btn-solid-hover: #382416;
+  --btn-solid-text: #f6f1e8;
+  --accent-ember: #be4400;
+  --glass-bg: rgba(246, 241, 232, 0.92);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom dashed dividers */
+.border-dashed-hairline {
+  border-top: 1px dashed var(--border-main);
+}
+
+.border-dashed-vertical {
+  border-left: 1px dashed var(--border-main);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-canvas);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-main);
+  border-radius: 3px;
 }
