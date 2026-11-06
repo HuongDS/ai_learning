@@ -127,11 +127,11 @@ export default function RoadmapTimeline3D({ onSelectMonth }: RoadmapTimeline3DPr
     // Tube highway
     const tubeGeo = new THREE.TubeGeometry(curve, 90, 0.05, 12, false);
     const tubeMat = new THREE.MeshStandardMaterial({
-      color: isDark ? 0x40372e : 0xd5c4af,
+      color: isDark ? 0x1e293b : 0xe2e8f0,
       metalness: 0.7,
       roughness: 0.3,
-      emissive: isDark ? 0xdc5000 : 0xb45309,
-      emissiveIntensity: isDark ? 0.35 : 0.2,
+      emissive: isDark ? 0x38bdf8 : 0x0056d2,
+      emissiveIntensity: isDark ? 0.4 : 0.25,
     });
     const highwayTube = new THREE.Mesh(tubeGeo, tubeMat);
     scene.add(highwayTube);
@@ -141,7 +141,7 @@ export default function RoadmapTimeline3D({ onSelectMonth }: RoadmapTimeline3DPr
     const pulses: THREE.Mesh[] = [];
     const pulseGeo = new THREE.SphereGeometry(0.12, 16, 16);
     const pulseMat = new THREE.MeshBasicMaterial({
-      color: isDark ? 0xff7722 : 0xdc5000,
+      color: isDark ? 0x38bdf8 : 0x0056d2,
     });
 
     for (let i = 0; i < pulseCount; i++) {
@@ -163,7 +163,7 @@ export default function RoadmapTimeline3D({ onSelectMonth }: RoadmapTimeline3DPr
       // Base Pedestal
       const pedestalGeo = new THREE.CylinderGeometry(0.9, 1.05, 0.16, 32);
       const pedestalMat = new THREE.MeshStandardMaterial({
-        color: isDark ? 0x1e1510 : 0xede4d8,
+        color: isDark ? 0x0f172a : 0xf8fafc,
         metalness: 0.8,
         roughness: 0.25,
       });
@@ -174,7 +174,7 @@ export default function RoadmapTimeline3D({ onSelectMonth }: RoadmapTimeline3DPr
       // Glowing Rim Ring
       const rimGeo = new THREE.TorusGeometry(0.98, 0.025, 16, 48);
       const rimMat = new THREE.MeshBasicMaterial({
-        color: isDark ? 0xdc5000 : 0xb45309,
+        color: isDark ? 0x38bdf8 : 0x0056d2,
       });
       const rim = new THREE.Mesh(rimGeo, rimMat);
       rim.rotation.x = Math.PI / 2;

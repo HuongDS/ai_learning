@@ -13,7 +13,7 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("dark");
+  const [theme, setThemeState] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -23,7 +23,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       document.documentElement.classList.toggle("light", savedTheme === "light");
       document.documentElement.classList.toggle("dark", savedTheme === "dark");
     } else {
-      document.documentElement.classList.add("dark");
+      // Default to Crisp White Learning Mode (Coursera/Duolingo style)
+      setThemeState("light");
+      document.documentElement.classList.add("light");
+      document.documentElement.classList.remove("dark");
     }
     setMounted(true);
   }, []);

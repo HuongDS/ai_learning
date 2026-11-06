@@ -94,7 +94,7 @@ export default function ObsidianGraphView({
       vx: 0,
       vy: 0,
       radius: 22,
-      color: isDark ? "#ffedd7" : "#18120c",
+      color: isDark ? "#38bdf8" : "#0056d2",
     };
     nodes.push(rootNode);
 
@@ -284,8 +284,8 @@ export default function ObsidianGraphView({
       ctx.scale(dpr, dpr);
       ctx.clearRect(0, 0, width, height);
 
-      // Background subtle grid
-      ctx.fillStyle = isDark ? "#0c0704" : "#f6f1e8";
+      // Background subtle canvas
+      ctx.fillStyle = isDark ? "#090d16" : "#ffffff";
       ctx.fillRect(0, 0, width, height);
 
       // Apply Pan & Zoom Transform
@@ -328,17 +328,17 @@ export default function ObsidianGraphView({
         ctx.lineTo(target.x, target.y);
 
         if (isHoverConnected) {
-          ctx.strokeStyle = isDark ? "#ffedd7" : "#18120c";
-          ctx.lineWidth = 1.8;
-          ctx.globalAlpha = 0.85;
+          ctx.strokeStyle = isDark ? "#38bdf8" : "#0056d2";
+          ctx.lineWidth = 2.0;
+          ctx.globalAlpha = 0.9;
         } else if (isSourceActive && isTargetActive) {
-          ctx.strokeStyle = edge.color || (isDark ? "rgba(255,237,215,0.2)" : "rgba(24,18,12,0.18)");
+          ctx.strokeStyle = edge.color || (isDark ? "rgba(255,255,255,0.2)" : "rgba(0,86,210,0.2)");
           ctx.lineWidth = edge.source === "root" ? 1.4 : 0.9;
           ctx.globalAlpha = isDark ? 0.35 : 0.45;
         } else {
-          ctx.strokeStyle = isDark ? "#382416" : "#e0d5c5";
+          ctx.strokeStyle = isDark ? "#1e293b" : "#e2e8f0";
           ctx.lineWidth = 0.5;
-          ctx.globalAlpha = 0.12;
+          ctx.globalAlpha = 0.15;
         }
 
         ctx.stroke();
@@ -405,7 +405,7 @@ export default function ObsidianGraphView({
         if (shouldShowLabel && active) {
           ctx.globalAlpha = isHovered || isSelected ? 1 : 0.85;
           ctx.font = node.type === "root" ? "bold 13px monospace" : "11px monospace";
-          ctx.fillStyle = isDark ? "#ffedd7" : "#18120c";
+          ctx.fillStyle = isDark ? "#f8fafc" : "#0f172a";
           ctx.textAlign = "center";
           ctx.textBaseline = "top";
           ctx.fillText(node.shortLabel, node.x, node.y + node.radius + 5);
