@@ -2,9 +2,10 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, BookOpen, Layers, CheckCircle2, ChevronRight, Sun, Moon, Sparkles, Filter, Search, Award, Flame, Terminal, Cpu, Database, Network, ShieldCheck, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, BookOpen, Layers, CheckCircle2, ChevronRight, Sun, Moon, Sparkles, Filter, Search, Award, Flame, Terminal, Cpu, Database, Network, ShieldCheck, ArrowUpRight, Compass } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { MONTHS_OVERVIEW, CITED_CORPUS, CHECKLIST_ITEMS, WEEKS_DATA, WeekData } from "@/lib/roadmap-data";
+import RoadmapTimeline3D from "@/components/RoadmapTimeline3D";
 
 export default function RoadmapPage() {
   const { theme, toggleTheme } = useTheme();
@@ -12,6 +13,7 @@ export default function RoadmapPage() {
   const [selectedMonth, setSelectedMonth] = useState<number | "all">("all");
   const [filterMilestonesOnly, setFilterMilestonesOnly] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [timelineViewMode, setTimelineViewMode] = useState<"3d" | "grid">("3d");
 
   // Filtering weeks for Tab 2
   const filteredWeeks = WEEKS_DATA.filter((w) => {
@@ -198,51 +200,84 @@ export default function RoadmapPage() {
               </div>
             </section>
 
-            {/* 6-Month Timeline Cards */}
+            {/* 6-Month Timeline 3D & Progression Section */}
             <section className="space-y-5">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[var(--border-main)] pb-3">
                 <div className="flex items-center space-x-2 text-[12px] font-mono uppercase tracking-wider text-[var(--accent-ember)] font-medium">
-                  <Flame className="w-4 h-4" />
-                  <span>TIẾN TRÌNH 6 THÁNG HỌC TẬP (BẤM ĐỂ XEM CHI TIẾT)</span>
+                  <Compass className="w-4 h-4" />
+                  <span>TIẾN TRÌNH 6 THÁNG HỌC TẬP (3D TIMELINE MATRIX)</span>
                 </div>
-                <button
-                  onClick={() => setActiveTab("details")}
-                  className="text-[11px] font-mono uppercase text-[var(--text-secondary)] hover:text-[var(--accent-ember)] flex items-center space-x-1"
-                >
-                  <span>MỞ TOÀN BỘ 26 TUẦN</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {MONTHS_OVERVIEW.map((m) => (
-                  <div
-                    key={m.month}
-                    onClick={() => handleJumpToMonth(m.month)}
-                    className="p-6 rounded-[12px] bg-[var(--surface-card)] border border-[var(--border-main)] hover:border-[var(--text-primary)] cursor-pointer transition-all duration-200 group flex flex-col justify-between space-y-4 shadow-sm"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between pb-2 border-b border-[var(--border-main)]">
-                        <span className="text-[11px] font-mono text-[var(--accent-ember)] uppercase font-medium">
-                          THÁNG 0{m.month} // {m.weeks}
-                        </span>
-                        <ChevronRight className="w-4 h-4 text-[var(--text-secondary)] group-hover:translate-x-1 transition-transform" />
-                      </div>
-                      <h3 className="text-[17px] font-medium uppercase tracking-tight text-[var(--text-primary)] mt-3">
-                        {m.title}
-                      </h3>
-                      <p className="text-[13px] text-[var(--text-secondary)] leading-relaxed mt-2">
-                        {m.focus}
-                      </p>
-                    </div>
-
-                    <div className="pt-3 border-t border-[var(--border-main)]/60 text-[11px] font-mono text-[var(--accent-ember)] flex items-center space-x-1.5">
-                      <Award className="w-3.5 h-3.5 shrink-0" />
-                      <span className="truncate">{m.highlight}</span>
-                    </div>
+                <div className="flex items-center space-x-3">
+                  {/* View Mode Toggle */}
+                  <div className="flex items-center bg-[var(--surface-elevated)] border border-[var(--border-main)] rounded-[22.5px] p-0.5 text-[10px] font-mono uppercase">
+                    <button
+                      onClick={() => setTimelineViewMode("3d")}
+                      className={`px-3 py-1 rounded-[16px] transition-all ${
+                        timelineViewMode === "3d"
+                          ? "bg-[var(--btn-solid-bg)] text-[var(--btn-solid-text)] font-medium shadow-sm"
+                          : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                      }`}
+                    >
+                      3D TIMELINE
+                    </button>
+                    <button
+                      onClick={() => setTimelineViewMode("grid")}
+                      className={`px-3 py-1 rounded-[16px] transition-all ${
+                        timelineViewMode === "grid"
+                          ? "bg-[var(--btn-solid-bg)] text-[var(--btn-solid-text)] font-medium shadow-sm"
+                          : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                      }`}
+                    >
+                      DẠNG LƯỚI (2D)
+                    </button>
                   </div>
-                ))}
+
+                  <button
+                    onClick={() => setActiveTab("details")}
+                    className="text-[11px] font-mono uppercase text-[var(--text-secondary)] hover:text-[var(--accent-ember)] flex items-center space-x-1"
+                  >
+                    <span>MỞ TOÀN BỘ 26 TUẦN</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
               </div>
+
+              {/* 3D Timeline View */}
+              {timelineViewMode === "3d" ? (
+                <RoadmapTimeline3D onSelectMonth={handleJumpToMonth} />
+              ) : (
+                /* Grid View */
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {MONTHS_OVERVIEW.map((m) => (
+                    <div
+                      key={m.month}
+                      onClick={() => handleJumpToMonth(m.month)}
+                      className="p-6 rounded-[12px] bg-[var(--surface-card)] border border-[var(--border-main)] hover:border-[var(--text-primary)] cursor-pointer transition-all duration-200 group flex flex-col justify-between space-y-4 shadow-sm"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between pb-2 border-b border-[var(--border-main)]">
+                          <span className="text-[11px] font-mono text-[var(--accent-ember)] uppercase font-medium">
+                            THÁNG 0{m.month} // {m.weeks}
+                          </span>
+                          <ChevronRight className="w-4 h-4 text-[var(--text-secondary)] group-hover:translate-x-1 transition-transform" />
+                        </div>
+                        <h3 className="text-[17px] font-medium uppercase tracking-tight text-[var(--text-primary)] mt-3">
+                          {m.title}
+                        </h3>
+                        <p className="text-[13px] text-[var(--text-secondary)] leading-relaxed mt-2">
+                          {m.focus}
+                        </p>
+                      </div>
+
+                      <div className="pt-3 border-t border-[var(--border-main)]/60 text-[11px] font-mono text-[var(--accent-ember)] flex items-center space-x-1.5">
+                        <Award className="w-3.5 h-3.5 shrink-0" />
+                        <span className="truncate">{m.highlight}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </section>
 
             {/* Cited Academic Corpus */}
