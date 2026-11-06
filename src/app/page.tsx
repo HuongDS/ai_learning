@@ -135,12 +135,6 @@ export default function WelcomePage() {
         />
 
         <div className="relative max-w-6xl mx-auto flex flex-col items-center text-center space-y-8 z-10">
-          {/* Edition Tag */}
-          <div className="inline-flex items-center space-x-2.5 px-3.5 py-1.5 rounded-[22.5px] border border-[var(--border-main)] bg-[var(--surface-elevated)] text-[11px] uppercase tracking-widest font-mono text-[var(--text-secondary)] shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-[var(--accent-ember)] animate-pulse" />
-            <span>KỶ NGUYÊN AI ORCHESTRATION // 26-WEEK COMPREHENSIVE ROADMAP</span>
-          </div>
-
           {/* Giant Hero Title */}
           <div className="space-y-2">
             <h1 className="text-[36px] sm:text-[56px] md:text-[68px] lg:text-[76px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-[0.94]">
