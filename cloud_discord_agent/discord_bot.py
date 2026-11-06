@@ -76,6 +76,47 @@ async def help_command(ctx):
     await ctx.send(embed=embed)
 
 
+def get_git_info():
+    """Lấy thông tin git thông minh (hỗ trợ cả local lẫn Render Cloud Container)"""
+    cur = os.path.abspath(WORKSPACE_DIR)
+    git_dir = None
+    for _ in range(3):
+        if os.path.exists(os.path.join(cur, ".git")):
+            git_dir = cur
+            break
+        parent = os.path.dirname(cur)
+        if parent == cur:
+            break
+        cur = parent
+
+    # Nếu trên Render không có .git, đọc từ biến hệ thống của Render
+    render_commit = os.getenv("RENDER_GIT_COMMIT")
+    render_branch = os.getenv("RENDER_GIT_BRANCH", "main")
+    if not git_dir:
+        if render_commit:
+            return render_branch, f"Render Deploy: {render_commit[:7]}"
+        return "Render Cloud", "Managed Container (Latest)"
+
+    try:
+        git_log = subprocess.check_output(
+            ["git", "log", "-1", "--oneline"],
+            cwd=git_dir,
+            stderr=subprocess.DEVNULL,
+            text=True,
+            timeout=5,
+        ).strip()
+        git_branch = subprocess.check_output(
+            ["git", "branch", "--show-current"],
+            cwd=git_dir,
+            stderr=subprocess.DEVNULL,
+            text=True,
+            timeout=5,
+        ).strip()
+        return git_branch or "main", git_log or "Latest"
+    except Exception:
+        return render_branch, "Render Cloud Container"
+
+
 @bot.command(name="status")
 async def status_command(ctx):
     """Kiểm tra tình trạng server và git repository"""
@@ -84,16 +125,7 @@ async def status_command(ctx):
 
     loading_msg = await ctx.send("🔍 Đang kiểm tra hệ thống Cloud...")
 
-    try:
-        git_log = subprocess.check_output(
-            ["git", "log", "-1", "--oneline"], cwd=WORKSPACE_DIR, text=True, timeout=10
-        ).strip()
-        git_branch = subprocess.check_output(
-            ["git", "branch", "--show-current"], cwd=WORKSPACE_DIR, text=True, timeout=10
-        ).strip()
-    except Exception:
-        git_log = "Không kiểm tra được git"
-        git_branch = "Unknown"
+    git_branch, git_log = get_git_info()
 
     embed = discord.Embed(
         title="🟢 HỆ THỐNG CLOUD ĐANG HOẠT ĐỘNG 24/7",
@@ -154,9 +186,35 @@ async def pull_command(ctx):
     if not is_authorized(ctx.author.id):
         return
 
+    cur = os.path.abspath(WORKSPACE_DIR)
+    git_dir = None
+    for _ in range(3):
+        if os.path.exists(os.path.join(cur, ".git")):
+            git_dir = cur
+            break
+        parent = os.path.dirname(cur)
+        if parent == cur:
+            break
+        cur = parent
+
+    if not git_dir:
+        embed = discord.Embed(
+            title="ℹ️ RENDER CLOUD AUTO-DEPLOY",
+            description=(
+                "Bot đang chạy trên môi trường **Render Cloud Web Service**.\n\n"
+                "Render tự động kết nối trực tiếp với GitHub và sẽ **tự động deploy bản mới nhất** "
+                "mỗi khi có commit được `git push` lên `main`. Bạn không cần chạy lệnh `!pull` thủ công!"
+            ),
+            color=0x0056D2,
+        )
+        await ctx.send(embed=embed)
+        return
+
     loading_msg = await ctx.send("🔄 Đang chạy `git pull` từ GitHub...")
     try:
-        out = subprocess.check_output(["git", "pull"], cwd=WORKSPACE_DIR, text=True, timeout=30)
+        out = subprocess.check_output(
+            ["git", "pull"], cwd=git_dir, stderr=subprocess.STDOUT, text=True, timeout=30
+        )
         embed = discord.Embed(
             title="✅ Git Pull Thành Công",
             description=f"```text\n{out.strip()}\n```",
