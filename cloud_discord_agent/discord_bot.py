@@ -5,6 +5,7 @@ import asyncio
 import logging
 import discord
 from discord.ext import commands
+from aiohttp import web
 from dotenv import load_dotenv
 from openai import OpenAI
 
@@ -225,10 +226,46 @@ async def on_message(message: discord.Message):
             await message.reply(f"❌ Lỗi khi gọi OpenAI: `{str(e)}`")
 
 
-def main():
+async def health_check_handler(request):
+    """Health check endpoint cho Render Web Service"""
+    html_content = """
+    <!DOCTYPE html>
+    <html>
+    <head><title>Antigravity Discord Agent</title></head>
+    <body style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f8fafc; color: #0f172a; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0;">
+        <div style="background: white; padding: 40px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); text-align: center; max-width: 480px;">
+            <div style="font-size: 48px; margin-bottom: 12px;">🟢</div>
+            <h1 style="color: #0056d2; margin: 0 0 8px 0; font-size: 24px;">Antigravity Discord Agent</h1>
+            <p style="color: #16a34a; font-weight: 600; margin: 0 0 16px 0;">ONLINE 24/7 CLOUD WORKER</p>
+            <p style="color: #64748b; font-size: 14px; margin: 0;">Sẵn sàng nhận lệnh từ Discord App trên iOS / Android.</p>
+        </div>
+    </body>
+    </html>
+    """
+    return web.Response(text=html_content, content_type="text/html")
+
+
+async def start_web_server():
+    """Khởi động web server phụ trợ để Render xác nhận health check $PORT"""
+    port = int(os.getenv("PORT", 8080))
+    app = web.Application()
+    app.router.add_get("/", health_check_handler)
+    app.router.add_get("/health", health_check_handler)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, "0.0.0.0", port)
+    await site.start()
+    logger.info(f"🌐 Web health-check server đã mở tại cổng: {port}")
+
+
+async def main():
     print("🚀 Khởi động Antigravity Discord Cloud Agent...")
-    bot.run(DISCORD_BOT_TOKEN)
+    await start_web_server()
+    await bot.start(DISCORD_BOT_TOKEN)
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        logger.info("Bot đã dừng bởi người dùng.")
