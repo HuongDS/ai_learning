@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, RefreshCw, Key, GitFork, ArrowUpRight, Terminal, Sparkles, Clock, Check, Sun, Moon, Flame, Shield, BookOpen } from "lucide-react";
 import { DispatchData } from "@/lib/types";
+import { getOrLoadRadarDispatch, syncRadarLiveWithAI } from "@/lib/radar-client";
 import { useTheme } from "@/context/ThemeContext";
 import ApiKeyModal from "@/components/ApiKeyModal";
 
@@ -31,11 +32,8 @@ export default function RadarPage() {
   const loadDispatch = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch("/api/radar");
-      const json = await res.json();
-      if (json.success && json.data) {
-        setDispatch(json.data);
-      }
+      const data = await getOrLoadRadarDispatch();
+      setDispatch(data);
     } catch (err) {
       console.error("Failed to load radar dispatch:", err);
     } finally {
@@ -46,18 +44,8 @@ export default function RadarPage() {
   const handleSyncLive = async () => {
     setIsSyncing(true);
     try {
-      const customKey = localStorage.getItem("oryzo_openai_api_key") || "";
-      const res = await fetch("/api/radar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-openai-key": customKey,
-        },
-      });
-      const json = await res.json();
-      if (json.success && json.data) {
-        setDispatch(json.data);
-      }
+      const data = await syncRadarLiveWithAI();
+      setDispatch(data);
     } catch (err) {
       console.error("Failed to sync radar:", err);
     } finally {
