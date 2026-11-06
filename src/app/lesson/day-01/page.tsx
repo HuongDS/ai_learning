@@ -58,13 +58,20 @@ export default function DayOneLessonPage() {
     <div className="min-h-screen bg-[var(--bg-canvas)] text-[var(--text-primary)] transition-colors duration-300 selection:bg-[var(--btn-solid-bg)] selection:text-[var(--btn-solid-text)]">
       {/* Sticky Top Reading Bar */}
       <header className="sticky top-0 z-40 w-full bg-[var(--bg-canvas)]/90 backdrop-blur-md border-b border-[var(--border-main)] px-6 sm:px-12 py-3.5 flex items-center justify-between">
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-3">
           <Link
-            href="/"
+            href="/lab"
             className="flex items-center space-x-1.5 text-[11px] font-medium tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1 px-2.5 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)]"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>3D HUB MATRIX</span>
+            <span>PHÒNG LAB 3D</span>
+          </Link>
+
+          <Link
+            href="/"
+            className="hidden sm:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1 px-2.5 rounded-[22.5px] border border-[var(--border-main)]"
+          >
+            <span>TRANG CHỦ</span>
           </Link>
 
           <Link
@@ -74,7 +81,7 @@ export default function DayOneLessonPage() {
             <span>LỘ TRÌNH 26 TUẦN</span>
           </Link>
 
-          <div className="hidden sm:block text-[11px] font-mono uppercase tracking-widest text-[var(--text-secondary)] border-l border-[var(--border-main)] pl-4">
+          <div className="hidden lg:block text-[11px] font-mono uppercase tracking-widest text-[var(--text-secondary)] border-l border-[var(--border-main)] pl-4">
             DAY 01 // SILICON & TENSORS
           </div>
         </div>

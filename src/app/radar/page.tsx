@@ -69,7 +69,21 @@ export default function RadarPage() {
             className="flex items-center space-x-1.5 text-[11px] font-medium tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-3 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)]"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>3D HUB MATRIX</span>
+            <span>TRANG CHỦ</span>
+          </Link>
+
+          <Link
+            href="/lab"
+            className="hidden sm:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--accent-ember)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-3 rounded-[22.5px] border border-[var(--border-main)]"
+          >
+            <span>PHÒNG LAB 3D</span>
+          </Link>
+
+          <Link
+            href="/roadmap"
+            className="hidden md:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-3 rounded-[22.5px] border border-[var(--border-main)]"
+          >
+            <span>LỘ TRÌNH 26 TUẦN</span>
           </Link>
 
           <div className="text-[12px] font-mono uppercase tracking-widest text-[var(--text-primary)] font-medium border-l border-[var(--border-main)] pl-4">
@@ -255,6 +269,13 @@ export default function RadarPage() {
                   >
                     <BookOpen className="w-4 h-4 text-[var(--accent-ember)]" />
                     <span>LÀM BÀI TẬP & KẾT HỢP KIẾN THỨC</span>
+                  </Link>
+
+                  <Link
+                    href="/lab"
+                    className="w-full h-[40px] px-6 rounded-[36px] border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] text-[11px] font-medium uppercase tracking-wider transition-colors flex items-center justify-center space-x-2 bg-[var(--surface-elevated)]"
+                  >
+                    <span>VÀO PHÒNG LAB 3D (DIE-01)</span>
                   </Link>
                 </div>
 

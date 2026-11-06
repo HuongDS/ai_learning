@@ -36,13 +36,21 @@ export default function RoadmapPage() {
     <div className="min-h-screen bg-[var(--bg-canvas)] text-[var(--text-primary)] transition-colors duration-300 selection:bg-[var(--btn-solid-bg)] selection:text-[var(--btn-solid-text)] flex flex-col justify-between">
       {/* 1. Sticky Navigation Header */}
       <header className="sticky top-0 z-40 w-full bg-[var(--bg-canvas)]/90 backdrop-blur-md border-b border-[var(--border-main)] px-6 sm:px-12 py-4 flex items-center justify-between">
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-3">
           <Link
             href="/"
             className="flex items-center space-x-1.5 text-[11px] font-medium tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-3 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)]"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>3D HUB MATRIX</span>
+            <span>TRANG CHỦ</span>
+          </Link>
+
+          <Link
+            href="/lab"
+            className="hidden md:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--accent-ember)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-3 rounded-[22.5px] border border-[var(--border-main)]"
+          >
+            <Cpu className="w-3.5 h-3.5" />
+            <span>PHÒNG LAB 3D</span>
           </Link>
 
           <div className="text-[12px] font-mono uppercase tracking-widest text-[var(--text-primary)] font-medium border-l border-[var(--border-main)] pl-4 hidden sm:block">
