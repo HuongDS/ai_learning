@@ -136,13 +136,10 @@ export default function WelcomePage() {
 
         <div className="relative max-w-6xl mx-auto flex flex-col items-center text-center space-y-8 z-10">
           {/* Giant Hero Title */}
-          <div className="space-y-2">
-            <h1 className="text-[36px] sm:text-[56px] md:text-[68px] lg:text-[76px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-[0.94]">
+          <div>
+            <h1 className="text-[40px] sm:text-[64px] md:text-[76px] lg:text-[84px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-[0.95]">
               HỌC AI TỪ CON SỐ 0
             </h1>
-            <span className="block text-[32px] sm:text-[50px] md:text-[62px] lg:text-[70px] font-serif italic text-[var(--accent-ember)] font-normal leading-[1.05]">
-              Đến Kỹ Sư AI Orchestration
-            </span>
           </div>
 
           {/* Editorial Subtitle */}
