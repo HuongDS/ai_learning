@@ -73,10 +73,10 @@ export default function RadarPage() {
           </Link>
 
           <Link
-            href="/lab"
+            href="/learn"
             className="hidden sm:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--accent-ember)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-3 rounded-[22.5px] border border-[var(--border-main)]"
           >
-            <span>PHÒNG LAB 3D</span>
+            <span>BẮT ĐẦU HỌC</span>
           </Link>
 
           <Link

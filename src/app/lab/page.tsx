@@ -62,16 +62,10 @@ export default function LabWorkspacePage() {
             02. DAILY RADAR
           </button>
           <Link
-            href="/lab"
-            className="relative py-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+            href="/learn"
+            className="relative py-1 text-[var(--accent-ember)] hover:text-[var(--text-primary)] transition-colors"
           >
-            03. PHÒNG LAB 3D
-          </Link>
-          <Link
-            href="/lesson/day-01"
-            className="relative py-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
-          >
-            04. BÀI HỌC DAY 01
+            03. BẮT ĐẦU HỌC
           </Link>
         </nav>
 

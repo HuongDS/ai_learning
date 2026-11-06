@@ -51,6 +51,12 @@ export default function DayOneLessonPage() {
         current.push("compute_die");
         localStorage.setItem("oryzo_unlocked_artifacts", JSON.stringify(current));
       }
+
+      const completed = JSON.parse(localStorage.getItem("oryzo_completed_lessons") || "[]");
+      if (!completed.includes(1)) {
+        completed.push(1);
+        localStorage.setItem("oryzo_completed_lessons", JSON.stringify(completed));
+      }
     } catch (e) {}
   };
 
@@ -72,6 +78,13 @@ export default function DayOneLessonPage() {
             className="hidden sm:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1 px-2.5 rounded-[22.5px] border border-[var(--border-main)]"
           >
             <span>TRANG CHỦ</span>
+          </Link>
+
+          <Link
+            href="/learn"
+            className="flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--accent-ember)] hover:text-[var(--text-primary)] transition-colors py-1 px-2.5 rounded-[22.5px] border border-[var(--border-main)]"
+          >
+            <span>HUB BÀI HỌC</span>
           </Link>
 
           <Link
@@ -412,14 +425,24 @@ export default function DayOneLessonPage() {
                   <span>NỘP BÀI & MỞ KHÓA THE COMPUTE DIE</span>
                 </button>
               ) : (
-                <Link
-                  href="/"
-                  className="h-[46px] px-8 rounded-[36px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[12px] font-medium uppercase tracking-wider transition-all flex items-center space-x-2 shadow-lg whitespace-nowrap shrink-0"
-                >
-                  <Sparkles className="w-4 h-4 text-[var(--accent-ember)] mr-1 shrink-0" />
-                  <span>QUAY LẠI 3D HUB XEM BỘ NÃO CỦA BẠN</span>
-                  <ArrowRight className="w-4 h-4 ml-1 shrink-0" />
-                </Link>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <Link
+                    href="/learn"
+                    className="h-[46px] px-7 rounded-[36px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[12px] font-medium uppercase tracking-wider transition-all flex items-center space-x-2 shadow-lg whitespace-nowrap shrink-0"
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 mr-1 shrink-0" />
+                    <span>MỞ KHÓA BÀI HỌC KẾ TIẾP (VÀO HUB HỌC TẬP)</span>
+                    <ArrowRight className="w-4 h-4 ml-1 shrink-0" />
+                  </Link>
+
+                  <Link
+                    href="/lab"
+                    className="h-[46px] px-6 rounded-[36px] border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] text-[12px] font-medium uppercase tracking-wider transition-all flex items-center space-x-2 bg-[var(--surface-card)] whitespace-nowrap shrink-0"
+                  >
+                    <Sparkles className="w-4 h-4 text-[var(--accent-ember)] mr-1 shrink-0" />
+                    <span>XEM PHÒNG LAB 3D</span>
+                  </Link>
+                </div>
               )}
             </div>
           </div>

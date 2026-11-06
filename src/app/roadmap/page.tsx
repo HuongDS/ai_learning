@@ -50,11 +50,11 @@ export default function RoadmapPage() {
           </Link>
 
           <Link
-            href="/lab"
+            href="/learn"
             className="hidden md:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--accent-ember)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-3 rounded-[22.5px] border border-[var(--border-main)]"
           >
-            <Cpu className="w-3.5 h-3.5" />
-            <span>PHÒNG LAB 3D</span>
+            <BookOpen className="w-3.5 h-3.5" />
+            <span>BẮT ĐẦU HỌC</span>
           </Link>
 
           <div className="text-[12px] font-mono uppercase tracking-widest text-[var(--text-primary)] font-medium border-l border-[var(--border-main)] pl-4 hidden sm:block">

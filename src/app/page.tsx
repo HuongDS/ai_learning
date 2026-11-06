@@ -78,16 +78,10 @@ export default function WelcomePage() {
             02. DAILY RADAR
           </button>
           <Link
-            href="/lab"
+            href="/learn"
             className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
           >
-            03. PHÒNG LAB 3D
-          </Link>
-          <Link
-            href="/lesson/day-01"
-            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
-          >
-            04. BÀI HỌC DAY 01
+            03. BẮT ĐẦU HỌC
           </Link>
         </nav>
 
@@ -112,12 +106,12 @@ export default function WelcomePage() {
             {theme === "dark" ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-stone-700" />}
           </button>
 
-          {/* Enter Lab Button */}
+          {/* Enter Learning Hub Button */}
           <Link
-            href="/lab"
+            href="/learn"
             className="hidden md:flex items-center space-x-1.5 h-[36px] px-4 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-widest uppercase border border-[var(--border-main)] transition-colors"
           >
-            <span>VÀO PHÒNG LAB</span>
+            <span>BẮT ĐẦU HỌC</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -151,13 +145,13 @@ export default function WelcomePage() {
 
           {/* Primary Action Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
-            {/* The primary button leading directly to the 3D chip workspace */}
+            {/* The primary button leading directly to the learning hub */}
             <Link
-              href="/lab"
+              href="/learn"
               className="h-[52px] px-8 rounded-[36px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[12px] font-medium tracking-widest uppercase border border-[var(--border-main)] transition-all duration-200 shadow-xl flex items-center space-x-3 group cursor-pointer"
             >
-              <Cpu className="w-4 h-4 text-[var(--accent-ember)] shrink-0" />
-              <span>BẮT ĐẦU BÀI HỌC (VÀO LAB 3D)</span>
+              <BookOpen className="w-4 h-4 text-[var(--accent-ember)] shrink-0" />
+              <span>BẮT ĐẦU HỌC (CHỌN BÀI HỌC)</span>
               <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1 shrink-0" />
             </Link>
 
@@ -602,11 +596,11 @@ vllm serve meta-llama/Llama-3.2-3B-Instruct --port 8000</code>
 
           <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
             <Link
-              href="/lab"
+              href="/learn"
               className="h-[52px] px-8 rounded-[36px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[12px] font-medium tracking-widest uppercase border border-[var(--border-main)] transition-all duration-200 shadow-xl flex items-center space-x-2.5 group cursor-pointer"
             >
-              <Cpu className="w-4 h-4 text-[var(--accent-ember)] shrink-0" />
-              <span>BẮT ĐẦU BÀI HỌC (VÀO PHÒNG LAB 3D)</span>
+              <BookOpen className="w-4 h-4 text-[var(--accent-ember)] shrink-0" />
+              <span>BẮT ĐẦU HỌC (CHỌN BÀI HỌC)</span>
               <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1 shrink-0" />
             </Link>
 
@@ -633,7 +627,10 @@ vllm serve meta-llama/Llama-3.2-3B-Instruct --port 8000</code>
             <Link href="/" className="hover:text-[var(--text-primary)] transition-colors">
               TRANG CHỦ
             </Link>
-            <Link href="/lab" className="hover:text-[var(--text-primary)] transition-colors text-[var(--accent-ember)]">
+            <Link href="/learn" className="hover:text-[var(--text-primary)] transition-colors text-[var(--accent-ember)]">
+              BẮT ĐẦU HỌC
+            </Link>
+            <Link href="/lab" className="hover:text-[var(--text-primary)] transition-colors">
               PHÒNG LAB 3D
             </Link>
             <Link href="/roadmap" className="hover:text-[var(--text-primary)] transition-colors">
