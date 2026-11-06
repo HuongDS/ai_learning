@@ -22,13 +22,17 @@ logger = logging.getLogger(__name__)
 DISCORD_BOT_TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 ALLOWED_USER_ID = os.getenv("DISCORD_ALLOWED_USER_ID")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o")
 WORKSPACE_DIR = os.getenv("WORKSPACE_DIR", os.getcwd())
+
+CURRENT_MODEL = OPENAI_MODEL
 
 if not DISCORD_BOT_TOKEN:
     raise ValueError("Thiếu DISCORD_BOT_TOKEN trong file .env!")
 
-# Khởi tạo OpenAI Client nếu có key
-openai_client = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_KEY else None
+# Khởi tạo OpenAI Client nếu có key (tránh lỗi nếu base_url rỗng)
+base_url = os.getenv("OPENAI_BASE_URL", "").strip() or None
+openai_client = OpenAI(api_key=OPENAI_API_KEY, base_url=base_url) if OPENAI_API_KEY else None
 
 # Cấu hình Discord Intents
 intents = discord.Intents.default()
@@ -63,7 +67,8 @@ async def help_command(ctx):
         description="Bot đang chạy trực tiếp trên Cloud 24/7 để hỗ trợ bạn lập trình và quản trị hệ thống.",
         color=0x0056D2,  # Coursera Royal Blue
     )
-    embed.add_field(name="!status", value="Kiểm tra trạng thái server Cloud, RAM, Git branch", inline=False)
+    embed.add_field(name="!status", value="Kiểm tra trạng thái server Cloud, RAM, Git branch, Model AI", inline=False)
+    embed.add_field(name="!model [tên_model]", value="Xem hoặc đổi model GPT (ví dụ: `!model gpt-4o-mini`, `!model gpt-4o`, `!model gpt-4.1`)", inline=False)
     embed.add_field(name="!run <lệnh>", value="Chạy lệnh terminal trên server (ví dụ: `!run git status`)", inline=False)
     embed.add_field(name="!pull", value="Kéo mã nguồn mới nhất từ GitHub (`git pull`)", inline=False)
     embed.add_field(name="Nhắn tin tự do", value="Gõ bất kỳ câu hỏi nào trong kênh, AI sẽ phân tích và hỗ trợ bạn!", inline=False)
@@ -100,11 +105,46 @@ async def status_command(ctx):
     embed.add_field(name="Môi trường Python", value=f"`Python {sys.version.split()[0]}`", inline=True)
     embed.add_field(
         name="Trí tuệ AI (OpenAI)",
-        value="`Sẵn sàng (GPT-4o) ✓`" if openai_client else "`Chưa cấu hình API Key`",
+        value=f"`Sẵn sàng ({CURRENT_MODEL}) ✓`" if openai_client else "`Chưa cấu hình API Key`",
         inline=True,
     )
 
     await loading_msg.delete()
+    await ctx.send(embed=embed)
+
+
+@bot.command(name="model")
+async def model_command(ctx, new_model: str = None):
+    """Xem hoặc đổi mô hình GPT đang sử dụng (gpt-4o, gpt-4o-mini, gpt-4.1)"""
+    global CURRENT_MODEL
+    if not is_authorized(ctx.author.id):
+        return
+
+    if not new_model:
+        embed = discord.Embed(
+            title="🧠 CẤU HÌNH MÔ HÌNH AI (GPT)",
+            description=f"Mô hình đang hoạt động: **`{CURRENT_MODEL}`**\n\nBạn có thể chuyển sang model khác bằng cú pháp: `!model <tên_model>`",
+            color=0x0056D2,
+        )
+        embed.add_field(
+            name="Các model khuyên dùng",
+            value=(
+                "• `gpt-4o`: Cân bằng tốt nhất, suy luận logic cao, phân tích code chuẩn\n"
+                "• `gpt-4o-mini`: Siêu nhanh, phản hồi tức thì, tiết kiệm chi phí tối đa\n"
+                "• `gpt-4.1`: Phiên bản thế hệ mới nhất cho lập trình và context lớn"
+            ),
+            inline=False,
+        )
+        await ctx.send(embed=embed)
+        return
+
+    target = new_model.strip()
+    CURRENT_MODEL = target
+    embed = discord.Embed(
+        title="✅ ĐÃ CHUYỂN ĐỔI MÔ HÌNH GPT THÀNH CÔNG",
+        description=f"Từ giờ AI Agent sẽ sử dụng: **`{CURRENT_MODEL}`** để trả lời bạn.",
+        color=0x16A34A,
+    )
     await ctx.send(embed=embed)
 
 
@@ -197,7 +237,7 @@ async def on_message(message: discord.Message):
     async with message.channel.typing():
         try:
             response = openai_client.chat.completions.create(
-                model="gpt-4o",
+                model=CURRENT_MODEL,
                 messages=[
                     {
                         "role": "system",
