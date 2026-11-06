@@ -22,7 +22,7 @@ Hầu hết các nền tảng học AI hiện nay đều quá khô khan (ngập 
 
 ---
 
-## 🧠 Ứng Dụng AI Orchestration (Hệ Thống Điều Phối Đa Agent)
+## Ứng Dụng AI Orchestration
 
 Đây không đơn thuần là một website tĩnh tích hợp khung chat API thông thường, mà là một **Hệ thống Điều phối AI (AI Orchestration System)** phối hợp nhiều Agent chuyên biệt làm việc nhịp nhàng với nhau:
 
