@@ -2,10 +2,11 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, BookOpen, Layers, CheckCircle2, ChevronRight, Sun, Moon, Sparkles, Filter, Search, Award, Flame, Terminal, Cpu, Database, Network, ShieldCheck, ArrowUpRight, Compass } from "lucide-react";
+import { ArrowLeft, BookOpen, Layers, CheckCircle2, ChevronRight, Sun, Moon, Sparkles, Filter, Search, Award, Flame, Terminal, Cpu, Database, Network, ShieldCheck, ArrowUpRight, Compass, Share2 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { MONTHS_OVERVIEW, CITED_CORPUS, CHECKLIST_ITEMS, WEEKS_DATA, WeekData } from "@/lib/roadmap-data";
 import RoadmapTimeline3D from "@/components/RoadmapTimeline3D";
+import ObsidianGraphView from "@/components/ObsidianGraphView";
 
 export default function RoadmapPage() {
   const { theme, toggleTheme } = useTheme();
@@ -14,6 +15,7 @@ export default function RoadmapPage() {
   const [filterMilestonesOnly, setFilterMilestonesOnly] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [timelineViewMode, setTimelineViewMode] = useState<"3d" | "grid">("3d");
+  const [detailsViewMode, setDetailsViewMode] = useState<"cards" | "obsidian">("cards");
 
   // Filtering weeks for Tab 2
   const filteredWeeks = WEEKS_DATA.filter((w) => {
@@ -418,62 +420,107 @@ export default function RoadmapPage() {
                   </p>
                 </div>
 
-                {/* Search Box */}
-                <div className="relative w-full md:w-72">
-                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-secondary)]" />
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Tìm theo chủ đề, keyword..."
-                    className="w-full h-[40px] pl-9 pr-4 bg-[var(--surface-card)] border border-[var(--border-main)] rounded-[22.5px] text-[12px] font-mono text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-ember)] transition-colors"
-                  />
+                {/* View Mode Toggle: Cards vs Obsidian Graph */}
+                <div className="flex items-center space-x-3 w-full md:w-auto justify-between md:justify-end">
+                  <div className="flex items-center bg-[var(--surface-elevated)] border border-[var(--border-main)] rounded-[22.5px] p-0.5 text-[11px] font-mono uppercase">
+                    <button
+                      onClick={() => setDetailsViewMode("cards")}
+                      className={`px-3.5 py-1.5 rounded-[18px] transition-all flex items-center space-x-1.5 ${
+                        detailsViewMode === "cards"
+                          ? "bg-[var(--btn-solid-bg)] text-[var(--btn-solid-text)] font-medium shadow-sm"
+                          : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                      }`}
+                    >
+                      <Layers className="w-3.5 h-3.5" />
+                      <span>DẠNG THẺ (CARDS)</span>
+                    </button>
+                    <button
+                      onClick={() => setDetailsViewMode("obsidian")}
+                      className={`px-3.5 py-1.5 rounded-[18px] transition-all flex items-center space-x-1.5 ${
+                        detailsViewMode === "obsidian"
+                          ? "bg-[var(--accent-ember)] text-white font-medium shadow-sm"
+                          : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                      }`}
+                    >
+                      <Share2 className="w-3.5 h-3.5" />
+                      <span>OBSIDIAN GRAPH</span>
+                    </button>
+                  </div>
+
+                  {/* Search Box in Cards Mode */}
+                  {detailsViewMode === "cards" && (
+                    <div className="relative w-44 sm:w-60 hidden sm:block">
+                      <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-secondary)]" />
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Tìm theo chủ đề..."
+                        className="w-full h-[36px] pl-8 pr-3 bg-[var(--surface-card)] border border-[var(--border-main)] rounded-[22.5px] text-[11px] font-mono text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-ember)] transition-colors"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
 
-              {/* Month Filters Pills */}
-              <div className="flex items-center flex-wrap gap-2 pt-2">
-                <button
-                  onClick={() => setSelectedMonth("all")}
-                  className={`px-3.5 py-1.5 rounded-[22.5px] text-[11px] font-mono uppercase tracking-wider transition-colors ${
-                    selectedMonth === "all"
-                      ? "bg-[var(--btn-solid-bg)] text-[var(--btn-solid-text)] border border-[var(--border-main)]"
-                      : "border border-[var(--border-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
-                  }`}
-                >
-                  TẤT CẢ (26 TUẦN)
-                </button>
-
-                {[1, 2, 3, 4, 5, 6].map((m) => (
+              {/* Month Filters Pills (Visible in Cards Mode) */}
+              {detailsViewMode === "cards" && (
+                <div className="flex items-center flex-wrap gap-2 pt-2">
                   <button
-                    key={m}
-                    onClick={() => setSelectedMonth(m)}
+                    onClick={() => setSelectedMonth("all")}
                     className={`px-3.5 py-1.5 rounded-[22.5px] text-[11px] font-mono uppercase tracking-wider transition-colors ${
-                      selectedMonth === m
+                      selectedMonth === "all"
                         ? "bg-[var(--btn-solid-bg)] text-[var(--btn-solid-text)] border border-[var(--border-main)]"
                         : "border border-[var(--border-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                     }`}
                   >
-                    THÁNG {m}
+                    TẤT CẢ (26 TUẦN)
                   </button>
-                ))}
 
-                <button
-                  onClick={() => setFilterMilestonesOnly(!filterMilestonesOnly)}
-                  className={`px-3.5 py-1.5 rounded-[22.5px] text-[11px] font-mono uppercase tracking-wider transition-colors flex items-center space-x-1 ${
-                    filterMilestonesOnly
-                      ? "bg-[var(--accent-ember)] text-[#ffedd7]"
-                      : "border border-[var(--border-main)] text-[var(--text-secondary)] hover:text-[var(--accent-ember)]"
-                  }`}
-                >
-                  <Award className="w-3.5 h-3.5" />
-                  <span>CHỈ HIỆN MILESTONES</span>
-                </button>
-              </div>
+                  {[1, 2, 3, 4, 5, 6].map((m) => (
+                    <button
+                      key={m}
+                      onClick={() => setSelectedMonth(m)}
+                      className={`px-3.5 py-1.5 rounded-[22.5px] text-[11px] font-mono uppercase tracking-wider transition-colors ${
+                        selectedMonth === m
+                          ? "bg-[var(--btn-solid-bg)] text-[var(--btn-solid-text)] border border-[var(--border-main)]"
+                          : "border border-[var(--border-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                      }`}
+                    >
+                      THÁNG {m}
+                    </button>
+                  ))}
+
+                  <button
+                    onClick={() => setFilterMilestonesOnly(!filterMilestonesOnly)}
+                    className={`px-3.5 py-1.5 rounded-[22.5px] text-[11px] font-mono uppercase tracking-wider transition-colors flex items-center space-x-1 ${
+                      filterMilestonesOnly
+                        ? "bg-[var(--accent-ember)] text-[#ffedd7]"
+                        : "border border-[var(--border-main)] text-[var(--text-secondary)] hover:text-[var(--accent-ember)]"
+                    }`}
+                  >
+                    <Award className="w-3.5 h-3.5" />
+                    <span>CHỈ HIỆN MILESTONES</span>
+                  </button>
+                </div>
+              )}
             </div>
 
-            {/* Weeks List */}
-            <div className="space-y-6">
+            {/* Content Display: Obsidian Graph or Cards List */}
+            {detailsViewMode === "obsidian" ? (
+              <ObsidianGraphView
+                onSwitchToCards={(targetWeek) => {
+                  if (targetWeek) {
+                    const wk = WEEKS_DATA.find((x) => x.week === targetWeek);
+                    if (wk) setSelectedMonth(wk.month);
+                  }
+                  setDetailsViewMode("cards");
+                }}
+                selectedMonthFilter={selectedMonth}
+              />
+            ) : (
+              /* Weeks List */
+              <div className="space-y-6">
               {filteredWeeks.length === 0 ? (
                 <div className="text-center py-16 text-[var(--text-secondary)] font-mono">
                   Không tìm thấy tuần học nào phù hợp với từ khóa &ldquo;{searchQuery}&rdquo;.
@@ -588,8 +635,9 @@ export default function RoadmapPage() {
                 ))
               )}
             </div>
-          </div>
-        )}
+          )}
+        </div>
+      )}
       </main>
 
       {/* 3. Footer */}
