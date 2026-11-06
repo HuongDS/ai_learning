@@ -73,16 +73,15 @@ export default function WelcomePage() {
           </Link>
           <button
             onClick={() => setIsRadarModalOpen(true)}
-            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors flex items-center space-x-1"
+            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
           >
-            <span>02. DAILY RADAR</span>
-            <Flame className="w-3.5 h-3.5 text-[var(--accent-ember)]" />
+            02. DAILY RADAR
           </button>
           <Link
             href="/lab"
-            className="text-[var(--accent-ember)] hover:text-[var(--text-primary)] transition-colors flex items-center space-x-1"
+            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
           >
-            <span>03. PHÒNG LAB 3D</span>
+            03. PHÒNG LAB 3D
           </Link>
           <Link
             href="/lesson/day-01"

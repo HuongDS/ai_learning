@@ -53,19 +53,25 @@ export default function LabWorkspacePage() {
             href="/roadmap"
             className="relative py-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
           >
-            01. GIÁO TRÌNH
+            01. LỘ TRÌNH 26 TUẦN
           </Link>
           <button
             onClick={() => setIsRadarModalOpen(true)}
-            className="relative py-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors flex items-center space-x-1"
-          >
-            <span>02. DAILY RADAR 🔥</span>
-          </button>
-          <Link
-            href="/roadmap"
             className="relative py-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
           >
-            03. 3D CORE MATRIX
+            02. DAILY RADAR
+          </button>
+          <Link
+            href="/lab"
+            className="relative py-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+          >
+            03. PHÒNG LAB 3D
+          </Link>
+          <Link
+            href="/lesson/day-01"
+            className="relative py-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+          >
+            04. BÀI HỌC DAY 01
           </Link>
         </nav>
 
