@@ -10,7 +10,7 @@
 
 ---
 
-## 🌟 Triết lý & Tầm nhìn Dự án
+## Triết lý & Tầm nhìn Dự án
 
 Hầu hết các nền tảng học AI hiện nay đều quá khô khan (ngập trong công thức toán học trừu tượng hoặc video bài giảng kéo dài hàng giờ). **ORYZO AI LAB** tiếp cận theo một hướng đi hoàn toàn khác:
 
@@ -21,7 +21,7 @@ Hầu hết các nền tảng học AI hiện nay đều quá khô khan (ngập 
 
 ---
 
-## 🚀 Các Tính Năng Nổi Bật Đã Triển Khai
+## Các Tính Năng Nổi Bật Đã Triển Khai
 
 ### 1. The 3D Compute Die (Linh kiện Day 01)
 - Mô hình 3D bán dẫn nguyên khối với **16 cụm Tensor Cores (ma trận 4x4)** và **4 tháp bộ nhớ HBM3**.
@@ -55,7 +55,7 @@ Hầu hết các nền tảng học AI hiện nay đều quá khô khan (ngập 
 
 ---
 
-## 🛠 Kiến trúc Kỹ thuật (Tech Stack)
+## Kiến trúc Kỹ thuật (Tech Stack)
 
 ```
 ai_learning_web/
@@ -88,7 +88,7 @@ ai_learning_web/
 
 ---
 
-## ⚡ Hướng Dẫn Cài Đặt & Chạy Cục Bộ
+## Hướng Dẫn Cài Đặt & Chạy Cục Bộ
 
 ### 1. Yêu cầu hệ thống
 - **Node.js:** Phiên bản 18.18 trở lên (khuyên dùng Node 20+ hoặc 22+).
@@ -128,7 +128,7 @@ npm run start
 
 ---
 
-## 🚢 Hướng Dẫn Triển Khai (Deployment)
+## Hướng Dẫn Triển Khai (Deployment)
 
 ### Cách 1: Triển khai 1-click lên Vercel (Khuyên dùng)
 1. Truy cập [vercel.com](https://vercel.com).
@@ -141,7 +141,7 @@ Dự án đã tích hợp sẵn workflow tại `.github/workflows/deploy.yml` đ
 
 ---
 
-## 🗺 Lộ Trình Phát Triển Tiếp Theo
+## Lộ Trình Phát Triển Tiếp Theo
 - [x] **Giai đoạn 1:** Khởi tạo nền tảng, thiết kế Darkroom Editorial, mô hình 3D Compute Die & Trang học Day 01.
 - [x] **Giai đoạn 2:** Kết nối GitHub Crawler API & Pipeline OpenAI GPT-4o Agent cho Daily Radar.
 - [ ] **Giai đoạn 3:** Môi trường thực hành đa chế độ — WebAssembly Python Sandbox (Pyodide) chạy ngay trên trình duyệt 0 đồng server GPU.
@@ -150,6 +150,6 @@ Dự án đã tích hợp sẵn workflow tại `.github/workflows/deploy.yml` đ
 
 ---
 
-## 📄 Bản Quyền & Giấy Phép
+## Bản Quyền & Giấy Phép
 Dự án được phát triển bởi **HuongDS** và phân phối dưới giấy phép [MIT License](LICENSE).
 Mọi đóng góp (Pull Requests, Issue reports) đều được hoan nghênh nồng nhiệt!
