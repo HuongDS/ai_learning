@@ -11,8 +11,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "ORYZO // AI LAB — The 3D System Matrix",
-  description: "A darkroom 3D editorial learning platform for modern AI Engineers. Assemble neural architecture from silicon to autonomous agents.",
+  title: "ORYZO // AI LAB — The 3D System Matrix & AI Orchestration",
+  description: "A darkroom 3D editorial learning and AI orchestration platform for modern software engineers. Assemble neural architecture from silicon to autonomous agents powered by multi-agent workflows.",
 };
 
 export default function RootLayout({

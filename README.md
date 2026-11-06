@@ -1,11 +1,12 @@
 # ORYZO // AI LAB — The 3D System Matrix
-> **A Darkroom 3D Editorial Learning Platform for Software Engineers Mastering Modern AI.**  
-> *Học và làm chủ trí tuệ nhân tạo từ con số 0 qua câu chuyện không gian 3D tương tác, gắn liền với các bước nhảy vọt công nghệ hàng ngày.*
+> **A Darkroom 3D Editorial Learning & AI Orchestration Platform for Software Engineers Mastering Modern AI.**  
+> *Nền tảng học tập không gian 3D tương tác ứng dụng **AI Orchestration (Hệ thống Điều phối Đa Tác Vụ)**: tự động kết nối các Agent độc lập từ quét tri thức toàn cầu, giám tuyển nội dung tới cá nhân hóa lộ trình thực hành thực chiến.*
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.4-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.3-blue?style=flat-square&logo=react)](https://react.dev/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
 [![Three.js](https://img.shields.io/badge/Three.js-WebGL_3D-orange?style=flat-square&logo=three.js)](https://threejs.org/)
+[![AI Orchestration](https://img.shields.io/badge/Architecture-AI_Orchestration-10b981?style=flat-square)](https://github.com/HuongDS/ai_learning)
 [![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o_Engine-412991?style=flat-square&logo=openai)](https://openai.com/)
 
 ---
@@ -18,6 +19,44 @@ Hầu hết các nền tảng học AI hiện nay đều quá khô khan (ngập 
 2. **Cảm giác Tích lũy (Sense of Ownership):** Mỗi ngày một bài học thực hành. Tích lũy kiến thức sẽ dần mở khóa và hoàn thiện một **Bộ não 3D (The Sentient AI Matrix)** của riêng bạn.
 3. **Cập nhật Công nghệ Thời gian Thực (Daily AI Radar):** Tích hợp AI Agent tự động cào các GitHub repos hot nhất trong ngày, phân tích điểm đột phá và giao bài tập thực hành vi mô (Micro-challenge) ngay trong ngày.
 4. **Ngôn ngữ Thiết kế Tối giản Cao cấp:** Tuân thủ triệt để phong cách **Darkroom Product Editorial** (Walnut Shadow `#100904`, Warm Cream `#ffedd7`, Bark Brown `#382416`, Cork Border `#40372e`) kết hợp với chế độ **Light Gallery** trang nhã.
+
+---
+
+## 🧠 Ứng Dụng AI Orchestration (Hệ Thống Điều Phối Đa Agent)
+
+Đây không đơn thuần là một website tĩnh tích hợp khung chat API thông thường, mà là một **Hệ thống Điều phối AI (AI Orchestration System)** phối hợp nhiều Agent chuyên biệt làm việc nhịp nhàng với nhau:
+
+```
+                  ┌────────────────────────────────────────┐
+                  │      AI ORCHESTRATION PIPELINE         │
+                  └──────────────────┬─────────────────────┘
+                                     │
+         ┌───────────────────────────┼───────────────────────────┐
+         ▼                           ▼                           ▼
+ ┌───────────────┐           ┌───────────────┐           ┌───────────────┐
+ │ SENSOR AGENT  │           │ CURATOR AGENT │           │ ADAPTIVE LAB  │
+ │ (Data Mining) │           │  (Synthesis)  │           │     AGENT     │
+ └───────┬───────┘           └───────┬───────┘           └───────┬───────┘
+         │                           │                           │
+  Quét GitHub API,            Chắt lọc Signal             Tùy biến bài tập
+  READMEs & Papers            từ Noise, tạo quote         theo level học viên
+         │                           │                           │
+         └───────────────────────────┼───────────────────────────┘
+                                     ▼
+                      ┌─────────────────────────────┐
+                      │    3D MATRIX ORCHESTRATOR   │
+                      │  (WebGL Physical Assembly)  │
+                      └─────────────────────────────┘
+                       Mở khóa và ghép nối linh kiện
+                       vào Bộ não 3D thời gian thực
+```
+
+### Các Agent trong Hệ thống Điều phối:
+1. **Sensor & Data Harvesting Agent:** Tự động lắng nghe và thu thập các mã nguồn AI đang bùng nổ trên GitHub, arXiv và các diễn đàn công nghệ lớn lúc 00:00 hàng ngày.
+2. **Curator & Synthesis Agent:** Sử dụng mô hình GPT-4o để lọc nhiễu, đánh giá mức độ đột phá kỹ thuật, và chuyển thể thành các bản tin *Daily AI Dispatch* cô đọng theo phong cách bảo tàng cao cấp.
+3. **Adaptive Pedagogical Agent:** Phân tích độ khó của công nghệ mới nổi, đối chiếu với năng lực hiện tại của người học (Beginner -> Advanced) để tự động sinh ra các **thử thách vi mô (Micro-challenges)** mang tính thực chiến cao.
+4. **Evaluator & Feedback Agent:** Phân tích câu trả lời, đo lường các tham số tính toán (VRAM, thông lượng token, ma trận nén) và cung cấp chỉ dẫn tối ưu cho học viên.
+5. **3D Matrix Orchestrator:** Điều phối máy trạng thái (State Machine) giữa tiến độ bài học của người dùng và mô hình WebGL 3D, kích hoạt hiệu ứng lắp ráp linh kiện (Magnetic Snap) khi đạt cột mốc.
 
 ---
 
@@ -46,7 +85,7 @@ Hầu hết các nền tảng học AI hiện nay đều quá khô khan (ngập 
   - *Tiêu điểm Repo:* Lý do đột phá + 3 dòng lệnh CLI để clone và test inference nhanh.
   - *Thử thách vi mô:* Đề bài thực hành gắn liền với repo hot.
 - **Trang Đài thiên văn AI (`/radar`):** Khám phá toàn cảnh bản tin của ngày, top 5 repos hot, sao chép lệnh terminal 1-click.
-- **Modal Popup thông minh:** Tự động mở khi vào trang chủ, không làm bể form trên mọi kích thước màn hình.
+- **Modal Popup thông minh:** Tự động mở khi vào trang chủ, căn chỉnh chuẩn xác không làm bể form trên mọi kích thước màn hình.
 - **Chế độ BYOK (Bring Your Own Key):** Nhập OpenAI API Key trực tiếp trên giao diện web, lưu trữ an toàn trong `localStorage` phía client.
 
 ### 4. Giao diện Đa Chế độ (Dual Theme)
@@ -55,7 +94,7 @@ Hầu hết các nền tảng học AI hiện nay đều quá khô khan (ngập 
 
 ---
 
-## Kiến trúc Kỹ thuật (Tech Stack)
+## 🛠 Kiến trúc Kỹ thuật (Tech Stack)
 
 ```
 ai_learning_web/
@@ -88,7 +127,7 @@ ai_learning_web/
 
 ---
 
-## Hướng Dẫn Cài Đặt & Chạy Cục Bộ
+## ⚡ Hướng Dẫn Cài Đặt & Chạy Cục Bộ
 
 ### 1. Yêu cầu hệ thống
 - **Node.js:** Phiên bản 18.18 trở lên (khuyên dùng Node 20+ hoặc 22+).
@@ -128,7 +167,7 @@ npm run start
 
 ---
 
-## Hướng Dẫn Triển Khai (Deployment)
+## 🚢 Hướng Dẫn Triển Khai (Deployment)
 
 ### Cách 1: Triển khai 1-click lên Vercel (Khuyên dùng)
 1. Truy cập [vercel.com](https://vercel.com).
@@ -141,7 +180,7 @@ Dự án đã tích hợp sẵn workflow tại `.github/workflows/deploy.yml` đ
 
 ---
 
-## Lộ Trình Phát Triển Tiếp Theo
+## 🗺 Lộ Trình Phát Triển Tiếp Theo
 - [x] **Giai đoạn 1:** Khởi tạo nền tảng, thiết kế Darkroom Editorial, mô hình 3D Compute Die & Trang học Day 01.
 - [x] **Giai đoạn 2:** Kết nối GitHub Crawler API & Pipeline OpenAI GPT-4o Agent cho Daily Radar.
 - [ ] **Giai đoạn 3:** Môi trường thực hành đa chế độ — WebAssembly Python Sandbox (Pyodide) chạy ngay trên trình duyệt 0 đồng server GPU.
@@ -150,6 +189,6 @@ Dự án đã tích hợp sẵn workflow tại `.github/workflows/deploy.yml` đ
 
 ---
 
-## Bản Quyền & Giấy Phép
+## 📄 Bản Quyền & Giấy Phép
 Dự án được phát triển bởi **HuongDS** và phân phối dưới giấy phép [MIT License](LICENSE).
 Mọi đóng góp (Pull Requests, Issue reports) đều được hoan nghênh nồng nhiệt!
