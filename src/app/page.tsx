@@ -109,10 +109,10 @@ export default function WelcomePage() {
           {/* Enter Learning Hub Button */}
           <Link
             href="/learn"
-            className="hidden md:flex items-center space-x-1.5 h-[36px] px-4 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-widest uppercase border border-[var(--border-main)] transition-colors"
+            className="hidden md:flex items-center space-x-2 h-[38px] px-5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase border border-[var(--border-main)] transition-colors whitespace-nowrap shrink-0"
           >
             <span>BẮT ĐẦU HỌC</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-3.5 h-3.5 shrink-0" />
           </Link>
         </div>
       </header>
@@ -250,11 +250,11 @@ export default function WelcomePage() {
                 <div className="pt-3">
                   <Link
                     href="/lab"
-                    className="inline-flex items-center space-x-2.5 h-[48px] px-7 rounded-[36px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-widest uppercase border border-[var(--border-main)] transition-colors"
+                    className="inline-flex items-center space-x-2.5 h-[48px] px-7 rounded-[36px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase border border-[var(--border-main)] transition-colors whitespace-nowrap shrink-0 shadow-md"
                   >
-                    <BookOpen className="w-4 h-4 text-[var(--accent-ember)]" />
+                    <BookOpen className="w-4 h-4 text-[var(--accent-ember)] shrink-0" />
                     <span>VÀO PHÒNG LAB & BẮT ĐẦU BÀI HỌC DAY 01</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 shrink-0" />
                   </Link>
                 </div>
               </div>

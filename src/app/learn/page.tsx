@@ -374,17 +374,17 @@ export default function LearnLandingPage() {
                         <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
                           <Link
                             href="/lab"
-                            className="h-[38px] px-4 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 shadow-md"
+                            className="h-[38px] px-4.5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 shadow-md whitespace-nowrap shrink-0"
                           >
-                            <Cpu className="w-3.5 h-3.5 text-[var(--accent-ember)]" />
+                            <Cpu className="w-3.5 h-3.5 text-[var(--accent-ember)] shrink-0" />
                             <span>VÀO PHÒNG LAB 3D</span>
-                            <ArrowRight className="w-3.5 h-3.5" />
+                            <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                           </Link>
                           <Link
                             href="/lesson/day-01"
-                            className="h-[38px] px-4 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 bg-[var(--surface-elevated)]"
+                            className="h-[38px] px-4.5 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 bg-[var(--surface-elevated)] whitespace-nowrap shrink-0"
                           >
-                            <BookOpen className="w-3.5 h-3.5 text-[var(--accent-ember)]" />
+                            <BookOpen className="w-3.5 h-3.5 text-[var(--accent-ember)] shrink-0" />
                             <span>ĐỌC BÀI HỌC</span>
                           </Link>
                         </div>
@@ -392,11 +392,11 @@ export default function LearnLandingPage() {
                         <div className="flex items-center space-x-2">
                           <Link
                             href={`/roadmap`}
-                            className="h-[38px] px-4 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 shadow-md"
+                            className="h-[38px] px-4.5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 shadow-md whitespace-nowrap shrink-0"
                           >
-                            <BookOpen className="w-3.5 h-3.5 text-[var(--accent-ember)]" />
+                            <BookOpen className="w-3.5 h-3.5 text-[var(--accent-ember)] shrink-0" />
                             <span>BẮT ĐẦU TUẦN {week.week}</span>
-                            <ArrowRight className="w-3.5 h-3.5" />
+                            <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                           </Link>
                         </div>
                       )
