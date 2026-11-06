@@ -67,6 +67,13 @@ export default function DayOneLessonPage() {
             <span>3D HUB MATRIX</span>
           </Link>
 
+          <Link
+            href="/roadmap"
+            className="hidden md:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--accent-ember)] transition-colors py-1 px-2.5 rounded-[22.5px] border border-[var(--border-main)]"
+          >
+            <span>LỘ TRÌNH 26 TUẦN</span>
+          </Link>
+
           <div className="hidden sm:block text-[11px] font-mono uppercase tracking-widest text-[var(--text-secondary)] border-l border-[var(--border-main)] pl-4">
             DAY 01 // SILICON & TENSORS
           </div>

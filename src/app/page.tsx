@@ -55,10 +55,10 @@ export default function HomePage() {
         {/* Minimal Center Navigation */}
         <nav className="hidden lg:flex items-center space-x-8 text-[11px] sm:text-[12px] font-medium tracking-wider uppercase">
           <Link
-            href="/lesson/day-01"
+            href="/roadmap"
             className="relative py-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
           >
-            01. GIÁO TRÌNH
+            01. LỘ TRÌNH 26 TUẦN
           </Link>
           <button
             onClick={() => setIsRadarModalOpen(true)}
