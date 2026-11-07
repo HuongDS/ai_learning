@@ -43,9 +43,25 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 def is_authorized(user_id: int) -> bool:
     """Kiểm tra quyền truy cập (Chỉ cho phép chủ nhân sử dụng)."""
-    if not ALLOWED_USER_ID:
-        return True  # Nếu chưa cấu hình thì tạm thời cho phép
-    return str(user_id) == str(ALLOWED_USER_ID)
+    if not ALLOWED_USER_ID or str(ALLOWED_USER_ID).strip() == "":
+        return True  # Nếu chưa cấu hình thì tạm thời cho phép tất cả
+    return str(user_id).strip() == str(ALLOWED_USER_ID).strip()
+
+
+async def check_auth_and_warn(target_send, user_id: int, user_name: str) -> bool:
+    """Kiểm tra quyền và báo ID cụ thể nếu bị chặn thay vì im lặng"""
+    if is_authorized(user_id):
+        return True
+    
+    warning_msg = (
+        f"⛔ **Cảnh báo truy cập:** Tài khoản `{user_name}` (ID: `{user_id}`) chưa khớp với `DISCORD_ALLOWED_USER_ID` trên Render.\n"
+        f"👉 Nếu đây là tài khoản của bạn, hãy copy số ID `{user_id}` này dán vào biến `DISCORD_ALLOWED_USER_ID` trên Render Dashboard để mở khóa."
+    )
+    try:
+        await target_send(warning_msg)
+    except Exception:
+        pass
+    return False
 
 
 @bot.event
@@ -59,7 +75,7 @@ async def on_ready():
 @bot.command(name="help_agent")
 async def help_command(ctx):
     """Hiển thị hướng dẫn sử dụng"""
-    if not is_authorized(ctx.author.id):
+    if not await check_auth_and_warn(ctx.send, ctx.author.id, ctx.author.name):
         return
 
     embed = discord.Embed(
@@ -120,7 +136,7 @@ def get_git_info():
 @bot.command(name="status")
 async def status_command(ctx):
     """Kiểm tra tình trạng server và git repository"""
-    if not is_authorized(ctx.author.id):
+    if not await check_auth_and_warn(ctx.send, ctx.author.id, ctx.author.name):
         return
 
     loading_msg = await ctx.send("🔍 Đang kiểm tra hệ thống Cloud...")
@@ -149,7 +165,7 @@ async def status_command(ctx):
 async def model_command(ctx, new_model: str = None):
     """Xem hoặc đổi mô hình GPT đang sử dụng (gpt-4o, gpt-4o-mini, gpt-4.1)"""
     global CURRENT_MODEL
-    if not is_authorized(ctx.author.id):
+    if not await check_auth_and_warn(ctx.send, ctx.author.id, ctx.author.name):
         return
 
     if not new_model:
@@ -183,7 +199,7 @@ async def model_command(ctx, new_model: str = None):
 @bot.command(name="pull")
 async def pull_command(ctx):
     """Kéo mã nguồn mới nhất từ GitHub"""
-    if not is_authorized(ctx.author.id):
+    if not await check_auth_and_warn(ctx.send, ctx.author.id, ctx.author.name):
         return
 
     cur = os.path.abspath(WORKSPACE_DIR)
@@ -230,7 +246,7 @@ async def pull_command(ctx):
 @bot.command(name="run")
 async def run_command(ctx, *, command_text: str = ""):
     """Thực thi lệnh shell trên server"""
-    if not is_authorized(ctx.author.id):
+    if not await check_auth_and_warn(ctx.send, ctx.author.id, ctx.author.name):
         return
 
     if not command_text:
@@ -281,8 +297,8 @@ async def on_message(message: discord.Message):
         await bot.process_commands(message)
         return
 
-    # Kiểm tra quyền truy cập
-    if not is_authorized(message.author.id):
+    # Kiểm tra quyền truy cập (nếu vi phạm sẽ báo thẳng ID ra chat)
+    if not await check_auth_and_warn(message.reply, message.author.id, message.author.name):
         return
 
     # Xử lý tin nhắn chat tự do bằng AI
