@@ -319,15 +319,15 @@ export default function RoadmapPage() {
             <section className="p-6 rounded-[12px] bg-[var(--surface-elevated)] border border-[var(--border-main)] space-y-4">
               <div className="flex items-center justify-between border-b border-[var(--border-main)] pb-3">
                 <span className="text-[12px] font-mono uppercase tracking-wider font-medium text-[var(--text-primary)]">
-                  DỰ ÁN CAPSTONE TỐT NGHIỆP: AI KNOWLEDGE & AGENT PLATFORM
+                  SẢN PHẨM CUỐI KHÓA: INTELLIGENT KNOWLEDGE & AGENT ASSISTANT
                 </span>
                 <span className="text-[11px] font-mono text-[var(--accent-ember)]">
-                  TUẦN 23–26
+                  TUẦN 25–26
                 </span>
               </div>
 
               <p className="text-[13px] text-[var(--text-secondary)] leading-relaxed">
-                Sau 26 tuần, bạn sẽ ghép nối toàn bộ kiến thức thành một sản phẩm công nghiệp hoàn chỉnh: Frontend Next.js (Streaming UI) + Backend FastAPI + RAG pgvector + Multi-Agent LangGraph + MCP Tools + Giám sát Langfuse.
+                Sau 26 tuần, bạn sẽ ghép nối toàn bộ kiến thức thành một sản phẩm portfolio hoàn chỉnh: Frontend React + TypeScript + Backend FastAPI + RAG pgvector có verifiable citations + LangGraph Agent có Human-in-the-loop approval + Đóng gói Docker Compose chạy 1 lệnh.
               </p>
 
               <div className="bg-[#0c0805] p-4 rounded-[8px] border border-[#2a1c12] font-mono text-[11px] text-[#ffedd7] overflow-x-auto leading-relaxed">
