@@ -155,7 +155,7 @@ function StoryChapterItem({
 
   const scrollToNext = () => {
     const nextChapter = document.getElementById(
-      index < total - 1 ? MILESTONES[index + 1].id : "story-pillars-section"
+      index < total - 1 ? MILESTONES[index + 1].id : "chapter-pillars"
     );
     if (nextChapter) {
       nextChapter.scrollIntoView({ behavior: "smooth" });
@@ -232,72 +232,10 @@ function StoryChapterItem({
 }
 
 export default function StoryStatsSection() {
-  const [activeChapterIndex, setActiveChapterIndex] = useState<number>(0);
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isSectionVisible, setIsSectionVisible] = useState<boolean>(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsSectionVisible(entry.isIntersecting);
-      },
-      {
-        threshold: 0.05,
-      }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const scrollToChapter = (index: number) => {
-    const el = document.getElementById(MILESTONES[index].id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const [, setActiveChapterIndex] = useState<number>(0);
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-[var(--bg-recessed)] transition-colors duration-300">
-      {/* Floating Chapter Progress Navigation (Fixed on Right) */}
-      <div
-        className={`hidden lg:flex fixed right-8 sm:right-12 top-1/2 -translate-y-1/2 flex-col space-y-4 z-40 transition-all duration-300 ${
-          isSectionVisible ? "opacity-100 pointer-events-auto translate-x-0" : "opacity-0 pointer-events-none translate-x-4"
-        }`}
-      >
-        {MILESTONES.map((item, idx) => (
-          <button
-            key={item.id}
-            onClick={() => scrollToChapter(idx)}
-            className={`flex items-center space-x-3 transition-all duration-300 text-left cursor-pointer group ${
-              idx === activeChapterIndex
-                ? "opacity-100 scale-105"
-                : "opacity-40 hover:opacity-80"
-            }`}
-          >
-            <div
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                idx === activeChapterIndex
-                  ? "bg-[var(--accent-aqua)] ring-4 ring-[var(--accent-bioluminescent)]/30 scale-125"
-                  : "bg-[var(--border-main)] group-hover:bg-[var(--text-secondary)]"
-              }`}
-            />
-            <span
-              className={`text-[11px] font-mono uppercase tracking-wider ${
-                idx === activeChapterIndex
-                  ? "text-[var(--text-primary)] font-medium"
-                  : "text-[var(--text-secondary)]"
-              }`}
-            >
-              0{idx + 1} // {item.suffix === "W" ? "26W" : item.suffix === "+" ? "180+" : item.suffix === "x" ? "16x" : "100%"}
-            </span>
-          </button>
-        ))}
-      </div>
-
+    <section className="relative w-full bg-[var(--bg-recessed)] transition-colors duration-300">
       {/* Sequential Story Chapters */}
       <div className="w-full">
         {MILESTONES.map((milestone, index) => (

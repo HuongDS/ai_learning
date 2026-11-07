@@ -17,28 +17,138 @@ import {
   ExternalLink,
   Sun,
   Moon,
+  ChevronDown,
+  Sparkles,
 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import DailyRadarModal from "@/components/DailyRadarModal";
 import BioluminescentSphere from "@/components/BioluminescentSphere";
 import StoryStatsSection from "@/components/StoryStatsSection";
+import GlobalStoryNav from "@/components/GlobalStoryNav";
+
+function NextChapterPrompt({ targetId, label }: { targetId: string; label: string }) {
+  const scrollTo = () => {
+    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <div className="pt-10 flex justify-center">
+      <button
+        onClick={scrollTo}
+        className="group flex flex-col items-center space-y-2 text-[11px] font-mono uppercase tracking-[0.2em] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer"
+        aria-label={`Cuộn xuống ${label}`}
+      >
+        <span>{label}</span>
+        <div className="w-6 h-6 rounded-full border border-[var(--border-main)] flex items-center justify-center group-hover:border-[var(--accent-aqua)] transition-colors">
+          <ChevronDown className="w-3.5 h-3.5 text-[var(--accent-aqua)] animate-bounce" />
+        </div>
+      </button>
+    </div>
+  );
+}
+
+const PILLARS_DATA = [
+  {
+    id: "hardware",
+    number: "TRỤ CỘT I",
+    domain: "PHẦN CỨNG",
+    title: "GIẢI PHẪU PHẦN CỨNG & NGHẼN BĂNG THÔNG BỘ NHỚ",
+    quote: "Vì sao cùng một model 70B, người chạy cần 4 GPU A100 trong khi hệ thống tối ưu chỉ cần 1 GPU?",
+    desc: "Bạn sẽ thấu suốt vì sao suy luận LLM bị nghẽn ở băng thông bộ nhớ (Memory Bandwidth) chứ không phải xung nhịp chip. Bạn sẽ làm chủ phép nhân ma trận GEMM, lượng tử hóa FP16/INT8/INT4/FP8 và cách vLLM PagedAttention triệt tiêu phân mảnh VRAM.",
+    linkText: "Khám phá 3D Compute Die Lab",
+    linkHref: "/lab",
+    metric: "25% THỜI LƯỢNG",
+    icon: Cpu,
+  },
+  {
+    id: "model",
+    number: "TRỤ CỘT II",
+    domain: "MÔ HÌNH",
+    title: "TỰ CODE TRANSFORMER TỪ CON SỐ 0",
+    quote: "Chỉ khi tự tay nhân ma trận Q, K, V và mã hóa RoPE, bạn mới thực sự làm chủ con quái vật LLM.",
+    desc: "Thay vì sử dụng thư viện đóng kín, bạn sẽ code hoàn chỉnh một Transformer Decoder-only: từ Positional Encoding (RoPE), Multi-Head Attention, FlashAttention đến BPE Tokenizer và KV-Caching để hiểu chính xác từng phép toán bên trong.",
+    linkText: "Xem Chi tiết Module Transformer",
+    linkHref: "/roadmap",
+    metric: "THÁNG 02",
+    icon: Workflow,
+  },
+  {
+    id: "data",
+    number: "TRỤ CỘT III",
+    domain: "DỮ LIỆU",
+    title: "PRODUCTION ENTERPRISE RAG ARCHITECTURE",
+    quote: "90% PoC thất bại khi lên production vì ảo giác dữ liệu và câu hỏi phức tạp.",
+    desc: "50% thời lượng toàn khóa tập trung giải quyết bài toán cốt tử này: Semantic Chunking, Vector DBs (Qdrant, Milvus), Hybrid Search (Dense + Sparse BM25), Cross-Encoder Re-ranking và GraphRAG nhằm triệt tiêu hoàn toàn ảo giác trong doanh nghiệp.",
+    linkText: "Xem Chi tiết Module RAG (Tháng 3)",
+    linkHref: "/roadmap",
+    metric: "50% THỜI LƯỢNG",
+    icon: Database,
+  },
+  {
+    id: "orchestration",
+    number: "TRỤ CỘT IV",
+    domain: "ĐIỀU PHỐI",
+    title: "AUTONOMOUS MULTI-AGENT SWARMS & HITL",
+    quote: "Không phải một chatbot đơn độc, mà là cả một tập thể AI tự phối hợp và tự sửa sai.",
+    desc: "Thiết kế mạng lưới tác tử tự hành qua LangGraph: vòng lặp phản biện (Self-Reflection), gọi công cụ động (Dynamic Tool Calling), fan-out chạy song song và chốt chặn phê duyệt của con người (Human-in-the-loop) để giải quyết các task kỹ thuật phức tạp.",
+    linkText: "Xem Chi tiết Multi-Agent Swarms",
+    linkHref: "/roadmap",
+    metric: "THÁNG 05",
+    icon: Boxes,
+  },
+];
+
+const PHASES_DATA = [
+  {
+    month: "THÁNG 01",
+    weeks: "TUẦN 01 — 04",
+    title: "Nền Tảng Kỹ Thuật & Tư Duy Mô Hình",
+    desc: "Đại số tuyến tính, giải tích vi phân cho AI, PyTorch Tensors, Autograd và kiến trúc GPU.",
+    highlight: "Milestone: Huấn luyện neural network thuần PyTorch từ đầu",
+  },
+  {
+    month: "THÁNG 02",
+    weeks: "TUẦN 05 — 08",
+    title: "Transformers & Modern LLM Architecture",
+    desc: "Cơ chế Self-Attention, Positional Encoding (RoPE), FlashAttention, BPE Tokenization và GPT Decoder-only.",
+    highlight: "Milestone: Tự code một Transformer mini hoàn chỉnh",
+  },
+  {
+    month: "THÁNG 03",
+    weeks: "TUẦN 09 — 13",
+    title: "Advanced RAG Architecture",
+    desc: "Semantic chunking, Vector DBs, Hybrid Search, Cross-Encoder Re-ranking, Context Compression & GraphRAG.",
+    highlight: "Milestone: Production Enterprise RAG System",
+  },
+  {
+    month: "THÁNG 04",
+    weeks: "TUẦN 14 — 17",
+    title: "Fine-Tuning & Quantization",
+    desc: "PEFT, LoRA, QLoRA 4-bit, DPO, RLHF căn bản, chuẩn bị dataset chuẩn và đóng gói GGUF/AWQ.",
+    highlight: "Milestone: Fine-tuned domain LLM chạy mượt trên 1 GPU",
+  },
+  {
+    month: "THÁNG 05",
+    weeks: "TUẦN 18 — 22",
+    title: "AI Orchestration & Autonomous Agents",
+    desc: "Function Calling, ReAct pattern, LangGraph stateful loops, Multi-Agent swarms và Human-in-the-loop.",
+    highlight: "Milestone: Đội ngũ Agent tự động giải quyết bài toán phức tạp",
+  },
+  {
+    month: "THÁNG 06",
+    weeks: "TUẦN 23 — 26",
+    title: "Capstone Platform & Production Serving",
+    desc: "vLLM, Triton Inference Server, Continuous Batching, PagedAttention, Docker/K8s & Observability (Langfuse).",
+    highlight: "Milestone: Hệ thống AI phục vụ 100+ req/sec với p99 latency thấp",
+  },
+];
 
 export default function WelcomePage() {
   const { theme, toggleTheme } = useTheme();
   const [isRadarModalOpen, setIsRadarModalOpen] = useState<boolean>(false);
-  const [unlockedArtifacts, setUnlockedArtifacts] = useState<string[]>([]);
   const [copiedCmd, setCopiedCmd] = useState<boolean>(false);
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem("oryzo_unlocked_artifacts");
-      if (saved) {
-        setUnlockedArtifacts(JSON.parse(saved));
-      }
-    } catch {}
-  }, []);
-
-  const isDayOneUnlocked = unlockedArtifacts.includes("compute_die");
+  const [activePillarIdx, setActivePillarIdx] = useState<number>(0);
+  const [activeMonthIdx, setActiveMonthIdx] = useState<number>(0);
 
   const handleCopyCmd = () => {
     navigator.clipboard.writeText(
@@ -48,8 +158,14 @@ export default function WelcomePage() {
     setTimeout(() => setCopiedCmd(false), 2000);
   };
 
+  const selectedPillar = PILLARS_DATA[activePillarIdx];
+  const SelectedPillarIcon = selectedPillar.icon;
+
   return (
     <main className="relative min-h-screen w-full bg-[var(--bg-canvas)] text-[var(--text-primary)] transition-colors duration-300 selection:bg-[var(--surface-card)] selection:text-[var(--accent-aqua)] flex flex-col justify-between overflow-x-clip">
+      {/* Global Scrollytelling Story Navigator (Covers all 10 Chapters) */}
+      <GlobalStoryNav />
+
       {/* 1. Transparent Navigation Bar (Auros Style) */}
       <header className="fixed top-0 left-0 right-0 z-50 w-full px-6 sm:px-12 py-5 flex items-center justify-between bg-[var(--header-bg)] backdrop-blur-md border-b border-[var(--border-main)] transition-colors duration-300">
         {/* Brand Lockup */}
@@ -77,7 +193,7 @@ export default function WelcomePage() {
           </Link>
           <button
             onClick={() => setIsRadarModalOpen(true)}
-            className="hover:text-[var(--text-primary)] transition-colors uppercase tracking-[0.12em]"
+            className="hover:text-[var(--text-primary)] transition-colors uppercase tracking-[0.12em] cursor-pointer"
           >
             02. DAILY RADAR
           </button>
@@ -100,7 +216,7 @@ export default function WelcomePage() {
           {/* Daily Radar Trigger */}
           <button
             onClick={() => setIsRadarModalOpen(true)}
-            className="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-[6px] border border-[var(--border-main)] bg-[var(--badge-bg)] text-[var(--text-mist)] text-[11px] font-mono tracking-widest uppercase hover:opacity-90 transition-all"
+            className="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-[6px] border border-[var(--border-main)] bg-[var(--badge-bg)] text-[var(--text-mist)] text-[11px] font-mono tracking-widest uppercase hover:opacity-90 transition-all cursor-pointer"
           >
             <Flame className="w-3.5 h-3.5 text-[var(--accent-aqua)]" />
             <span>RADAR</span>
@@ -132,19 +248,24 @@ export default function WelcomePage() {
         </div>
       </header>
 
-      {/* 2. Hero Section with 3D Bioluminescent Particle Sphere */}
-      <section className="relative w-full pt-32 sm:pt-40 pb-24 px-6 sm:px-12 border-b border-[var(--border-main)] overflow-hidden">
+      {/* =========================================================================
+          CHƯƠNG 00 // TỔNG QUAN: HERO SECTION WITH 3D BIOLUMINESCENT SPHERE
+         ========================================================================= */}
+      <section
+        id="chapter-hero"
+        className="relative w-full min-h-[92vh] sm:min-h-screen flex flex-col justify-between pt-32 sm:pt-40 pb-16 px-6 sm:px-12 border-b border-[var(--border-main)] overflow-hidden"
+      >
         {/* Ambient atmospheric teal glow */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-[var(--accent-bioluminescent)]/15 rounded-full blur-[140px] pointer-events-none" />
 
-        <div className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center z-10">
+        <div className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center z-10 w-full my-auto">
           {/* Left Column: Text Stack */}
           <div className="lg:col-span-7 space-y-6 text-left">
             {/* Uppercase Section Label (Eyebrow) */}
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-[6px] bg-[var(--badge-bg)] border border-[var(--badge-border)]">
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-[6px] bg-[var(--badge-bg)] border border-[var(--badge-border)] shadow-sm">
               <span className="w-2 h-2 rounded-full bg-[var(--accent-aqua)] animate-pulse" />
               <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-[var(--text-mist)]">
-                AUROS // STRATEGIC CURRICULUM ARCHITECTURE
+                HỒI 00 // AUROS STRATEGIC CURRICULUM ARCHITECTURE
               </span>
             </div>
 
@@ -184,7 +305,7 @@ export default function WelcomePage() {
 
               <button
                 onClick={() => setIsRadarModalOpen(true)}
-                className="h-[48px] px-5 rounded-[6px] bg-transparent hover:bg-[var(--surface-hover)] text-[var(--text-mist)] text-[13px] font-mono tracking-widest uppercase border border-[var(--border-main)] transition-colors flex items-center space-x-2 whitespace-nowrap"
+                className="h-[48px] px-5 rounded-[6px] bg-transparent hover:bg-[var(--surface-hover)] text-[var(--text-mist)] text-[13px] font-mono tracking-widest uppercase border border-[var(--border-main)] transition-colors flex items-center space-x-2 whitespace-nowrap cursor-pointer"
               >
                 <Flame className="w-4 h-4 text-[var(--accent-aqua)] shrink-0" />
                 <span>DAILY RADAR</span>
@@ -223,20 +344,36 @@ export default function WelcomePage() {
             </div>
           </div>
         </div>
+
+        {/* Scroll Prompt to Next Chapter */}
+        <NextChapterPrompt
+          targetId="chapter-26w"
+          label="CUỘN XUỐNG ĐỂ BẮT ĐẦU CÂU CHUYỆN (CHƯƠNG 01)"
+        />
       </section>
 
-      {/* 2. Interactive Scrollytelling Story: 4 Focused Milestones (26W -> 180+ -> 16x -> 100%) */}
+      {/* =========================================================================
+          CHƯƠNG 01 - 04: INTERACTIVE SCROLLYTELLING MILESTONES (26W -> 180+ -> 16X -> 100%)
+         ========================================================================= */}
       <StoryStatsSection />
 
-      {/* 3. Explore Feature Chapters: 4 Pillars of AI Systems Mastery */}
-      <section id="story-pillars-section" className="relative w-full py-28 px-6 sm:px-12 border-b border-[var(--border-main)] bg-[var(--bg-canvas)] transition-colors duration-300">
-        <div className="max-w-7xl mx-auto space-y-16">
+      {/* =========================================================================
+          CHƯƠNG 05 // 4 TRỤ CỘT: CÂU CHUYỆN 4 TRỤ CỘT NĂNG LỰC KIẾN TRÚC
+         ========================================================================= */}
+      <section
+        id="chapter-pillars"
+        className="relative w-full min-h-screen py-24 px-6 sm:px-12 border-b border-[var(--border-main)] bg-[var(--bg-canvas)] transition-colors duration-300 flex flex-col justify-center"
+      >
+        <div className="max-w-7xl mx-auto space-y-12 w-full">
           {/* Story Chapter Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-[var(--border-main)] pb-8">
             <div className="space-y-3">
-              <span className="text-[11px] font-mono tracking-[0.2em] uppercase text-[var(--text-mist)] block">
-                HỒI 02 // CÂU CHUYỆN 4 TRỤ CỘT NĂNG LỰC
-              </span>
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-[6px] bg-[var(--badge-bg)] border border-[var(--badge-border)]">
+                <span className="w-2 h-2 rounded-full bg-[var(--accent-aqua)] animate-pulse" />
+                <span className="text-[11px] font-mono tracking-[0.2em] uppercase text-[var(--text-mist)]">
+                  HỒI 02 // CÂU CHUYỆN 4 TRỤ CỘT NĂNG LỰC
+                </span>
+              </div>
               <h2 className="text-[32px] sm:text-[46px] font-medium uppercase tracking-[-0.04em] text-[var(--text-primary)] leading-tight">
                 BẢN THÂN BẠN SẼ LÀM CHỦ NHỮNG GÌ?
               </h2>
@@ -246,184 +383,158 @@ export default function WelcomePage() {
             </p>
           </div>
 
-          {/* 4 Story Chapters Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Story Chapter 1 */}
-            <div className="bg-[var(--surface-card)] rounded-[16px] p-8 sm:p-10 flex flex-col justify-between space-y-7 hover:bg-[var(--surface-hover)] border border-[var(--border-main)] transition-all duration-300 shadow-sm group">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="p-3 rounded-[6px] bg-[var(--icon-btn-bg)] text-[var(--accent-bioluminescent)]">
-                    <Cpu className="w-6 h-6" />
-                  </div>
-                  <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-[var(--text-mist)] font-medium">
-                    TRỤ CỘT I // PHẦN CỨNG
-                  </span>
-                </div>
-                <Link
-                  href="/lab"
-                  className="w-9 h-9 rounded-[6px] bg-[var(--icon-btn-bg)] hover:bg-[var(--icon-btn-hover)] text-[var(--text-primary)] flex items-center justify-center transition-colors"
-                  aria-label="Open 3D Lab"
+          {/* Focal Pillar Switcher Tabs (One Center of Focus) */}
+          <div className="flex flex-wrap items-center gap-3 pb-2 border-b border-[var(--border-main)]/60">
+            {PILLARS_DATA.map((pillar, idx) => {
+              const isSelected = idx === activePillarIdx;
+              const Icon = pillar.icon;
+              return (
+                <button
+                  key={pillar.id}
+                  onClick={() => setActivePillarIdx(idx)}
+                  className={`flex items-center space-x-2.5 px-4 py-2.5 rounded-[8px] text-[12px] font-mono uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                    isSelected
+                      ? "bg-[var(--surface-card)] text-[var(--text-primary)] border border-[var(--accent-aqua)] shadow-[0_0_16px_rgba(0,180,170,0.2)] font-semibold"
+                      : "bg-transparent text-[var(--text-secondary)] border border-transparent hover:border-[var(--border-main)] hover:text-[var(--text-primary)]"
+                  }`}
                 >
-                  <ArrowUpRight className="w-4 h-4" />
-                </Link>
-              </div>
-
-              <div className="space-y-4">
-                <h3 className="text-[24px] sm:text-[28px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-tight">
-                  GIẢI PHẪU PHẦN CỨNG & NGHẼN BĂNG THÔNG BỘ NHỚ
-                </h3>
-                <blockquote className="border-l-2 border-[var(--accent-bioluminescent)] pl-3 text-[13px] font-mono text-[var(--text-mist)] italic">
-                  "Vì sao cùng một model 70B, người chạy cần 4 GPU A100 trong khi hệ thống tối ưu chỉ cần 1 GPU?"
-                </blockquote>
-                <p className="text-[15px] text-[var(--text-secondary)] leading-relaxed">
-                  Bạn sẽ thấu suốt vì sao suy luận LLM bị nghẽn ở băng thông bộ nhớ (Memory Bandwidth) chứ không phải xung nhịp chip. Bạn sẽ làm chủ phép nhân ma trận GEMM, lượng tử hóa FP16/INT8/INT4/FP8 và cách vLLM PagedAttention triệt tiêu phân mảnh VRAM.
-                </p>
-              </div>
-
-              <div className="pt-3 border-t border-[var(--border-main)] flex items-center justify-between text-[12px] font-mono">
-                <Link href="/lab" className="text-[var(--text-mist)] hover:text-[var(--accent-aqua)] uppercase flex items-center space-x-1.5 font-medium">
-                  <span>Khám phá 3D Compute Die Lab</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-                <span className="text-[var(--text-secondary)]">25% THỜI LƯỢNG</span>
-              </div>
-            </div>
-
-            {/* Story Chapter 2 */}
-            <div className="bg-[var(--surface-card)] rounded-[16px] p-8 sm:p-10 flex flex-col justify-between space-y-7 hover:bg-[var(--surface-hover)] border border-[var(--border-main)] transition-all duration-300 shadow-sm group">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="p-3 rounded-[6px] bg-[var(--icon-btn-bg)] text-[var(--accent-bioluminescent)]">
-                    <Workflow className="w-6 h-6" />
-                  </div>
-                  <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-[var(--text-mist)] font-medium">
-                    TRỤ CỘT II // MÔ HÌNH
+                  <Icon className={`w-4 h-4 ${isSelected ? "text-[var(--accent-aqua)]" : "text-[var(--text-secondary)]"}`} />
+                  <span>
+                    0{idx + 1} // {pillar.domain}
                   </span>
-                </div>
-                <Link
-                  href="/roadmap"
-                  className="w-9 h-9 rounded-[6px] bg-[var(--icon-btn-bg)] hover:bg-[var(--icon-btn-hover)] text-[var(--text-primary)] flex items-center justify-center transition-colors"
-                  aria-label="Open Multi-Agent Roadmap"
-                >
-                  <ArrowUpRight className="w-4 h-4" />
-                </Link>
-              </div>
+                </button>
+              );
+            })}
+          </div>
 
-              <div className="space-y-4">
-                <h3 className="text-[24px] sm:text-[28px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-tight">
-                  TỰ CODE TRANSFORMER TỪ CON SỐ 0
-                </h3>
-                <blockquote className="border-l-2 border-[var(--accent-bioluminescent)] pl-3 text-[13px] font-mono text-[var(--text-mist)] italic">
-                  "Chỉ khi tự tay nhân ma trận Q, K, V và mã hóa RoPE, bạn mới thực sự làm chủ con quái vật LLM."
-                </blockquote>
-                <p className="text-[15px] text-[var(--text-secondary)] leading-relaxed">
-                  Thay vì sử dụng thư viện đóng kín, bạn sẽ code hoàn chỉnh một Transformer Decoder-only: từ Positional Encoding (RoPE), Multi-Head Attention, FlashAttention đến BPE Tokenizer và KV-Caching để hiểu chính xác từng phép toán bên trong.
-                </p>
-              </div>
+          {/* Focal Center Stage Showcase Card */}
+          <div className="bg-[var(--surface-card)] rounded-[20px] p-8 sm:p-12 border border-[var(--border-main)] shadow-md relative overflow-hidden transition-all duration-500">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--accent-bioluminescent)]/10 rounded-full blur-[100px] pointer-events-none" />
 
-              <div className="pt-3 border-t border-[var(--border-main)] flex items-center justify-between text-[12px] font-mono">
-                <Link href="/roadmap" className="text-[var(--text-mist)] hover:text-[var(--accent-aqua)] uppercase flex items-center space-x-1.5 font-medium">
-                  <span>Xem Chi tiết Module Transformer</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-                <span className="text-[var(--text-secondary)]">THÁNG 02</span>
-              </div>
-            </div>
-
-            {/* Story Chapter 3 */}
-            <div className="bg-[var(--surface-card)] rounded-[16px] p-8 sm:p-10 flex flex-col justify-between space-y-7 hover:bg-[var(--surface-hover)] border border-[var(--border-main)] transition-all duration-300 shadow-sm group">
-              <div className="flex items-start justify-between">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+              <div className="lg:col-span-8 space-y-6">
                 <div className="flex items-center space-x-3">
-                  <div className="p-3 rounded-[6px] bg-[var(--icon-btn-bg)] text-[var(--accent-bioluminescent)]">
-                    <Database className="w-6 h-6" />
+                  <div className="p-3.5 rounded-[8px] bg-[var(--icon-btn-bg)] text-[var(--accent-bioluminescent)] shadow-sm">
+                    <SelectedPillarIcon className="w-7 h-7" />
                   </div>
-                  <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-[var(--text-mist)] font-medium">
-                    TRỤ CỘT III // DỮ LIỆU
-                  </span>
-                </div>
-                <Link
-                  href="/roadmap"
-                  className="w-9 h-9 rounded-[6px] bg-[var(--icon-btn-bg)] hover:bg-[var(--icon-btn-hover)] text-[var(--text-primary)] flex items-center justify-center transition-colors"
-                  aria-label="Open RAG Roadmap"
-                >
-                  <ArrowUpRight className="w-4 h-4" />
-                </Link>
-              </div>
-
-              <div className="space-y-4">
-                <h3 className="text-[24px] sm:text-[28px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-tight">
-                  PRODUCTION ENTERPRISE RAG ARCHITECTURE
-                </h3>
-                <blockquote className="border-l-2 border-[var(--accent-bioluminescent)] pl-3 text-[13px] font-mono text-[var(--text-mist)] italic">
-                  "90% PoC thất bại khi lên production vì ảo giác dữ liệu và câu hỏi phức tạp."
-                </blockquote>
-                <p className="text-[15px] text-[var(--text-secondary)] leading-relaxed">
-                  50% thời lượng toàn khóa tập trung giải quyết bài toán cốt tử này: Semantic Chunking, Vector DBs (Qdrant, Milvus), Hybrid Search (Dense + Sparse BM25), Cross-Encoder Re-ranking và GraphRAG nhằm triệt tiêu hoàn toàn ảo giác trong doanh nghiệp.
-                </p>
-              </div>
-
-              <div className="pt-3 border-t border-[var(--border-main)] flex items-center justify-between text-[12px] font-mono">
-                <Link href="/roadmap" className="text-[var(--text-mist)] hover:text-[var(--accent-aqua)] uppercase flex items-center space-x-1.5 font-medium">
-                  <span>Xem Chi tiết Module RAG (Tháng 3)</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-                <span className="text-[var(--text-secondary)]">50% THỜI LƯỢNG</span>
-              </div>
-            </div>
-
-            {/* Story Chapter 4 */}
-            <div className="bg-[var(--surface-card)] rounded-[16px] p-8 sm:p-10 flex flex-col justify-between space-y-7 hover:bg-[var(--surface-hover)] border border-[var(--border-main)] transition-all duration-300 shadow-sm group">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="p-3 rounded-[6px] bg-[var(--icon-btn-bg)] text-[var(--accent-bioluminescent)]">
-                    <Boxes className="w-6 h-6" />
+                  <div>
+                    <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[var(--accent-aqua)] font-medium block">
+                      {selectedPillar.number} // NỀN TẢNG NĂNG LỰC
+                    </span>
+                    <span className="text-[13px] font-mono text-[var(--text-secondary)]">
+                      {selectedPillar.metric}
+                    </span>
                   </div>
-                  <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-[var(--text-mist)] font-medium">
-                    TRỤ CỘT IV // ĐIỀU PHỐI
-                  </span>
                 </div>
-                <Link
-                  href="/roadmap"
-                  className="w-9 h-9 rounded-[6px] bg-[var(--icon-btn-bg)] hover:bg-[var(--icon-btn-hover)] text-[var(--text-primary)] flex items-center justify-center transition-colors"
-                  aria-label="Open Serving Roadmap"
-                >
-                  <ArrowUpRight className="w-4 h-4" />
-                </Link>
-              </div>
 
-              <div className="space-y-4">
-                <h3 className="text-[24px] sm:text-[28px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-tight">
-                  AUTONOMOUS MULTI-AGENT SWARMS & HITL
+                <h3 className="text-[26px] sm:text-[34px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-tight">
+                  {selectedPillar.title}
                 </h3>
-                <blockquote className="border-l-2 border-[var(--accent-bioluminescent)] pl-3 text-[13px] font-mono text-[var(--text-mist)] italic">
-                  "Không phải một chatbot đơn độc, mà là cả một tập thể AI tự phối hợp và tự sửa sai."
+
+                <blockquote className="border-l-3 border-[var(--accent-bioluminescent)] pl-4 text-[14px] sm:text-[15px] font-mono text-[var(--text-mist)] italic bg-[var(--bg-canvas)]/50 py-3 rounded-r-[6px]">
+                  "{selectedPillar.quote}"
                 </blockquote>
-                <p className="text-[15px] text-[var(--text-secondary)] leading-relaxed">
-                  Thiết kế mạng lưới tác tử tự hành qua LangGraph: vòng lặp phản biện (Self-Reflection), gọi công cụ động (Dynamic Tool Calling), fan-out chạy song song và chốt chặn phê duyệt của con người (Human-in-the-loop) để giải quyết các task kỹ thuật phức tạp.
+
+                <p className="text-[16px] text-[var(--text-secondary)] leading-relaxed">
+                  {selectedPillar.desc}
                 </p>
+
+                <div className="pt-2">
+                  <Link
+                    href={selectedPillar.linkHref}
+                    style={{ background: "var(--btn-aurora-bg)", color: "var(--btn-aurora-text)" }}
+                    className="inline-flex items-center space-x-2.5 h-[46px] px-6 rounded-[6px] text-[12px] font-medium tracking-wider uppercase transition-all shadow-md"
+                  >
+                    <span>{selectedPillar.linkText}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
               </div>
 
-              <div className="pt-3 border-t border-[var(--border-main)] flex items-center justify-between text-[12px] font-mono">
-                <Link href="/roadmap" className="text-[var(--text-mist)] hover:text-[var(--accent-aqua)] uppercase flex items-center space-x-1.5 font-medium">
-                  <span>Xem Chi tiết Multi-Agent Swarms</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-                <span className="text-[var(--text-secondary)]">THÁNG 05</span>
+              {/* Visual Spotlight Graphic */}
+              <div className="lg:col-span-4 bg-[var(--bg-canvas)] rounded-[12px] p-6 border border-[var(--border-main)] space-y-4 font-mono text-[11px]">
+                <div className="flex items-center justify-between text-[10px] text-[var(--text-secondary)] uppercase border-b border-[var(--border-main)] pb-2">
+                  <span>SPECS & KIẾN TRÚC</span>
+                  <span className="text-[var(--accent-aqua)]">VERIFIED</span>
+                </div>
+                <div className="space-y-2.5 text-[var(--text-secondary)]">
+                  <div className="flex items-center justify-between">
+                    <span>Mục tiêu kỹ năng:</span>
+                    <strong className="text-[var(--text-primary)]">Hands-on Production</strong>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Tỷ lệ code thực hành:</span>
+                    <strong className="text-[var(--accent-phosphor)]">70% Thời lượng</strong>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Môi trường thực thi:</span>
+                    <strong className="text-[var(--text-primary)]">GPU & 3D WebGL Lab</strong>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Đầu ra đánh giá:</span>
+                    <strong className="text-[var(--accent-aqua)]">Capstone System</strong>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+
+          {/* 4 Pillars Summary Grid Below */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+            {PILLARS_DATA.map((pillar, idx) => {
+              const isSelected = idx === activePillarIdx;
+              const Icon = pillar.icon;
+              return (
+                <div
+                  key={pillar.id}
+                  onClick={() => setActivePillarIdx(idx)}
+                  className={`p-5 rounded-[12px] bg-[var(--surface-card)] border transition-all duration-300 cursor-pointer flex flex-col justify-between space-y-3 ${
+                    isSelected
+                      ? "border-[var(--accent-aqua)] ring-2 ring-[var(--accent-aqua)]/20 shadow-md scale-[1.02]"
+                      : "border-[var(--border-main)] hover:border-[var(--text-secondary)]"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <Icon className={`w-5 h-5 ${isSelected ? "text-[var(--accent-aqua)]" : "text-[var(--text-secondary)]"}`} />
+                    <span className="text-[10px] font-mono text-[var(--text-secondary)]">
+                      {pillar.metric}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--text-mist)] block">
+                      {pillar.number}
+                    </span>
+                    <h4 className="text-[13px] font-medium uppercase text-[var(--text-primary)] line-clamp-1 mt-0.5">
+                      {pillar.domain}
+                    </h4>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Scroll Prompt to Next Chapter */}
+          <NextChapterPrompt
+            targetId="chapter-lab"
+            label="CUỘN XUỐNG ĐỂ KHÁM PHÁ PHÒNG LAB 3D (CHƯƠNG 06)"
+          />
         </div>
       </section>
 
-      {/* 5. Recessed Well Callout Card: 3D Compute Die Silicon Lab */}
-      <section className="relative w-full py-20 px-6 sm:px-12 bg-[var(--bg-recessed)] border-b border-[var(--border-main)] transition-colors duration-300">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-[var(--surface-card)] rounded-[16px] p-8 sm:p-12 relative overflow-hidden border border-[var(--border-main)] shadow-sm">
+      {/* =========================================================================
+          CHƯƠNG 06 // PHÒNG LAB: KHÔNG GIAN HỌC TẬP TƯƠNG TÁC DIE-01
+         ========================================================================= */}
+      <section
+        id="chapter-lab"
+        className="relative w-full min-h-[90vh] py-24 px-6 sm:px-12 bg-[var(--bg-recessed)] border-b border-[var(--border-main)] transition-colors duration-300 flex flex-col justify-center"
+      >
+        <div className="max-w-7xl mx-auto w-full space-y-8">
+          <div className="bg-[var(--surface-card)] rounded-[20px] p-8 sm:p-12 relative overflow-hidden border border-[var(--border-main)] shadow-sm">
             {/* Header bar */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[var(--border-main)]">
               <div className="flex items-center space-x-3">
                 <span className="px-3 py-1 rounded-[6px] bg-[var(--badge-bg)] text-[var(--accent-bioluminescent)] text-[10px] font-mono tracking-widest uppercase font-medium">
-                  KHÔNG GIAN HỌC TẬP TƯƠNG TÁC
+                  HỒI 03 // KHÔNG GIAN HỌC TẬP TƯƠNG TÁC
                 </span>
                 <span className="text-[12px] font-mono text-[var(--text-mist)] uppercase">
                   DIE-01 // 16 TENSOR CORES & HBM3 VRAM WORKSPACE
@@ -442,7 +553,7 @@ export default function WelcomePage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center pt-8">
               <div className="lg:col-span-7 space-y-5">
                 <div className="text-[11px] font-mono text-[var(--accent-aqua)] uppercase tracking-widest flex items-center space-x-2">
-                  <span className="w-2 h-2 rounded-full bg-[var(--accent-aqua)]" />
+                  <span className="w-2 h-2 rounded-full bg-[var(--accent-aqua)] animate-ping" />
                   <span>BÀI HỌC KHỞI ĐẦU // DAY 01</span>
                 </div>
 
@@ -489,7 +600,7 @@ export default function WelcomePage() {
               <div className="lg:col-span-5 flex flex-col items-center justify-center">
                 <Link
                   href="/lab"
-                  className="w-full aspect-[4/3] rounded-[12px] bg-[var(--bg-canvas)] border border-[var(--border-main)] hover:border-[var(--accent-aqua)]/50 p-6 flex flex-col items-center justify-center text-center relative overflow-hidden transition-all duration-300 cursor-pointer group/box"
+                  className="w-full aspect-[4/3] rounded-[14px] bg-[var(--bg-canvas)] border border-[var(--border-main)] hover:border-[var(--accent-aqua)]/50 p-6 flex flex-col items-center justify-center text-center relative overflow-hidden transition-all duration-300 cursor-pointer group/box shadow-md"
                 >
                   <div className="w-16 h-16 rounded-full bg-[var(--badge-bg)] border border-[var(--border-main)] flex items-center justify-center text-[var(--accent-bioluminescent)] mb-4 group-hover/box:scale-110 transition-transform">
                     <Cpu className="w-8 h-8" />
@@ -510,18 +621,32 @@ export default function WelcomePage() {
               </div>
             </div>
           </div>
+
+          {/* Scroll Prompt to Next Chapter */}
+          <NextChapterPrompt
+            targetId="chapter-roadmap"
+            label="CUỘN XUỐNG ĐỂ XEM TIẾN TRÌNH 6 THÁNG (CHƯƠNG 07)"
+          />
         </div>
       </section>
 
-      {/* 6. Timeline Snapshot Across 6 Months */}
-      <section className="relative w-full py-24 px-6 sm:px-12 bg-[var(--bg-canvas)] border-b border-[var(--border-main)] transition-colors duration-300">
-        <div className="max-w-7xl mx-auto space-y-12">
+      {/* =========================================================================
+          CHƯƠNG 07 // LỘ TRÌNH: BẢN ĐỒ TIẾN HÓA 6 THÁNG
+         ========================================================================= */}
+      <section
+        id="chapter-roadmap"
+        className="relative w-full min-h-[90vh] py-24 px-6 sm:px-12 bg-[var(--bg-canvas)] border-b border-[var(--border-main)] transition-colors duration-300 flex flex-col justify-center"
+      >
+        <div className="max-w-7xl mx-auto space-y-12 w-full">
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-[var(--border-main)] pb-6">
             <div>
-              <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-[var(--text-mist)] block mb-1">
-                26-WEEK STRUCTURE // LỘ TRÌNH 6 THÁNG
-              </span>
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-[6px] bg-[var(--badge-bg)] border border-[var(--badge-border)] mb-3">
+                <span className="w-2 h-2 rounded-full bg-[var(--accent-aqua)] animate-pulse" />
+                <span className="text-[11px] font-mono tracking-[0.15em] uppercase text-[var(--text-mist)]">
+                  HỒI 04 // 26-WEEK STRUCTURE // TIẾN HÓA 6 THÁNG
+                </span>
+              </div>
               <h2 className="text-[32px] sm:text-[40px] font-medium uppercase tracking-[-0.04em] text-[var(--text-primary)]">
                 TỪ ZERO ĐẾN PRODUCTION AI PLATFORM
               </h2>
@@ -535,77 +660,59 @@ export default function WelcomePage() {
             </Link>
           </div>
 
-          {/* 6 Month Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
-              {
-                month: "THÁNG 01",
-                weeks: "TUẦN 01 — 04",
-                title: "Nền Tảng Kỹ Thuật & Tư Duy Mô Hình",
-                desc: "Đại số tuyến tính, giải tích vi phân cho AI, PyTorch Tensors, Autograd và kiến trúc GPU.",
-                highlight: "Milestone: Huấn luyện neural network thuần PyTorch từ đầu",
-              },
-              {
-                month: "THÁNG 02",
-                weeks: "TUẦN 05 — 08",
-                title: "Transformers & Modern LLM Architecture",
-                desc: "Cơ chế Self-Attention, Positional Encoding (RoPE), FlashAttention, BPE Tokenization và GPT Decoder-only.",
-                highlight: "Milestone: Tự code một Transformer mini hoàn chỉnh",
-              },
-              {
-                month: "THÁNG 03",
-                weeks: "TUẦN 09 — 13",
-                title: "Advanced RAG Architecture",
-                desc: "Semantic chunking, Vector DBs, Hybrid Search, Cross-Encoder Re-ranking, Context Compression & GraphRAG.",
-                highlight: "Milestone: Production Enterprise RAG System",
-              },
-              {
-                month: "THÁNG 04",
-                weeks: "TUẦN 14 — 17",
-                title: "Fine-Tuning & Quantization",
-                desc: "PEFT, LoRA, QLoRA 4-bit, DPO, RLHF căn bản, chuẩn bị dataset chuẩn và đóng gói GGUF/AWQ.",
-                highlight: "Milestone: Fine-tuned domain LLM chạy mượt trên 1 GPU",
-              },
-              {
-                month: "THÁNG 05",
-                weeks: "TUẦN 18 — 22",
-                title: "AI Orchestration & Autonomous Agents",
-                desc: "Function Calling, ReAct pattern, LangGraph stateful loops, Multi-Agent swarms và Human-in-the-loop.",
-                highlight: "Milestone: Đội ngũ Agent tự động giải quyết bài toán phức tạp",
-              },
-              {
-                month: "THÁNG 06",
-                weeks: "TUẦN 23 — 26",
-                title: "Capstone Platform & Production Serving",
-                desc: "vLLM, Triton Inference Server, Continuous Batching, PagedAttention, Docker/K8s & Observability (Langfuse).",
-                highlight: "Milestone: Hệ thống AI phục vụ 100+ req/sec với p99 latency thấp",
-              },
-            ].map((phase, idx) => (
-              <div
-                key={idx}
-                className="bg-[var(--surface-card)] rounded-[16px] p-7 space-y-4 flex flex-col justify-between hover:bg-[var(--surface-hover)] transition-colors border border-[var(--border-main)] shadow-sm"
+          {/* Month Quick Selector Tabs */}
+          <div className="flex flex-wrap items-center gap-2 pb-2">
+            {PHASES_DATA.map((p, idx) => (
+              <button
+                key={p.month}
+                onClick={() => setActiveMonthIdx(idx)}
+                className={`px-3.5 py-1.5 rounded-[6px] text-[11px] font-mono uppercase tracking-wider transition-all cursor-pointer ${
+                  idx === activeMonthIdx
+                    ? "bg-[var(--accent-aqua)] text-black font-semibold shadow-sm"
+                    : "bg-[var(--surface-card)] text-[var(--text-secondary)] border border-[var(--border-main)] hover:text-[var(--text-primary)]"
+                }`}
               >
-                <div>
-                  <div className="flex items-center justify-between font-mono text-[11px] border-b border-[var(--border-main)] pb-2 mb-3">
-                    <span className="text-[var(--accent-aqua)] font-medium">{phase.month}</span>
-                    <span className="text-[var(--text-secondary)]">{phase.weeks}</span>
-                  </div>
-                  <h4 className="text-[17px] font-medium uppercase text-[var(--text-primary)] mb-2 leading-snug">
-                    {phase.title}
-                  </h4>
-                  <p className="text-[13px] text-[var(--text-secondary)] leading-relaxed">
-                    {phase.desc}
-                  </p>
-                </div>
-
-                <div className="pt-3 border-t border-[var(--border-main)] text-[11px] font-mono text-[var(--accent-phosphor)] font-medium">
-                  ★ {phase.highlight}
-                </div>
-              </div>
+                {p.month}
+              </button>
             ))}
           </div>
 
-          <div className="text-center pt-4">
+          {/* 6 Month Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {PHASES_DATA.map((phase, idx) => {
+              const isSelected = idx === activeMonthIdx;
+              return (
+                <div
+                  key={idx}
+                  onClick={() => setActiveMonthIdx(idx)}
+                  className={`bg-[var(--surface-card)] rounded-[16px] p-7 space-y-4 flex flex-col justify-between transition-all duration-300 border shadow-sm cursor-pointer ${
+                    isSelected
+                      ? "border-[var(--accent-aqua)] ring-2 ring-[var(--accent-aqua)]/20 scale-[1.02] shadow-[0_0_20px_rgba(0,180,170,0.15)]"
+                      : "border-[var(--border-main)] hover:bg-[var(--surface-hover)]"
+                  }`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between font-mono text-[11px] border-b border-[var(--border-main)] pb-2 mb-3">
+                      <span className="text-[var(--accent-aqua)] font-medium">{phase.month}</span>
+                      <span className="text-[var(--text-secondary)]">{phase.weeks}</span>
+                    </div>
+                    <h4 className="text-[17px] font-medium uppercase text-[var(--text-primary)] mb-2 leading-snug">
+                      {phase.title}
+                    </h4>
+                    <p className="text-[13px] text-[var(--text-secondary)] leading-relaxed">
+                      {phase.desc}
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-[var(--border-main)] text-[11px] font-mono text-[var(--accent-phosphor)] font-medium">
+                    ★ {phase.highlight}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="text-center pt-2">
             <Link
               href="/roadmap"
               style={{ background: "var(--btn-surface-bg)", color: "var(--btn-surface-text)" }}
@@ -615,24 +722,35 @@ export default function WelcomePage() {
               <ArrowRight className="w-4 h-4 text-[var(--accent-aqua)]" />
             </Link>
           </div>
+
+          {/* Scroll Prompt to Next Chapter */}
+          <NextChapterPrompt
+            targetId="chapter-radar"
+            label="CUỘN XUỐNG ĐỂ XEM DAILY AI RADAR (CHƯƠNG 08)"
+          />
         </div>
       </section>
 
-      {/* 7. Daily AI Radar Showcase */}
-      <section className="relative w-full py-20 px-6 sm:px-12 bg-[var(--bg-recessed)] border-b border-[var(--border-main)] transition-colors duration-300">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-[var(--surface-card)] rounded-[16px] p-8 sm:p-10 space-y-6 border border-[var(--border-main)] shadow-sm">
+      {/* =========================================================================
+          CHƯƠNG 08 // RADAR: DAILY AI RADAR SHOWCASE
+         ========================================================================= */}
+      <section
+        id="chapter-radar"
+        className="relative w-full min-h-[85vh] py-20 px-6 sm:px-12 bg-[var(--bg-recessed)] border-b border-[var(--border-main)] transition-colors duration-300 flex flex-col justify-center"
+      >
+        <div className="max-w-7xl mx-auto w-full space-y-8">
+          <div className="bg-[var(--surface-card)] rounded-[20px] p-8 sm:p-10 space-y-6 border border-[var(--border-main)] shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[var(--border-main)] pb-4">
               <div className="flex items-center space-x-3">
                 <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-aqua)] animate-pulse" />
                 <span className="text-[12px] font-mono uppercase tracking-widest text-[var(--text-mist)] font-medium">
-                  DAILY AI RADAR // BẢN TIN TỰ ĐỘNG HÀNG NGÀY
+                  HỒI 05 // DAILY AI RADAR // BẢN TIN TỰ ĐỘNG HÀNG NGÀY
                 </span>
               </div>
               <div className="flex items-center space-x-3">
                 <button
                   onClick={() => setIsRadarModalOpen(true)}
-                  className="text-[11px] font-mono uppercase tracking-wider text-[var(--accent-bioluminescent)] hover:underline flex items-center space-x-1"
+                  className="text-[11px] font-mono uppercase tracking-wider text-[var(--accent-bioluminescent)] hover:underline flex items-center space-x-1 cursor-pointer"
                 >
                   <span>Mở cửa sổ chi tiết Radar</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -653,7 +771,7 @@ export default function WelcomePage() {
                   TRENDING REPO HÔM NAY: <strong className="text-[var(--text-primary)]">vllm-project / vllm (35.2k★)</strong>
                 </div>
 
-                <blockquote className="border-l-2 border-[var(--accent-bioluminescent)] pl-4 italic text-[16px] sm:text-[18px] text-[var(--text-primary)] leading-relaxed">
+                <blockquote className="border-l-3 border-[var(--accent-bioluminescent)] pl-4 italic text-[16px] sm:text-[18px] text-[var(--text-primary)] leading-relaxed bg-[var(--bg-canvas)]/40 py-2 rounded-r-[6px]">
                   "Băng thông bộ nhớ (Memory Bandwidth) là nút thắt lớn nhất khi chạy suy luận LLM, chứ không phải xung nhịp tính toán.
                   Mọi tối ưu luôn bắt đầu từ việc giải quyết bài toán Memory-bound."
                 </blockquote>
@@ -664,7 +782,7 @@ export default function WelcomePage() {
                 </p>
               </div>
 
-              <div className="lg:col-span-5 bg-[var(--bg-canvas)] border border-[var(--border-main)] rounded-[10px] p-5 space-y-3 font-mono text-[11px]">
+              <div className="lg:col-span-5 bg-[var(--bg-canvas)] border border-[var(--border-main)] rounded-[12px] p-5 space-y-3 font-mono text-[11px] shadow-sm">
                 <div className="flex items-center justify-between text-[10px] text-[var(--text-secondary)] uppercase">
                   <span className="flex items-center space-x-1.5">
                     <Terminal className="w-3.5 h-3.5 text-[var(--accent-bioluminescent)]" />
@@ -672,7 +790,7 @@ export default function WelcomePage() {
                   </span>
                   <button
                     onClick={handleCopyCmd}
-                    className="text-[var(--accent-bioluminescent)] hover:underline uppercase"
+                    className="text-[var(--accent-bioluminescent)] hover:underline uppercase cursor-pointer"
                   >
                     {copiedCmd ? "ĐÃ SAO CHÉP ✓" : "SAO CHÉP LỆNH"}
                   </button>
@@ -686,15 +804,29 @@ vllm serve meta-llama/Llama-3.2-3B-Instruct --port 8000</code>
               </div>
             </div>
           </div>
+
+          {/* Scroll Prompt to Next Chapter */}
+          <NextChapterPrompt
+            targetId="chapter-cta"
+            label="CUỘN XUỐNG HỒI KẾT & KHỞI HÀNH (CHƯƠNG 09)"
+          />
         </div>
       </section>
 
-      {/* 8. Bottom Final Call to Action */}
-      <section className="relative w-full py-24 px-6 sm:px-12 text-center bg-[var(--bg-canvas)] overflow-hidden transition-colors duration-300">
-        <div className="max-w-3xl mx-auto space-y-6 relative z-10">
-          <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-[var(--text-mist)]">
-            READY TO LEVEL UP // BẮT ĐẦU NGAY BÂY GIỜ
-          </span>
+      {/* =========================================================================
+          CHƯƠNG 09 // HỒI KẾT: SẴN SÀNG KHỞI HÀNH (FINAL CALL TO ACTION)
+         ========================================================================= */}
+      <section
+        id="chapter-cta"
+        className="relative w-full min-h-[75vh] py-24 px-6 sm:px-12 text-center bg-[var(--bg-canvas)] overflow-hidden transition-colors duration-300 flex flex-col justify-center"
+      >
+        <div className="max-w-3xl mx-auto space-y-6 relative z-10 w-full">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-[6px] bg-[var(--badge-bg)] border border-[var(--badge-border)]">
+            <span className="w-2 h-2 rounded-full bg-[var(--accent-aqua)] animate-pulse" />
+            <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-[var(--text-mist)]">
+              HỒI KẾT // READY TO LEVEL UP // BẮT ĐẦU NGAY BÂY GIỜ
+            </span>
+          </div>
 
           <h2 className="text-[34px] sm:text-[48px] font-medium uppercase tracking-[-0.04em] text-[var(--text-primary)] leading-tight">
             SẴN SÀNG XÂY DỰNG TƯ DUY <br />
@@ -727,7 +859,7 @@ vllm serve meta-llama/Llama-3.2-3B-Instruct --port 8000</code>
         </div>
       </section>
 
-      {/* 9. Recessed Well Footer */}
+      {/* Recessed Well Footer */}
       <footer className="w-full border-t border-[var(--border-main)] px-6 sm:px-12 py-16 bg-[var(--bg-recessed)] text-[12px] font-mono text-[var(--text-secondary)] transition-colors duration-300">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="flex items-center space-x-3">
