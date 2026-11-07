@@ -25,6 +25,8 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o")
 WORKSPACE_DIR = os.getenv("WORKSPACE_DIR", os.getcwd())
 
+BOT_VERSION = "2.1.0-completion-tokens"
+
 CURRENT_MODEL = OPENAI_MODEL
 
 if not DISCORD_BOT_TOKEN:
@@ -149,6 +151,7 @@ async def status_command(ctx):
     )
     embed.add_field(name="Nhánh Git", value=f"`{git_branch}`", inline=True)
     embed.add_field(name="Commit mới nhất", value=f"`{git_log}`", inline=True)
+    embed.add_field(name="Phiên bản Bot", value=f"`{BOT_VERSION}`", inline=True)
     embed.add_field(name="Thư mục làm việc", value=f"`{WORKSPACE_DIR}`", inline=False)
     embed.add_field(name="Môi trường Python", value=f"`Python {sys.version.split()[0]}`", inline=True)
     embed.add_field(
