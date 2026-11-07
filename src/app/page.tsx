@@ -51,51 +51,51 @@ function NextChapterPrompt({ targetId, label }: { targetId: string; label: strin
 
 const PILLARS_DATA = [
   {
-    id: "hardware",
+    id: "python_data",
     number: "TRỤ CỘT I",
-    domain: "PHẦN CỨNG",
-    title: "GIẢI PHẪU PHẦN CỨNG & NGHẼN BĂNG THÔNG BỘ NHỚ",
-    quote: "Vì sao cùng một model 70B, người chạy cần 4 GPU A100 trong khi hệ thống tối ưu chỉ cần 1 GPU?",
-    desc: "Bạn sẽ thấu suốt vì sao suy luận LLM bị nghẽn ở băng thông bộ nhớ (Memory Bandwidth) chứ không phải xung nhịp chip. Bạn sẽ làm chủ phép nhân ma trận GEMM, lượng tử hóa FP16/INT8/INT4/FP8 và cách vLLM PagedAttention triệt tiêu phân mảnh VRAM.",
-    linkText: "Khám phá 3D Compute Die Lab",
-    linkHref: "/lab",
-    metric: "25% THỜI LƯỢNG",
-    icon: Cpu,
+    domain: "PYTHON & DỮ LIỆU",
+    title: "PYTHON FOR AI, OOP & NỀN TẢNG DỮ LIỆU",
+    quote: "Kỹ sư phần mềm bắt đầu từ đây: Chuyển dịch tư duy sang Python, venv cô lập, Pydantic và xử lý dữ liệu.",
+    desc: "Bạn sẽ bắt đầu hành trình bằng việc làm chủ Python 3.11+, thiết lập môi trường ảo venv chuẩn chỉ, cấu trúc dữ liệu, OOP & Logging, Pydantic V2 validation, và làm chủ mảng nhiều chiều với NumPy và Pandas làm sạch dữ liệu.",
+    linkText: "Bắt đầu học Tuần 01: Python",
+    linkHref: "/lesson/week-01",
+    metric: "THÁNG 01",
+    icon: Terminal,
   },
   {
-    id: "model",
+    id: "ml_dl",
     number: "TRỤ CỘT II",
     domain: "MÔ HÌNH",
-    title: "TỰ CODE TRANSFORMER TỪ CON SỐ 0",
-    quote: "Chỉ khi tự tay nhân ma trận Q, K, V và mã hóa RoPE, bạn mới thực sự làm chủ con quái vật LLM.",
-    desc: "Thay vì sử dụng thư viện đóng kín, bạn sẽ code hoàn chỉnh một Transformer Decoder-only: từ Positional Encoding (RoPE), Multi-Head Attention, FlashAttention đến BPE Tokenizer và KV-Caching để hiểu chính xác từng phép toán bên trong.",
-    linkText: "Xem Chi tiết Module Transformer",
+    title: "MACHINE LEARNING, DEEP LEARNING & PYTORCH",
+    quote: "Hiểu bản chất hàm mất mát, tối ưu Gradient Descent và lan truyền ngược trước khi chạm vào LLM.",
+    desc: "Nắm vững quy trình ML toàn trình: Phân chia dữ liệu train/val/test, chống data leakage, các độ đo Precision/Recall/F1, Mạng nơ-ron MLP, Autograd và xây dựng PyTorch training pipeline có thể chạy lại độc lập (reproducible).",
+    linkText: "Xem Chi tiết Module ML/DL",
     linkHref: "/roadmap",
     metric: "THÁNG 02",
     icon: Workflow,
   },
   {
-    id: "data",
+    id: "rag",
     number: "TRỤ CỘT III",
     domain: "DỮ LIỆU",
     title: "PRODUCTION ENTERPRISE RAG ARCHITECTURE",
-    quote: "90% PoC thất bại khi lên production vì ảo giác dữ liệu và câu hỏi phức tạp.",
-    desc: "50% thời lượng toàn khóa tập trung giải quyết bài toán cốt tử này: Semantic Chunking, Vector DBs (Qdrant, Milvus), Hybrid Search (Dense + Sparse BM25), Cross-Encoder Re-ranking và GraphRAG nhằm triệt tiêu hoàn toàn ảo giác trong doanh nghiệp.",
-    linkText: "Xem Chi tiết Module RAG (Tháng 3)",
+    quote: "Trọng tâm lớn nhất của chương trình: Triệt tiêu ảo giác bằng bằng chứng ngữ cảnh xác thực.",
+    desc: "Dành tới 8 tuần (Tháng 4) chuyên sâu về RAG: FastAPI Backend, Pydantic Structured Output, Tool calling an toàn, PostgreSQL + pgvector, Hybrid Search (Vector + BM25), Verifiable Citations và cơ chế từ chối khi thiếu dữ liệu (Abstention).",
+    linkText: "Xem Chi tiết Module RAG (Tháng 4)",
     linkHref: "/roadmap",
-    metric: "50% THỜI LƯỢNG",
+    metric: "8 TUẦN TRỌNG TÂM",
     icon: Database,
   },
   {
     id: "orchestration",
     number: "TRỤ CỘT IV",
     domain: "ĐIỀU PHỐI",
-    title: "AUTONOMOUS MULTI-AGENT SWARMS & HITL",
-    quote: "Không phải một chatbot đơn độc, mà là cả một tập thể AI tự phối hợp và tự sửa sai.",
-    desc: "Thiết kế mạng lưới tác tử tự hành qua LangGraph: vòng lặp phản biện (Self-Reflection), gọi công cụ động (Dynamic Tool Calling), fan-out chạy song song và chốt chặn phê duyệt của con người (Human-in-the-loop) để giải quyết các task kỹ thuật phức tạp.",
-    linkText: "Xem Chi tiết Multi-Agent Swarms",
+    title: "AUTONOMOUS AGENTS, LANGGRAPH & CAPSTONE",
+    quote: "Không phải một chatbot đơn độc, mà là hệ thống tác tử có sự tham gia phê duyệt của con người (HITL).",
+    desc: "Xây dựng Agent ReAct, StateGraph với LangGraph, checkpoint bền vững SQLite, Human-in-the-loop phê duyệt hành động ghi, tích hợp MCP Server và đóng gói trọn gói Capstone Intelligent Knowledge Assistant bằng Docker Compose.",
+    linkText: "Xem Chi tiết Agents & Capstone",
     linkHref: "/roadmap",
-    metric: "THÁNG 05",
+    metric: "THÁNG 05 — 06",
     icon: Boxes,
   },
 ];
@@ -622,17 +622,15 @@ export default function WelcomePage() {
               <div className="lg:col-span-7 space-y-4 sm:space-y-5">
                 <div className="text-[10px] sm:text-[11px] font-mono text-[var(--accent-aqua)] uppercase tracking-widest flex items-center space-x-2">
                   <span className="w-2 h-2 rounded-full bg-[var(--accent-aqua)] animate-ping" />
-                  <span>BÀI HỌC KHỞI ĐẦU // DAY 01</span>
+                  <span>MÔ-ĐUN BỔ TRỢ // PHÒNG LAB KHẢO SÁT PHẦN CỨNG 3D (TUẦN 08 & 25)</span>
                 </div>
 
                 <h2 className="text-[22px] sm:text-[30px] md:text-[36px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-tight">
-                  GIẢI PHẪU VI MẠCH TÍNH TOÁN AI: 16 TENSOR CORES & HBM3 VRAM
+                  MÔ PHỎNG VI MẠCH BÁN DẪN & LƯỢNG TỬ HÓA VRAM
                 </h2>
 
                 <p className="text-[14px] sm:text-[15px] text-[var(--text-secondary)] leading-relaxed">
-                  Trước khi viết code huấn luyện hoặc prompt mô hình, một AI Software Engineer cần hiểu phần cứng thực thi
-                  các phép nhân ma trận (GEMM) ra sao. Trong phòng thí nghiệm 3D, bạn sẽ tương tác xoay 360°, tách lớp
-                  các tầng bán dẫn (Explode view), và mô phỏng xung nhịp lượng tử hóa (FP16, INT8, INT4).
+                  Lộ trình học tập tập trung vào Software Engineering & Ứng dụng thực tế. Tuy nhiên, ở Tuần 08 và Tuần 25, bạn sẽ dành khoảng 5–8 giờ tìm hiểu phần cứng vừa đủ: Hiểu cách bộ nhớ GPU, VRAM và băng thông bộ nhớ xử lý các phép tính lượng tử hóa (FP16, INT8, INT4) để tối ưu chi phí phục vụ mô hình (Inference).
                 </p>
 
                 {/* Micro specs */}
@@ -651,15 +649,22 @@ export default function WelcomePage() {
                   </div>
                 </div>
 
-                <div className="pt-3 sm:pt-4">
+                <div className="pt-3 sm:pt-4 flex flex-wrap items-center gap-3">
                   <Link
-                    href="/lab"
+                    href="/lesson/week-01"
                     style={{ background: "var(--btn-aurora-bg)", color: "var(--btn-aurora-text)" }}
                     className="inline-flex items-center space-x-2.5 h-[46px] sm:h-[48px] px-6 sm:px-7 rounded-[6px] hover:opacity-95 text-[11px] sm:text-[12px] font-medium tracking-wider uppercase transition-all whitespace-nowrap shrink-0 shadow-lg"
                   >
                     <BookOpen className="w-4 h-4 shrink-0" />
-                    <span>VÀO PHÒNG LAB & BẮT ĐẦU BÀI HỌC DAY 01</span>
+                    <span>BẮT ĐẦU TUẦN 01 (PYTHON & MÔI TRƯỜNG)</span>
                     <ArrowRight className="w-4 h-4 shrink-0" />
+                  </Link>
+
+                  <Link
+                    href="/lab"
+                    className="inline-flex items-center space-x-2 h-[46px] sm:h-[48px] px-4.5 rounded-[6px] border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] text-[11px] sm:text-[12px] font-mono tracking-wider uppercase transition-all whitespace-nowrap bg-[var(--badge-bg)]"
+                  >
+                    <span>VÀO PHÒNG LAB 3D (THAM KHẢO)</span>
                   </Link>
                 </div>
               </div>

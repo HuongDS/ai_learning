@@ -23,6 +23,7 @@ import {
   ChevronRight,
   AlertCircle,
   ExternalLink,
+  Terminal,
 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { WEEKS_DATA, MONTHS_OVERVIEW, WeekData } from "@/lib/roadmap-data";
@@ -348,9 +349,15 @@ export default function LearnLandingPage() {
                     {/* 3D Reward Artifact & Milestone */}
                     <div className="pt-2 flex flex-wrap gap-2 text-[10px] font-mono">
                       {week.week === 1 && (
-                        <span className="px-2.5 py-1 rounded-[6px] bg-[var(--surface-elevated)] border border-[var(--border-main)] text-[var(--text-secondary)] flex items-center space-x-1">
-                          <Cpu className="w-3 h-3 text-[var(--accent-ember)]" />
-                          <span>TẠO TÁC 3D: DIE-01 MMU (TENSOR CORES)</span>
+                        <span className="px-2.5 py-1 rounded-[6px] bg-[var(--surface-elevated)] border border-[var(--border-main)] text-[var(--accent-ember)] flex items-center space-x-1">
+                          <Terminal className="w-3 h-3 text-[var(--accent-ember)]" />
+                          <span>DỰ ÁN: TODO CLI v1 (.VENV)</span>
+                        </span>
+                      )}
+                      {(week.week === 8 || week.week === 25) && (
+                        <span className="px-2.5 py-1 rounded-[6px] bg-[var(--surface-elevated)] border border-[var(--border-main)] text-[var(--accent-aqua)] flex items-center space-x-1">
+                          <Cpu className="w-3 h-3 text-[var(--accent-aqua)]" />
+                          <span>PHÒNG LAB 3D: DIE-01 (TENSOR CORES)</span>
                         </span>
                       )}
                       {week.isMilestone && (
@@ -373,19 +380,12 @@ export default function LearnLandingPage() {
                       week.week === 1 ? (
                         <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
                           <Link
-                            href="/lab"
-                            className="h-[38px] px-4.5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 shadow-md whitespace-nowrap shrink-0"
+                            href="/lesson/week-01"
+                            className="h-[38px] px-5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 shadow-md whitespace-nowrap shrink-0"
                           >
-                            <Cpu className="w-3.5 h-3.5 text-[var(--accent-ember)] shrink-0" />
-                            <span>VÀO PHÒNG LAB 3D</span>
+                            <Terminal className="w-3.5 h-3.5 text-[var(--accent-ember)] shrink-0" />
+                            <span>BẮT ĐẦU TUẦN 01: PYTHON CĂN BẢN</span>
                             <ArrowRight className="w-3.5 h-3.5 shrink-0" />
-                          </Link>
-                          <Link
-                            href="/lesson/day-01"
-                            className="h-[38px] px-4.5 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 bg-[var(--surface-elevated)] whitespace-nowrap shrink-0"
-                          >
-                            <BookOpen className="w-3.5 h-3.5 text-[var(--accent-ember)] shrink-0" />
-                            <span>ĐỌC BÀI HỌC</span>
                           </Link>
                         </div>
                       ) : (

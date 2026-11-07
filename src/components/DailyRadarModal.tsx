@@ -477,7 +477,7 @@ export default function DailyRadarModal({ isOpen, onClose }: DailyRadarModalProp
                     {/* Row 1: Action Buttons (Responsive grid, strictly isolated) */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 w-full">
                       <Link
-                        href="/lesson/day-01"
+                        href="/lesson/week-01"
                         onClick={handleClose}
                         style={{
                           background: "var(--btn-aurora-bg)",
@@ -486,7 +486,7 @@ export default function DailyRadarModal({ isOpen, onClose }: DailyRadarModalProp
                         className="h-[44px] px-4 rounded-[6px] hover:opacity-95 text-[11px] sm:text-[12px] font-medium tracking-wider uppercase transition-all shadow-[0_0_20px_rgba(0,180,170,0.25)] flex items-center justify-center space-x-2 text-center whitespace-nowrap cursor-pointer"
                       >
                         <BookOpen className="w-4 h-4 shrink-0" />
-                        <span>VÀO BÀI HỌC (DAY 01)</span>
+                        <span>VÀO BÀI HỌC (TUẦN 01)</span>
                       </Link>
 
                       <Link

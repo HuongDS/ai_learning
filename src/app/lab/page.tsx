@@ -103,7 +103,7 @@ export default function LabWorkspacePage() {
           <div className="lg:col-span-4 z-20 flex flex-col justify-center space-y-5 sm:space-y-6">
             <div className="flex items-center space-x-2 text-[11px] font-medium tracking-widest uppercase text-[var(--accent-ember)] font-mono">
               <span className="w-2 h-2 rounded-full bg-[var(--accent-ember)]" />
-              <span>CHAPTER 01 // SILICON & TENSORS</span>
+              <span>LAB 3D // MÔ PHỎNG PHẦN CỨNG BỔ TRỢ (TUẦN 08 & 25)</span>
             </div>
 
             <h1 className="text-[32px] sm:text-[44px] xl:text-[56px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-[0.94]">
@@ -113,16 +113,16 @@ export default function LabWorkspacePage() {
             </h1>
 
             <p className="text-[15px] sm:text-[18px] xl:text-[20px] font-normal leading-[1.35] text-[var(--text-secondary)] max-w-md">
-              Trước khi mô hình AI có thể suy luận, phần cứng bán dẫn phải tính toán hàng tỷ ma trận. Khám phá giải phẫu vi mạch của kỷ nguyên AI.
+              Trước khi mô hình AI suy luận, phần cứng bán dẫn và VRAM phải xử lý hàng tỷ phép toán ma trận tensor song song. Mô-đun 3D này bổ trợ cho Tuần 08 (Deep Learning/GPU) và Tuần 25 (Tối ưu Inference/Quantization).
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <Link
-                href="/lesson/day-01"
+                href="/lesson/week-01"
                 className="h-[46px] sm:h-[50px] px-6 sm:px-8 rounded-[36px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] sm:text-[12px] font-medium tracking-widest uppercase border border-[var(--border-main)] transition-all duration-200 shadow-xl flex items-center justify-center space-x-2.5 group cursor-pointer whitespace-nowrap shrink-0 text-center"
               >
                 <BookOpen className="w-4 h-4 text-[var(--accent-ember)] shrink-0" />
-                <span>BẮT ĐẦU BÀI HỌC DAY 01</span>
+                <span>BẮT ĐẦU TUẦN 01 (PYTHON)</span>
                 <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1 shrink-0" />
               </Link>
 
@@ -136,10 +136,10 @@ export default function LabWorkspacePage() {
 
             <div className="pt-1 text-[11px] uppercase tracking-wider text-[var(--text-secondary)] flex items-center space-x-2 font-mono">
               <span>TIẾN ĐỘ:</span>
-              <span className="text-[var(--text-primary)] font-medium">DAY 01 / 75 DAYS</span>
+              <span className="text-[var(--text-primary)] font-medium">LỘ TRÌNH 26 TUẦN</span>
               <span>•</span>
               <span className="text-[var(--accent-ember)]">
-                {isDayOneUnlocked ? "ĐÃ MỞ KHÓA TẠO TÁC ✓" : "CHƯA HOÀN THÀNH"}
+                TUẦN 01: PYTHON CĂN BẢN
               </span>
             </div>
           </div>
@@ -216,7 +216,7 @@ export default function LabWorkspacePage() {
                       </span>
                     ) : (
                       <span className="text-[var(--accent-ember)] font-medium text-[12px]">
-                        CHƯA MỞ KHÓA (CẦN HỌC BÀI 01)
+                        MÔ-ĐUN BỔ TRỢ (TUẦN 08 & 25)
                       </span>
                     )}
                   </div>
@@ -228,7 +228,7 @@ export default function LabWorkspacePage() {
               <span className="text-[var(--accent-ember)] font-medium uppercase text-[10px] block mb-1 font-mono">
                 LỜI KHUYÊN KỸ SƯ:
               </span>
-              Nhấn <strong>"BẮT ĐẦU BÀI HỌC"</strong> để vào trang đọc sâu lý thuyết và làm bài tập lượng tử hóa ở cuối bài.
+              Lộ trình AI Software Engineer 26 tuần bắt đầu từ <strong>Tuần 01: Python Căn Bản & Quản lý Môi trường (.venv)</strong>. Nhấn "BẮT ĐẦU TUẦN 01 (PYTHON)" để bước vào bài thực hành Todo CLI v1.
             </div>
           </div>
         </div>

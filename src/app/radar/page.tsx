@@ -269,7 +269,7 @@ export default function RadarPage() {
                   </div>
 
                   <Link
-                    href="/lesson/day-01"
+                    href="/lesson/week-01"
                     className="w-full h-[42px] px-6 rounded-[36px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium uppercase tracking-wider transition-colors flex items-center justify-center space-x-2 shadow-md"
                   >
                     <BookOpen className="w-4 h-4 text-[var(--accent-ember)]" />

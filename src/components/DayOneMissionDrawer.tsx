@@ -42,7 +42,7 @@ export default function DayOneMissionDrawer({
         <div className="flex items-center justify-between pb-4 border-b border-[#40372e]">
           <div>
             <div className="text-[10px] tracking-widest uppercase text-[#dc5000] font-medium">
-              DAY 01 OF 75 // MISSION MODULE
+              HARDWARE SIMULATION // LAB 3D (TUẦN 08 & 25)
             </div>
             <h2 className="text-[24px] font-medium uppercase tracking-tight text-[#ffedd7] mt-0.5">
               Silicon, Tensors & Quantization
@@ -268,7 +268,7 @@ export default function DayOneMissionDrawer({
               </>
             ) : (
               <>
-                <span>HOÀN THÀNH BÀI 01 & MỞ KHÓA LINH KIỆN 3D</span>
+                <span>HOÀN THÀNH THỬ THÁCH & MỞ KHÓA LINH KIỆN 3D</span>
                 <ArrowRight className="w-4 h-4" />
               </>
             )}

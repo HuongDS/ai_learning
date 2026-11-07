@@ -394,7 +394,7 @@ export default function RoadmapPage() {
               </p>
               <div className="pt-2 flex justify-center">
                 <Link
-                  href="/lesson/day-01"
+                  href="/lesson/week-01"
                   className="h-[48px] px-8 rounded-[36px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[12px] font-medium tracking-widest uppercase transition-colors flex items-center space-x-2 shadow-lg"
                 >
                   <Sparkles className="w-4 h-4 text-[var(--accent-ember)]" />
@@ -636,10 +636,10 @@ export default function RoadmapPage() {
 
                       {w.week === 1 ? (
                         <Link
-                          href="/lesson/day-01"
+                          href="/lesson/week-01"
                           className="px-4 py-1.5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] uppercase font-medium flex items-center space-x-1 transition-colors"
                         >
-                          <span>VÀO BÀI HỌC DAY 01</span>
+                          <span>VÀO BÀI HỌC TUẦN 01 (PYTHON)</span>
                           <ArrowRight className="w-3 h-3 ml-1" />
                         </Link>
                       ) : (

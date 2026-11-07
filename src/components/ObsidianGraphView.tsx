@@ -732,11 +732,11 @@ export default function ObsidianGraphView({
                 <div className="flex items-center gap-2 pt-1">
                   {selectedNode.weekNumber === 1 ? (
                     <Link
-                      href="/lesson/day-01"
+                      href="/lesson/week-01"
                       className="flex-1 h-[36px] px-4 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[10px] font-medium tracking-wider uppercase flex items-center justify-center space-x-1.5 transition-colors"
                     >
                       <BookOpen className="w-3.5 h-3.5 text-[var(--accent-ember)]" />
-                      <span>VÀO BÀI HỌC DAY 01</span>
+                      <span>VÀO BÀI HỌC TUẦN 01 (PYTHON)</span>
                     </Link>
                   ) : (
                     onSwitchToCards && (
