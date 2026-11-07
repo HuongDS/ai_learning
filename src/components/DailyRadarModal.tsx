@@ -1,11 +1,27 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { X, GitFork, ArrowUpRight, BookOpen, Clock, RefreshCw, Key, Terminal, ChevronDown, ChevronUp } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import {
+  X,
+  RefreshCw,
+  Key,
+  Terminal,
+  ArrowUpRight,
+  BookOpen,
+  Check,
+  Copy,
+  Sparkles,
+  Radio,
+  ExternalLink,
+  Target,
+  Cpu,
+} from "lucide-react";
 import { DispatchData } from "@/lib/types";
 import { getOrLoadRadarDispatch, syncRadarLiveWithAI } from "@/lib/radar-client";
 import ApiKeyModal from "./ApiKeyModal";
+import Radar3DScene, { RadarTarget, DEFAULT_RADAR_TARGETS } from "./Radar3DScene";
+import { useTheme } from "@/context/ThemeContext";
 
 interface DailyRadarModalProps {
   isOpen: boolean;
@@ -13,29 +29,25 @@ interface DailyRadarModalProps {
 }
 
 export default function DailyRadarModal({ isOpen, onClose }: DailyRadarModalProps) {
+  const { theme } = useTheme();
   const [dontShowToday, setDontShowToday] = useState(false);
   const [dispatch, setDispatch] = useState<DispatchData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSyncing, setIsSyncing] = useState(false);
   const [isKeyModalOpen, setIsKeyModalOpen] = useState(false);
   const [hasApiKey, setHasApiKey] = useState(false);
-  const [showCliSteps, setShowCliSteps] = useState(false);
+  const [copiedCmd, setCopiedCmd] = useState(false);
+  const [selectedTargetId, setSelectedTargetId] = useState<string>("vllm");
+  const [activeTab, setActiveTab] = useState<"intel" | "cli" | "challenge">("intel");
 
-  useEffect(() => {
-    checkApiKey();
-    if (isOpen) {
-      loadDispatch();
-    }
-  }, [isOpen]);
-
-  const checkApiKey = () => {
+  const checkApiKey = useCallback(() => {
     try {
       const key = localStorage.getItem("oryzo_openai_api_key");
       setHasApiKey(Boolean(key && key.trim().startsWith("sk-")));
     } catch {}
-  };
+  }, []);
 
-  const loadDispatch = async () => {
+  const loadDispatch = useCallback(async () => {
     setIsLoading(true);
     try {
       const data = await getOrLoadRadarDispatch();
@@ -45,7 +57,25 @@ export default function DailyRadarModal({ isOpen, onClose }: DailyRadarModalProp
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    checkApiKey();
+    if (isOpen) {
+      loadDispatch();
+    }
+  }, [isOpen, checkApiKey, loadDispatch]);
+
+  // Keyboard Escape listener
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen && !isKeyModalOpen) {
+        handleClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, isKeyModalOpen]);
 
   const handleSyncLive = async () => {
     setIsSyncing(true);
@@ -68,183 +98,392 @@ export default function DailyRadarModal({ isOpen, onClose }: DailyRadarModalProp
     onClose();
   };
 
+  const handleCopyCommand = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedCmd(true);
+    setTimeout(() => setCopiedCmd(false), 2000);
+  };
+
   if (!isOpen) return null;
+
+  // Selected Target Details
+  const currentTarget =
+    DEFAULT_RADAR_TARGETS.find((t) => t.id === selectedTargetId) ||
+    DEFAULT_RADAR_TARGETS[0];
+
+  const isHotRepoSelected = selectedTargetId === "vllm";
+  const matchingOtherRepo = dispatch?.otherTopRepos?.find((r) =>
+    r.name.toLowerCase().includes(currentTarget.shortName.toLowerCase())
+  );
 
   return (
     <>
-      {/* Overlay - Centered and responsive */}
-      <div 
-        className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/75 backdrop-blur-md overflow-y-auto"
+      {/* 1. Cinematic Backdrop with Ambient Radial Bioluminescent Glow */}
+      <div
+        className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 lg:p-8 bg-black/80 backdrop-blur-2xl transition-all duration-500 overflow-y-auto"
         onClick={handleClose}
       >
-        <div 
-          className="relative w-full max-w-lg my-auto bg-[var(--surface-card)] border border-[var(--border-main)] rounded-[14px] p-5 sm:p-7 shadow-2xl overflow-hidden text-[var(--text-primary)] flex flex-col box-border"
+        {/* Ambient atmospheric teal glow behind the HUD */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[680px] h-[340px] sm:h-[500px] bg-[var(--accent-bioluminescent)]/15 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none" />
+
+        {/* 2. Holographic Cockpit HUD (Perspective 3D Card) */}
+        <div
+          className="relative w-full max-w-5xl my-auto bg-[var(--surface-card)]/95 border border-[var(--border-main)] sm:border-[var(--accent-aqua)]/35 rounded-[18px] sm:rounded-[24px] shadow-[0_0_80px_rgba(0,180,170,0.2)] overflow-hidden text-[var(--text-primary)] flex flex-col box-border transition-all duration-500 ease-out animate-in fade-in zoom-in-95"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* 1. Header Bar */}
-          <div className="flex items-center justify-between pb-3.5 border-b border-[var(--border-main)]">
-            <div className="flex items-center space-x-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-ember)] animate-pulse shrink-0" />
-              <span className="text-[11px] font-medium tracking-wider uppercase font-mono text-[var(--text-primary)]">
-                DAILY DISPATCH #{dispatch?.issueNumber || "043"}
-              </span>
-              <span className="text-[9px] uppercase tracking-wider text-[var(--accent-ember)] px-2 py-0.5 rounded-full border border-[var(--accent-ember)]/30 bg-[var(--accent-ember)]/10 font-mono">
-                {dispatch?.tag || "RADAR"}
-              </span>
+          {/* Top HUD Telemetry Header */}
+          <div className="px-4 sm:px-7 py-3.5 sm:py-4 border-b border-[var(--border-main)] flex flex-wrap items-center justify-between gap-3 bg-[var(--bg-canvas)]/70 backdrop-blur-md">
+            <div className="flex items-center space-x-2.5 sm:space-x-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-aqua)] animate-ping shrink-0" />
+              <div className="flex items-center space-x-2">
+                <span className="text-[11px] sm:text-[13px] font-semibold tracking-[0.16em] sm:tracking-[0.2em] uppercase font-mono text-[var(--text-primary)]">
+                  AUROS RADAR // AI OBSERVATORY
+                </span>
+                <span className="hidden sm:inline-block text-[10px] uppercase font-mono tracking-wider px-2 py-0.5 rounded-[4px] bg-[var(--badge-bg)] text-[var(--accent-aqua)] border border-[var(--badge-border)]">
+                  DISPATCH #{dispatch?.issueNumber || "043"}
+                </span>
+              </div>
             </div>
 
-            <div className="flex items-center space-x-1.5">
+            {/* Header Right Controls */}
+            <div className="flex items-center space-x-2 sm:space-x-2.5">
               <button
                 onClick={() => setIsKeyModalOpen(true)}
-                className={`p-1.5 rounded-full border text-[11px] transition-colors ${
+                className={`h-8 px-2.5 sm:px-3 rounded-[6px] border text-[10px] sm:text-[11px] font-mono uppercase tracking-wider transition-colors flex items-center space-x-1.5 ${
                   hasApiKey
                     ? "border-emerald-500/40 text-emerald-400 bg-emerald-950/20"
                     : "border-[var(--border-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                 }`}
                 title={hasApiKey ? "OpenAI API Key: Hoạt động" : "Cấu hình OpenAI Key"}
               >
-                <Key className="w-3.5 h-3.5" />
+                <Key className="w-3.5 h-3.5 text-[var(--accent-aqua)] shrink-0" />
+                <span className="hidden xs:inline">
+                  {hasApiKey ? "KEY: ACTIVE" : "CẤU HÌNH KEY"}
+                </span>
               </button>
 
               <button
                 onClick={handleSyncLive}
                 disabled={isSyncing}
-                className="p-1.5 rounded-full border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors disabled:opacity-50"
-                title="Quét lại GitHub Trending"
+                className="h-8 px-2.5 sm:px-3 rounded-[6px] bg-[var(--surface-hover)] hover:bg-[var(--surface-card)] text-[var(--text-primary)] text-[10px] sm:text-[11px] font-mono uppercase tracking-wider border border-[var(--border-main)] transition-colors flex items-center space-x-1.5 disabled:opacity-50"
+                title="Quét lại GitHub Trending bằng AI"
               >
-                <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? "animate-spin text-[var(--accent-ember)]" : ""}`} />
+                <RefreshCw
+                  className={`w-3.5 h-3.5 text-[var(--accent-aqua)] ${
+                    isSyncing ? "animate-spin" : ""
+                  }`}
+                />
+                <span className="hidden sm:inline">
+                  {isSyncing ? "ĐANG QUÉT..." : "QUÉT LẠI"}
+                </span>
               </button>
 
               <button
                 onClick={handleClose}
-                className="p-1.5 rounded-full hover:bg-[var(--border-main)]/50 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
-                aria-label="Đóng modal"
+                className="h-8 px-2 sm:px-2.5 rounded-[6px] hover:bg-[var(--surface-hover)] border border-transparent hover:border-[var(--border-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-mono text-[10px] sm:text-[11px] uppercase tracking-wider flex items-center space-x-1 transition-colors cursor-pointer"
+                aria-label="Đóng radar"
               >
                 <X className="w-4 h-4" />
+                <span className="hidden xs:inline">ĐÓNG</span>
               </button>
             </div>
           </div>
 
-          {/* Date Stamp */}
-          <div className="flex items-center space-x-2 text-[10px] font-mono uppercase tracking-wider text-[var(--text-secondary)] pt-2.5">
-            <span>{dispatch?.date || "06 THÁNG 11, 2026"}</span>
-            <span>•</span>
-            <span className="flex items-center space-x-1">
-              <Clock className="w-3 h-3 text-[var(--accent-ember)]" />
-              <span>CẬP NHẬT 00:00 HÀNG NGÀY BỞI AI</span>
-            </span>
-          </div>
-
-          {/* 2. Loading State or Content */}
-          {isLoading ? (
-            <div className="py-12 flex flex-col items-center justify-center space-y-3">
-              <RefreshCw className="w-6 h-6 animate-spin text-[var(--accent-ember)]" />
-              <div className="text-[12px] font-mono uppercase text-[var(--text-secondary)]">
-                Đang nạp dữ liệu...
-              </div>
-            </div>
-          ) : dispatch ? (
-            <div className="space-y-4 py-3">
-              {/* The Hero Quote — Balanced & Centered */}
-              <div className="p-4 rounded-[10px] bg-[var(--bg-canvas)]/80 border-l-3 border-[var(--accent-ember)] border-y border-r border-[var(--border-main)]">
-                <blockquote className="text-[16px] sm:text-[18px] font-normal leading-[1.45] text-[var(--text-primary)]">
-                  &ldquo;{dispatch.quote}&rdquo;
-                </blockquote>
-              </div>
-
-              {/* Key Takeaway */}
-              <p className="text-[13px] text-[var(--text-secondary)] leading-relaxed">
-                <span className="text-[var(--accent-ember)] font-mono font-medium mr-1.5 uppercase text-[10px]">
-                  GÓC NHÌN KỸ SƯ:
+          {/* Main 2-Column Cockpit Body */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[460px] max-h-[82vh] overflow-y-auto no-scrollbar">
+            {/* ========================================================
+                LEFT COLUMN: 3D HOLOGRAPHIC RADAR SCOPE (5 cols)
+               ======================================================== */}
+            <div className="lg:col-span-5 bg-[var(--bg-canvas)]/40 border-b lg:border-b-0 lg:border-r border-[var(--border-main)] p-4 sm:p-6 flex flex-col justify-between relative overflow-hidden">
+              {/* Telemetry Overlay Labels on Radar */}
+              <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-secondary)] uppercase pb-2 border-b border-[var(--border-main)]/50">
+                <span className="flex items-center space-x-1.5">
+                  <Radio className="w-3.5 h-3.5 text-[var(--accent-aqua)] animate-pulse" />
+                  <span>3D SPATIAL TELEMETRY</span>
                 </span>
-                {dispatch.keyTakeaway}
-              </p>
+                <span className="text-[var(--accent-aqua)]">SCAN: 14.24 GHz</span>
+              </div>
 
-              {/* Featured Hot Repo Box (Clean & Concise) */}
-              <div className="bg-[var(--surface-elevated)]/70 border border-[var(--border-main)] rounded-[10px] p-3.5 space-y-2">
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center space-x-1.5 min-w-0">
-                    <GitFork className="w-3.5 h-3.5 text-[var(--accent-ember)] shrink-0" />
-                    <span className="text-[13px] font-mono font-medium text-[var(--text-primary)] truncate">
-                      {dispatch.hotRepo.name}
-                    </span>
-                  </div>
-                  <a
-                    href={dispatch.hotRepo.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center space-x-1 text-[11px] font-mono text-[var(--accent-ember)] hover:underline shrink-0"
-                  >
-                    <span>{dispatch.hotRepo.stars}★</span>
-                    <ArrowUpRight className="w-3 h-3" />
-                  </a>
+              {/* 3D Interactive Three.js Radar Scope */}
+              <div className="relative w-full aspect-square max-h-[280px] sm:max-h-[320px] mx-auto my-2 flex items-center justify-center">
+                <Radar3DScene
+                  targets={DEFAULT_RADAR_TARGETS}
+                  selectedId={selectedTargetId}
+                  onSelectTarget={(t) => setSelectedTargetId(t.id)}
+                  theme={theme}
+                  className="w-full h-full"
+                />
+
+                {/* Radar Target Lock Reticle Banner */}
+                <div className="absolute top-2 left-2 pointer-events-none px-2.5 py-1 rounded-[4px] bg-[var(--bg-canvas)]/85 backdrop-blur-md border border-[var(--border-main)] text-[9px] font-mono uppercase tracking-wider text-[var(--text-mist)] flex items-center space-x-1.5">
+                  <Target className="w-3 h-3 text-[var(--accent-aqua)]" />
+                  <span>TARGET: {currentTarget.shortName}</span>
                 </div>
 
-                <p className="text-[12px] text-[var(--text-secondary)] line-clamp-2 leading-relaxed">
-                  {dispatch.hotRepo.description}
-                </p>
+                <div className="absolute bottom-2 right-2 pointer-events-none text-[8.5px] font-mono text-[var(--text-secondary)] opacity-70 uppercase tracking-widest">
+                  RANGE: 200 KM • AZIMUTH 360°
+                </div>
+              </div>
 
-                {/* Quick Toggle to view CLI Command */}
-                {dispatch.hotRepo.howToTry && dispatch.hotRepo.howToTry.length > 0 && (
-                  <div className="pt-1">
-                    <button
-                      onClick={() => setShowCliSteps(!showCliSteps)}
-                      className="text-[10px] font-mono uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] flex items-center space-x-1 transition-colors"
-                    >
-                      <Terminal className="w-3 h-3 text-[var(--accent-ember)]" />
-                      <span>{showCliSteps ? "Ẩn lệnh chạy thử" : "Xem lệnh chạy thử nhanh (CLI)"}</span>
-                      {showCliSteps ? <ChevronUp className="w-3 h-3 ml-0.5" /> : <ChevronDown className="w-3 h-3 ml-0.5" />}
-                    </button>
+              {/* Intercepted Target Selector Pills */}
+              <div className="space-y-2 pt-2">
+                <div className="text-[9.5px] font-mono uppercase tracking-widest text-[var(--text-secondary)]">
+                  MỤC TIÊU RADAR BẮT ĐƯỢC (BẤM ĐỂ KHÓA):
+                </div>
 
-                    {showCliSteps && (
-                      <div className="mt-2 bg-[#0a0704] p-2.5 rounded font-mono text-[11px] text-emerald-400 border border-[#261910] space-y-1">
-                        {dispatch.hotRepo.howToTry.map((cmd, idx) => (
-                          <div key={idx} className="truncate">
-                            $ {cmd}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                )}
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-1.5 font-mono text-[10px]">
+                  {DEFAULT_RADAR_TARGETS.map((target, idx) => {
+                    const isSelected = target.id === selectedTargetId;
+                    return (
+                      <button
+                        key={target.id}
+                        onClick={() => setSelectedTargetId(target.id)}
+                        className={`px-2.5 py-1.5 rounded-[6px] text-left transition-all duration-200 flex items-center justify-between border cursor-pointer ${
+                          isSelected
+                            ? "bg-[var(--surface-card)] border-[var(--accent-aqua)] text-[var(--accent-aqua)] shadow-[0_0_12px_rgba(0,180,170,0.25)] font-semibold"
+                            : "bg-[var(--bg-canvas)]/60 border-[var(--border-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                        }`}
+                      >
+                        <span className="truncate">
+                          0{idx + 1} // {target.shortName}
+                        </span>
+                        <span className="text-[9px] text-[var(--accent-phosphor)] shrink-0 ml-1">
+                          {target.stars}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          ) : null}
 
-          {/* 3. Balanced Footer Actions */}
-          <div className="pt-4 border-t border-[var(--border-main)] mt-auto space-y-3">
-            {/* Primary Action Buttons */}
-            <div className="grid grid-cols-2 gap-2.5">
-              <Link
-                href="/radar"
-                onClick={handleClose}
-                className="h-[42px] px-3 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center justify-center space-x-1"
-              >
-                <span>XEM TRANG RADAR</span>
-                <ArrowUpRight className="w-3 h-3" />
-              </Link>
+            {/* ========================================================
+                RIGHT COLUMN: LIVE INTELLIGENCE DOSSIER & CLI (7 cols)
+               ======================================================== */}
+            <div className="lg:col-span-7 p-5 sm:p-7 flex flex-col justify-between space-y-5">
+              {isLoading ? (
+                <div className="py-20 flex flex-col items-center justify-center space-y-3">
+                  <RefreshCw className="w-7 h-7 animate-spin text-[var(--accent-aqua)]" />
+                  <div className="text-[12px] font-mono uppercase tracking-wider text-[var(--text-secondary)]">
+                    Đang thiết lập kết nối vệ tinh GitHub Trending...
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {/* Top Target Dossier Header */}
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border-main)] pb-3">
+                      <div className="flex items-center space-x-2">
+                        <span className="px-2 py-0.5 rounded-[4px] bg-[var(--badge-bg)] text-[var(--accent-bioluminescent)] border border-[var(--badge-border)] text-[9px] font-mono uppercase tracking-wider font-semibold">
+                          SIGNAL LOCKED
+                        </span>
+                        <a
+                          href={
+                            isHotRepoSelected
+                              ? dispatch?.hotRepo.url
+                              : matchingOtherRepo?.url || "https://github.com/vllm-project/vllm"
+                          }
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-[14px] sm:text-[16px] font-mono font-medium text-[var(--text-primary)] hover:text-[var(--accent-aqua)] transition-colors flex items-center space-x-1.5"
+                        >
+                          <span>
+                            {isHotRepoSelected
+                              ? dispatch?.hotRepo.name
+                              : matchingOtherRepo?.name || currentTarget.name}
+                          </span>
+                          <ExternalLink className="w-3.5 h-3.5 text-[var(--accent-aqua)]" />
+                        </a>
+                      </div>
 
-              <Link
-                href="/lesson/day-01"
-                onClick={handleClose}
-                className="h-[42px] px-3 rounded-[36px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center justify-center space-x-1.5 shadow-md"
-              >
-                <BookOpen className="w-3.5 h-3.5 text-[var(--accent-ember)] shrink-0" />
-                <span>VÀO BÀI HỌC</span>
-              </Link>
-            </div>
+                      <div className="flex items-center space-x-2 text-[11px] font-mono">
+                        <span className="text-[var(--accent-phosphor)] font-medium">
+                          ★{" "}
+                          {isHotRepoSelected
+                            ? dispatch?.hotRepo.stars
+                            : matchingOtherRepo?.stars || currentTarget.stars}
+                        </span>
+                      </div>
+                    </div>
 
-            {/* Checkbox underneath - Centered & Clean */}
-            <div className="flex justify-center pt-1">
-              <label className="flex items-center space-x-2 text-[11px] text-[var(--text-secondary)] hover:text-[var(--text-primary)] cursor-pointer select-none transition-colors">
-                <input
-                  type="checkbox"
-                  checked={dontShowToday}
-                  onChange={(e) => setDontShowToday(e.target.checked)}
-                  className="rounded border-[var(--border-main)] bg-[var(--bg-canvas)] text-[var(--accent-ember)] focus:ring-0 w-3.5 h-3.5 shrink-0"
-                />
-                <span>Không tự động hiện lại hôm nay</span>
-              </label>
+                    {/* Navigation Sub-Tabs */}
+                    <div className="flex items-center space-x-2 font-mono text-[10px] uppercase">
+                      <button
+                        onClick={() => setActiveTab("intel")}
+                        className={`px-3 py-1 rounded-[4px] transition-all cursor-pointer ${
+                          activeTab === "intel"
+                            ? "bg-[var(--accent-aqua)] text-black font-semibold shadow-sm"
+                            : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-main)]"
+                        }`}
+                      >
+                        01. BẢN TIN PHÂN TÍCH
+                      </button>
+                      <button
+                        onClick={() => setActiveTab("cli")}
+                        className={`px-3 py-1 rounded-[4px] transition-all cursor-pointer ${
+                          activeTab === "cli"
+                            ? "bg-[var(--accent-aqua)] text-black font-semibold shadow-sm"
+                            : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-main)]"
+                        }`}
+                      >
+                        02. LỆNH CHẠY THỬ (CLI)
+                      </button>
+                      <button
+                        onClick={() => setActiveTab("challenge")}
+                        className={`px-3 py-1 rounded-[4px] transition-all cursor-pointer ${
+                          activeTab === "challenge"
+                            ? "bg-[var(--accent-aqua)] text-black font-semibold shadow-sm"
+                            : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-main)]"
+                        }`}
+                      >
+                        03. THỬ THÁCH THỰC HÀNH
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Tab 1: Hero Intelligence Quotation & Architectural Takeaway */}
+                  {activeTab === "intel" && (
+                    <div className="space-y-4 py-1 animate-in fade-in duration-200">
+                      <div className="p-4 sm:p-5 rounded-[12px] bg-[var(--bg-canvas)]/70 border-l-3 border-[var(--accent-bioluminescent)] border-y border-r border-[var(--border-main)] shadow-inner">
+                        <span className="text-[9.5px] font-mono uppercase tracking-[0.2em] text-[var(--accent-aqua)] block mb-2">
+                          DIRECTIVE // KHUYÊN NGHỊ KIẾN TRÚC
+                        </span>
+                        <blockquote className="text-[14px] sm:text-[16px] font-normal leading-[1.5] text-[var(--text-primary)] italic">
+                          &ldquo;
+                          {dispatch?.quote ||
+                            "Băng thông bộ nhớ (Memory Bandwidth) là nút thắt lớn nhất khi chạy suy luận LLM, chứ không phải xung nhịp tính toán thuần túy."}
+                          &rdquo;
+                        </blockquote>
+                      </div>
+
+                      <div className="space-y-2">
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--accent-aqua)] flex items-center space-x-1.5 font-medium">
+                          <Cpu className="w-3.5 h-3.5" />
+                          <span>GÓC NHÌN KỸ SƯ AI:</span>
+                        </span>
+                        <p className="text-[13px] sm:text-[14px] text-[var(--text-secondary)] leading-relaxed">
+                          {isHotRepoSelected
+                            ? dispatch?.keyTakeaway || dispatch?.hotRepo.whyItMatters
+                            : matchingOtherRepo?.description ||
+                              "Mô hình kiến trúc mới giúp tối ưu hóa bộ nhớ đệm KV cache và tăng thông lượng tính toán trên GPU."}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Tab 2: Terminal Command Prompt & Quick Execution */}
+                  {activeTab === "cli" && (
+                    <div className="space-y-3 py-1 animate-in fade-in duration-200">
+                      <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-secondary)] uppercase">
+                        <span className="flex items-center space-x-1.5">
+                          <Terminal className="w-3.5 h-3.5 text-[var(--accent-aqua)]" />
+                          <span>TERMINAL COMMAND EXECUTION</span>
+                        </span>
+                        <button
+                          onClick={() => {
+                            const cmds =
+                              dispatch?.hotRepo.howToTry?.join("\n") ||
+                              "pip install vllm\nvllm serve meta-llama/Llama-3.2-3B-Instruct";
+                            handleCopyCommand(cmds);
+                          }}
+                          className="text-[var(--accent-aqua)] hover:underline uppercase flex items-center space-x-1 cursor-pointer"
+                        >
+                          {copiedCmd ? (
+                            <>
+                              <Check className="w-3 h-3 text-emerald-400" />
+                              <span className="text-emerald-400">ĐÃ SAO CHÉP ✓</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="w-3 h-3" />
+                              <span>SAO CHÉP TOÀN BỘ</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+
+                      <div className="p-3.5 sm:p-4 rounded-[10px] bg-[#011b1a] border border-[var(--border-main)] font-mono text-[11px] sm:text-[12px] text-emerald-400 overflow-x-auto leading-relaxed shadow-inner">
+                        {dispatch?.hotRepo.howToTry?.map((cmd, idx) => (
+                          <div key={idx} className="flex items-center space-x-2 py-0.5">
+                            <span className="text-[var(--accent-aqua)] select-none">$</span>
+                            <span className="text-[var(--text-primary)]">{cmd}</span>
+                          </div>
+                        )) || (
+                          <div>
+                            $ pip install vllm <br />
+                            $ vllm serve meta-llama/Llama-3.2-3B-Instruct --port 8000
+                          </div>
+                        )}
+                      </div>
+
+                      <p className="text-[11px] font-mono text-[var(--text-secondary)]">
+                        Lưu ý: Yêu cầu môi trường Python 3.10+ và card đồ họa có hỗ trợ CUDA hoặc Apple Silicon MPS.
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Tab 3: Micro Challenge */}
+                  {activeTab === "challenge" && (
+                    <div className="space-y-3 py-1 animate-in fade-in duration-200">
+                      <div className="p-4 rounded-[10px] bg-[var(--surface-hover)] border border-[var(--border-main)] space-y-2">
+                        <div className="text-[10px] font-mono uppercase tracking-widest text-[var(--accent-aqua)] font-medium flex items-center space-x-1.5">
+                          <Sparkles className="w-3.5 h-3.5" />
+                          <span>
+                            THỬ THÁCH HÔM NAY: {dispatch?.microChallenge.title || "Tự chạy Inference"}
+                          </span>
+                        </div>
+                        <p className="text-[13px] text-[var(--text-primary)] leading-relaxed">
+                          {dispatch?.microChallenge.task ||
+                            "Khởi chạy một OpenAI-compatible API server cục bộ và kiểm tra thông lượng token sinh ra."}
+                        </p>
+                        <div className="pt-2 border-t border-[var(--border-main)]/60 text-[11px] font-mono text-[var(--text-mist)]">
+                          🎯 Mục tiêu đầu ra: {dispatch?.microChallenge.expectedOutcome}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Bottom Actions Deck */}
+                  <div className="pt-4 border-t border-[var(--border-main)] space-y-3 mt-auto">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                      <div className="flex items-center gap-2">
+                        <Link
+                          href="/lesson/day-01"
+                          onClick={handleClose}
+                          style={{
+                            background: "var(--btn-aurora-bg)",
+                            color: "var(--btn-aurora-text)",
+                          }}
+                          className="h-[42px] px-5 sm:px-6 rounded-[6px] hover:opacity-95 text-[11px] sm:text-[12px] font-medium tracking-wider uppercase transition-all shadow-[0_0_20px_rgba(0,180,170,0.25)] flex items-center justify-center space-x-2 shrink-0 text-center"
+                        >
+                          <BookOpen className="w-4 h-4 shrink-0" />
+                          <span>VÀO BÀI HỌC LIÊN QUAN (DAY 01)</span>
+                        </Link>
+
+                        <Link
+                          href="/radar"
+                          onClick={handleClose}
+                          className="h-[42px] px-4 rounded-[6px] border border-[var(--border-main)] hover:border-[var(--text-primary)] bg-[var(--surface-card)] hover:bg-[var(--surface-hover)] text-[var(--text-primary)] text-[11px] font-mono tracking-wider uppercase transition-colors flex items-center justify-center space-x-1.5 shrink-0"
+                        >
+                          <span>TẠP CHÍ RADAR</span>
+                          <ArrowUpRight className="w-3.5 h-3.5 text-[var(--accent-aqua)]" />
+                        </Link>
+                      </div>
+
+                      {/* Dont show again checkbox */}
+                      <label className="flex items-center space-x-2 text-[10px] sm:text-[11px] font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)] cursor-pointer select-none transition-colors">
+                        <input
+                          type="checkbox"
+                          checked={dontShowToday}
+                          onChange={(e) => setDontShowToday(e.target.checked)}
+                          className="rounded border-[var(--border-main)] bg-[var(--bg-canvas)] text-[var(--accent-aqua)] focus:ring-0 w-3.5 h-3.5 shrink-0"
+                        />
+                        <span>Không tự hiện lại hôm nay</span>
+                      </label>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
