@@ -163,7 +163,7 @@ export default function GlobalStoryNav() {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         aria-label="Story Chapter Navigation"
-        className={`hidden lg:flex fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 flex-col space-y-1 z-40 select-none transition-all duration-300 ease-out ${
+        className={`hidden lg:flex fixed right-3 sm:right-4 xl:right-6 top-1/2 -translate-y-1/2 flex-col space-y-1 z-40 select-none transition-all duration-300 ease-out ${
           isExpanded
             ? "py-3.5 px-3 rounded-[16px] bg-[var(--surface-card)]/95 backdrop-blur-md border border-[var(--border-main)] shadow-2xl"
             : "py-3 px-1 rounded-full bg-transparent border-transparent"

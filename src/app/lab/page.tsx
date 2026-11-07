@@ -110,7 +110,7 @@ export default function LabWorkspacePage() {
               Trước khi mô hình AI có thể suy luận, phần cứng bán dẫn phải tính toán hàng tỷ ma trận. Khám phá giải phẫu vi mạch của kỷ nguyên AI.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-3 pt-2">
               <Link
                 href="/lesson/day-01"
                 className="h-[46px] sm:h-[50px] px-6 sm:px-8 rounded-[36px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] sm:text-[12px] font-medium tracking-widest uppercase border border-[var(--border-main)] transition-all duration-200 shadow-xl flex items-center justify-center space-x-2.5 group cursor-pointer whitespace-nowrap shrink-0 text-center"

@@ -20,6 +20,7 @@ import {
   Sparkles,
   Menu,
   X,
+  Radio,
 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import DailyRadarModal from "@/components/DailyRadarModal";
@@ -313,7 +314,7 @@ export default function WelcomePage() {
 
         <div className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center z-10 w-full my-auto">
           {/* Left Column: Text Stack */}
-          <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-left">
+          <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-left min-w-0">
             {/* Uppercase Section Label (Eyebrow) */}
             <div className="inline-flex items-center space-x-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-[6px] bg-[var(--badge-bg)] border border-[var(--badge-border)] shadow-sm">
               <span className="w-2 h-2 rounded-full bg-[var(--accent-aqua)] animate-pulse" />
@@ -336,11 +337,11 @@ export default function WelcomePage() {
             </p>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2 sm:pt-4">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2 sm:pt-4">
               <Link
                 href="/learn"
                 style={{ background: "var(--btn-aurora-bg)", color: "var(--btn-aurora-text)" }}
-                className="h-[46px] sm:h-[48px] px-6 sm:px-7 rounded-[6px] hover:opacity-95 text-[12px] sm:text-[13px] font-medium tracking-[0.08em] uppercase transition-all shadow-[0_0_24px_rgba(0,180,170,0.3)] flex items-center justify-center space-x-2.5 whitespace-nowrap cursor-pointer text-center"
+                className="h-[46px] sm:h-[48px] px-5 sm:px-6 rounded-[6px] hover:opacity-95 text-[12px] sm:text-[13px] font-medium tracking-[0.06em] uppercase transition-all shadow-[0_0_24px_rgba(0,180,170,0.3)] flex items-center justify-center space-x-2 whitespace-nowrap cursor-pointer text-center"
               >
                 <BookOpen className="w-4 h-4 shrink-0" />
                 <span>BẮT ĐẦU HỌC (CHỌN BÀI HỌC)</span>
@@ -350,7 +351,7 @@ export default function WelcomePage() {
               <Link
                 href="/roadmap"
                 style={{ background: "var(--btn-surface-bg)", color: "var(--btn-surface-text)" }}
-                className="h-[46px] sm:h-[48px] px-5 sm:px-6 rounded-[6px] hover:opacity-90 text-[12px] sm:text-[13px] font-medium tracking-[0.08em] uppercase border border-[var(--border-main)] transition-colors flex items-center justify-center space-x-2 whitespace-nowrap shadow-sm text-center"
+                className="h-[46px] sm:h-[48px] px-4 sm:px-5 rounded-[6px] hover:opacity-90 text-[12px] sm:text-[13px] font-medium tracking-[0.06em] uppercase border border-[var(--border-main)] transition-colors flex items-center justify-center space-x-2 whitespace-nowrap shadow-sm text-center"
               >
                 <Compass className="w-4 h-4 text-[var(--text-mist)] shrink-0" />
                 <span>XEM LỘ TRÌNH 26 TUẦN</span>
@@ -358,8 +359,9 @@ export default function WelcomePage() {
 
               <button
                 onClick={() => setIsRadarModalOpen(true)}
-                className="h-[46px] sm:h-[48px] px-5 rounded-[6px] bg-transparent hover:bg-[var(--surface-hover)] text-[var(--text-mist)] text-[12px] sm:text-[13px] font-mono tracking-widest uppercase border border-[var(--border-main)] transition-colors flex items-center justify-center space-x-2 whitespace-nowrap cursor-pointer text-center"
+                className="h-[46px] sm:h-[48px] px-4 rounded-[6px] bg-[var(--badge-bg)] hover:bg-[var(--surface-hover)] text-[var(--text-mist)] hover:text-[var(--text-primary)] text-[11px] sm:text-[12px] font-mono tracking-wider uppercase border border-[var(--border-main)] transition-colors flex items-center justify-center space-x-2 whitespace-nowrap cursor-pointer text-center"
               >
+                <Radio className="w-3.5 h-3.5 text-[var(--accent-aqua)] shrink-0 animate-pulse" />
                 <span>DAILY RADAR</span>
               </button>
             </div>
@@ -382,11 +384,11 @@ export default function WelcomePage() {
           </div>
 
           {/* Right Column: 3D Bioluminescent Particle Sphere Orb */}
-          <div className="lg:col-span-5 relative flex items-center justify-center">
-            <div className="relative w-full aspect-square max-w-[320px] sm:max-w-[420px] lg:max-w-[480px]">
+          <div className="lg:col-span-5 relative flex items-center justify-center min-w-0">
+            <div className="relative w-full aspect-square max-w-[280px] sm:max-w-[360px] lg:max-w-[390px] xl:max-w-[450px]">
               <BioluminescentSphere theme={theme} className="w-full h-full" />
               {/* Overlay data readout tag */}
-              <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4 p-2.5 sm:p-3 rounded-[6px] bg-[var(--bg-recessed)]/90 border border-[var(--border-main)] text-[9px] sm:text-[10px] font-mono tracking-wider flex items-center justify-between backdrop-blur-sm">
+              <div className="absolute bottom-2 sm:bottom-3 left-3 right-3 sm:left-4 sm:right-4 p-2 sm:p-2.5 rounded-[6px] bg-[var(--bg-recessed)]/95 border border-[var(--border-main)] text-[9px] sm:text-[10px] font-mono tracking-wider flex items-center justify-between backdrop-blur-md shadow-sm pointer-events-none">
                 <div className="flex items-center space-x-1.5 sm:space-x-2">
                   <span className="w-2 h-2 rounded-full bg-[var(--accent-aqua)] animate-ping shrink-0" />
                   <span className="text-[var(--text-mist)] uppercase truncate">CORE DATA ORB // ACTIVE</span>
@@ -889,7 +891,7 @@ vllm serve meta-llama/Llama-3.2-3B-Instruct --port 8000</code>
             Bước vào không gian phòng thí nghiệm 3D để khám phá bài học đầu tiên về giải phẫu phần cứng và lượng tử hóa ma trận.
           </p>
 
-          <div className="pt-3 sm:pt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
+          <div className="pt-3 sm:pt-4 flex flex-wrap items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
             <Link
               href="/learn"
               style={{ background: "var(--btn-aurora-bg)", color: "var(--btn-aurora-text)" }}
