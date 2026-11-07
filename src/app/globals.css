@@ -9,8 +9,21 @@
   --color-ember-accent: #0056d2;
   --color-pure-black: #000000;
 
+  /* Auros Tokens (DESIGN_02.md) */
+  --color-liquid-abyss: #012624;
+  --color-liquid-deep: #011d1c;
+  --color-liquid-kelp: #003734;
+  --color-liquid-mist: #edfffe;
+  --color-platinum: #ffffff;
+  --color-silver-mist: #bbc7c6;
+  --color-slate-deep: #707777;
+  --color-lavender-phosphor: #fde9ff;
+  --color-bioluminescent: #00827c;
+  --color-aurora: #cbfffc;
+
+  --radius-md: 6px;
   --radius-xl: 12px;
-  --radius-2xl: 22.5px;
+  --radius-2xl: 16px;
   --radius-3xl: 36px;
   --radius-full: 9999px;
 }
@@ -96,6 +109,15 @@ body {
 
 .border-dashed-vertical {
   border-left: 1px dashed var(--border-main);
+}
+
+/* Auros Atmospheric Gradients (DESIGN_02.md) */
+.bg-aurora-gradient {
+  background: linear-gradient(90deg, rgb(203, 255, 252) 0%, rgb(237, 255, 254) 26.25%, rgb(255, 253, 250) 47.57%, rgb(250, 209, 255) 88.96%);
+}
+
+.bg-bioluminescent-gradient {
+  background: linear-gradient(90deg, rgb(0, 130, 124) 0%, rgb(203, 255, 252) 100%);
 }
 
 /* Custom scrollbars */
