@@ -5,7 +5,6 @@ import Link from "next/link";
 import {
   BookOpen,
   ArrowRight,
-  Flame,
   Cpu,
   Workflow,
   Boxes,
@@ -167,65 +166,60 @@ export default function WelcomePage() {
       <GlobalStoryNav />
 
       {/* 1. Transparent Navigation Bar (Auros Style) */}
-      <header className="fixed top-0 left-0 right-0 z-50 w-full px-6 sm:px-12 py-5 flex items-center justify-between bg-[var(--header-bg)] backdrop-blur-md border-b border-[var(--border-main)] transition-colors duration-300">
-        {/* Brand Lockup */}
-        <div className="flex items-center space-x-3">
+      <header className="fixed top-0 left-0 right-0 z-50 w-full h-[64px] sm:h-[70px] px-6 sm:px-12 flex items-center justify-between bg-[var(--header-bg)] backdrop-blur-md border-b border-[var(--border-main)] transition-colors duration-300">
+        {/* Left: Brand Lockup */}
+        <div className="flex items-center space-x-3 shrink-0">
           <Link
             href="/"
-            className="text-[13px] sm:text-[15px] font-medium tracking-[0.18em] uppercase text-[var(--text-primary)] flex items-center space-x-2"
+            className="text-[13px] sm:text-[15px] font-medium tracking-[0.2em] uppercase text-[var(--text-primary)] flex items-center space-x-2 whitespace-nowrap hover:opacity-90 transition-opacity"
           >
-            <span>AUROS</span>
-            <span className="text-[var(--accent-bioluminescent)] font-normal">//</span>
+            <span className="font-semibold">AUROS</span>
+            <span className="text-[var(--accent-bioluminescent)] font-light">//</span>
             <span>AI LAB</span>
           </Link>
-          <span className="hidden md:inline-block text-[10px] uppercase tracking-[0.15em] text-[var(--text-secondary)] border-l border-[var(--border-main)] pl-3 font-mono">
-            {theme === "dark" ? "ABYSSAL TERMINAL & HARDWARE ANATOMY" : "GLACIAL AQUA & HARDWARE ANATOMY"}
+          <span className="hidden xl:inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-[6px] bg-[var(--badge-bg)] border border-[var(--border-main)] text-[10px] font-mono uppercase tracking-widest text-[var(--text-mist)] whitespace-nowrap">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-aqua)] animate-pulse" />
+            <span>26W CURRICULUM</span>
           </span>
         </div>
 
-        {/* Center Ghost Navigation Links */}
-        <nav className="hidden lg:flex items-center space-x-8 text-[12px] font-normal tracking-[0.12em] uppercase text-[var(--text-secondary)]">
+        {/* Center: Clean Ghost Navigation Links (No wrapping, no redundant items) */}
+        <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 text-[12px] font-mono tracking-[0.12em] uppercase text-[var(--text-secondary)]">
           <Link
             href="/roadmap"
-            className="hover:text-[var(--text-primary)] transition-colors"
+            className="px-3.5 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap"
           >
-            01. LỘ TRÌNH 26 TUẦN
-          </Link>
-          <button
-            onClick={() => setIsRadarModalOpen(true)}
-            className="hover:text-[var(--text-primary)] transition-colors uppercase tracking-[0.12em] cursor-pointer"
-          >
-            02. DAILY RADAR
-          </button>
-          <Link
-            href="/learn"
-            className="hover:text-[var(--text-primary)] transition-colors"
-          >
-            03. BẮT ĐẦU HỌC
+            LỘ TRÌNH 26 TUẦN
           </Link>
           <Link
             href="/lab"
-            className="hover:text-[var(--text-primary)] transition-colors"
+            className="px-3.5 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap"
           >
-            04. PHÒNG LAB 3D
+            PHÒNG LAB 3D
           </Link>
-        </nav>
-
-        {/* Right CTA Controls & Theme Switcher */}
-        <div className="flex items-center space-x-3">
-          {/* Daily Radar Trigger */}
           <button
             onClick={() => setIsRadarModalOpen(true)}
-            className="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-[6px] border border-[var(--border-main)] bg-[var(--badge-bg)] text-[var(--text-mist)] text-[11px] font-mono tracking-widest uppercase hover:opacity-90 transition-all cursor-pointer"
+            className="px-3.5 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap cursor-pointer uppercase font-mono"
           >
-            <Flame className="w-3.5 h-3.5 text-[var(--accent-aqua)]" />
+            DAILY RADAR
+          </button>
+        </nav>
+
+        {/* Right: Controls & Primary Action */}
+        <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
+          {/* Daily Radar Quick Button (Without flame icon) */}
+          <button
+            onClick={() => setIsRadarModalOpen(true)}
+            className="flex items-center px-3 py-1.5 rounded-[6px] border border-[var(--border-main)] bg-[var(--badge-bg)] hover:bg-[var(--surface-hover)] hover:border-[var(--text-primary)] text-[var(--text-primary)] text-[11px] font-mono tracking-widest uppercase transition-all cursor-pointer whitespace-nowrap"
+            title="Mở bản tin Daily AI Radar"
+          >
             <span>RADAR</span>
           </button>
 
           {/* Theme Switcher Button (Sun/Moon) */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-[6px] border border-[var(--border-main)] bg-[var(--badge-bg)] hover:border-[var(--text-primary)] text-[var(--text-primary)] transition-all cursor-pointer"
+            className="w-9 h-9 flex items-center justify-center rounded-[6px] border border-[var(--border-main)] bg-[var(--badge-bg)] hover:bg-[var(--surface-hover)] hover:border-[var(--text-primary)] text-[var(--text-primary)] transition-all cursor-pointer shrink-0"
             title={theme === "dark" ? "Chuyển sang Chế độ Sáng (Light Mode)" : "Chuyển sang Chế độ Tối (Darkroom Mode)"}
             aria-label="Toggle Theme"
           >
@@ -240,10 +234,10 @@ export default function WelcomePage() {
           <Link
             href="/learn"
             style={{ background: "var(--btn-aurora-bg)", color: "var(--btn-aurora-text)" }}
-            className="flex items-center space-x-2 px-5 py-2.5 rounded-[6px] hover:opacity-95 text-[12px] font-medium tracking-[0.08em] uppercase transition-all shadow-[0_0_20px_rgba(0,180,170,0.25)] whitespace-nowrap shrink-0"
+            className="h-9 px-4 sm:px-5 rounded-[6px] hover:opacity-95 text-[12px] font-medium tracking-[0.08em] uppercase transition-all shadow-[0_0_18px_rgba(0,180,170,0.25)] flex items-center space-x-2 whitespace-nowrap shrink-0"
           >
             <span>BẮT ĐẦU HỌC</span>
-            <ArrowUpRight className="w-4 h-4 shrink-0" />
+            <ArrowUpRight className="w-3.5 h-3.5 shrink-0" />
           </Link>
         </div>
       </header>
@@ -307,7 +301,6 @@ export default function WelcomePage() {
                 onClick={() => setIsRadarModalOpen(true)}
                 className="h-[48px] px-5 rounded-[6px] bg-transparent hover:bg-[var(--surface-hover)] text-[var(--text-mist)] text-[13px] font-mono tracking-widest uppercase border border-[var(--border-main)] transition-colors flex items-center space-x-2 whitespace-nowrap cursor-pointer"
               >
-                <Flame className="w-4 h-4 text-[var(--accent-aqua)] shrink-0" />
                 <span>DAILY RADAR</span>
               </button>
             </div>

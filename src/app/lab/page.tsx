@@ -73,9 +73,8 @@ export default function LabWorkspacePage() {
         <div className="flex items-center space-x-3">
           <button
             onClick={() => setIsRadarModalOpen(true)}
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-[22.5px] border border-[var(--accent-ember)]/40 bg-[var(--accent-ember)]/10 text-[var(--accent-ember)] text-[10px] font-mono tracking-wider uppercase hover:bg-[var(--accent-ember)]/20 transition-colors"
+            className="flex items-center px-3 py-1.5 rounded-[22.5px] border border-[var(--accent-ember)]/40 bg-[var(--accent-ember)]/10 text-[var(--accent-ember)] text-[10px] font-mono tracking-wider uppercase hover:bg-[var(--accent-ember)]/20 transition-colors"
           >
-            <Flame className="w-3.5 h-3.5 animate-pulse" />
             <span>DAILY RADAR</span>
           </button>
 
