@@ -39,59 +39,62 @@ export default function RoadmapPage() {
   return (
     <div className="min-h-screen bg-[var(--bg-canvas)] text-[var(--text-primary)] transition-colors duration-300 selection:bg-[var(--btn-solid-bg)] selection:text-[var(--btn-solid-text)] flex flex-col justify-between">
       {/* 1. Sticky Navigation Header */}
-      <header className="sticky top-0 z-40 w-full bg-[var(--bg-canvas)]/90 backdrop-blur-md border-b border-[var(--border-main)] px-6 sm:px-12 py-4 flex items-center justify-between">
-        <div className="flex items-center space-x-3">
+      <header className="sticky top-0 z-40 w-full bg-[var(--bg-canvas)]/90 backdrop-blur-md border-b border-[var(--border-main)] px-4 sm:px-8 lg:px-12 py-3 sm:py-4 flex items-center justify-between">
+        <div className="flex items-center space-x-2 sm:space-x-3">
           <Link
             href="/"
-            className="flex items-center space-x-1.5 text-[11px] font-medium tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-3 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)]"
+            className="flex items-center space-x-1.5 text-[11px] font-medium tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-2.5 sm:px-3 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)] shrink-0"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>TRANG CHỦ</span>
+            <span className="hidden xs:inline">TRANG CHỦ</span>
           </Link>
 
           <Link
             href="/learn"
-            className="hidden md:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--accent-ember)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-3 rounded-[22.5px] border border-[var(--border-main)]"
+            className="hidden md:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--accent-ember)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-3 rounded-[22.5px] border border-[var(--border-main)] shrink-0"
           >
             <BookOpen className="w-3.5 h-3.5" />
             <span>BẮT ĐẦU HỌC</span>
           </Link>
 
-          <div className="text-[12px] font-mono uppercase tracking-widest text-[var(--text-primary)] font-medium border-l border-[var(--border-main)] pl-4 hidden sm:block">
-            AI SOFTWARE ENGINEER <span className="text-[var(--accent-ember)]">//</span> 26 TUẦN TOÀN DIỆN
+          <div className="text-[12px] font-mono uppercase tracking-widest text-[var(--text-primary)] font-medium border-l border-[var(--border-main)] pl-3 sm:pl-4 hidden sm:block truncate">
+            AUROS <span className="text-[var(--accent-ember)]">//</span> 26 TUẦN TOÀN DIỆN
           </div>
         </div>
 
         {/* Tab Switcher Pills */}
-        <div className="flex items-center bg-[var(--surface-elevated)] border border-[var(--border-main)] rounded-[36px] p-1 text-[11px] font-mono uppercase tracking-wider">
+        <div className="flex items-center bg-[var(--surface-elevated)] border border-[var(--border-main)] rounded-[36px] p-0.5 sm:p-1 text-[10px] sm:text-[11px] font-mono uppercase tracking-wider shrink-0">
           <button
             onClick={() => setActiveTab("overview")}
-            className={`px-4 py-1.5 rounded-[22.5px] transition-all ${
+            className={`px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-[22.5px] transition-all whitespace-nowrap ${
               activeTab === "overview"
                 ? "bg-[var(--btn-solid-bg)] text-[var(--btn-solid-text)] font-medium shadow-sm"
                 : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
             }`}
           >
-            01. THÔNG TIN CHUNG
+            <span className="hidden sm:inline">01. THÔNG TIN CHUNG</span>
+            <span className="sm:hidden">01. TỔNG QUAN</span>
           </button>
           <button
             onClick={() => setActiveTab("details")}
-            className={`px-4 py-1.5 rounded-[22.5px] transition-all ${
+            className={`px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-[22.5px] transition-all whitespace-nowrap ${
               activeTab === "details"
                 ? "bg-[var(--btn-solid-bg)] text-[var(--btn-solid-text)] font-medium shadow-sm"
                 : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
             }`}
           >
-            02. CHI TIẾT 26 TUẦN
+            <span className="hidden sm:inline">02. CHI TIẾT 26 TUẦN</span>
+            <span className="sm:hidden">02. 26 TUẦN</span>
           </button>
         </div>
 
         {/* Right Controls */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] transition-colors"
+            className="p-1.5 sm:p-2 rounded-full border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] transition-colors"
             title="Chuyển chế độ Sáng / Tối"
+            aria-label="Toggle Theme"
           >
             {theme === "dark" ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-stone-700" />}
           </button>
@@ -99,7 +102,7 @@ export default function RoadmapPage() {
       </header>
 
       {/* 2. Main Content Container */}
-      <main className="max-w-6xl mx-auto w-full px-6 sm:px-12 py-10 flex-1">
+      <main className="max-w-6xl mx-auto w-full px-4 sm:px-8 lg:px-12 py-6 sm:py-10 flex-1">
         {/* ======================================================== */}
         {/* TAB 1: THÔNG TIN CHUNG & KHÁI QUÁT LỘ TRÌNH              */}
         {/* ======================================================== */}
@@ -447,7 +450,7 @@ export default function RoadmapPage() {
                     </button>
                   </div>
 
-                  {/* Search Box in Cards Mode */}
+                  {/* Search Box in Cards Mode (Desktop) */}
                   {detailsViewMode === "cards" && (
                     <div className="relative w-44 sm:w-60 hidden sm:block">
                       <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-secondary)]" />
@@ -463,12 +466,26 @@ export default function RoadmapPage() {
                 </div>
               </div>
 
-              {/* Month Filters Pills (Visible in Cards Mode) */}
+              {/* Mobile Search Box */}
               {detailsViewMode === "cards" && (
-                <div className="flex items-center flex-wrap gap-2 pt-2">
+                <div className="relative w-full sm:hidden pt-1">
+                  <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-secondary)]" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Tìm kiếm tuần học, chủ đề, bài tập..."
+                    className="w-full h-[38px] pl-8 pr-3 bg-[var(--surface-card)] border border-[var(--border-main)] rounded-[22.5px] text-[11px] font-mono text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-ember)] transition-colors"
+                  />
+                </div>
+              )}
+
+              {/* Month Filters Pills (Visible in Cards Mode - Horizontal Swipe on Mobile) */}
+              {detailsViewMode === "cards" && (
+                <div className="overflow-x-auto no-scrollbar flex items-center gap-2 pt-2 pb-1 w-full">
                   <button
                     onClick={() => setSelectedMonth("all")}
-                    className={`px-3.5 py-1.5 rounded-[22.5px] text-[11px] font-mono uppercase tracking-wider transition-colors ${
+                    className={`px-3 sm:px-3.5 py-1.5 rounded-[22.5px] text-[10px] sm:text-[11px] font-mono uppercase tracking-wider transition-colors shrink-0 whitespace-nowrap ${
                       selectedMonth === "all"
                         ? "bg-[var(--btn-solid-bg)] text-[var(--btn-solid-text)] border border-[var(--border-main)]"
                         : "border border-[var(--border-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
@@ -481,7 +498,7 @@ export default function RoadmapPage() {
                     <button
                       key={m}
                       onClick={() => setSelectedMonth(m)}
-                      className={`px-3.5 py-1.5 rounded-[22.5px] text-[11px] font-mono uppercase tracking-wider transition-colors ${
+                      className={`px-3 sm:px-3.5 py-1.5 rounded-[22.5px] text-[10px] sm:text-[11px] font-mono uppercase tracking-wider transition-colors shrink-0 whitespace-nowrap ${
                         selectedMonth === m
                           ? "bg-[var(--btn-solid-bg)] text-[var(--btn-solid-text)] border border-[var(--border-main)]"
                           : "border border-[var(--border-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
@@ -493,7 +510,7 @@ export default function RoadmapPage() {
 
                   <button
                     onClick={() => setFilterMilestonesOnly(!filterMilestonesOnly)}
-                    className={`px-3.5 py-1.5 rounded-[22.5px] text-[11px] font-mono uppercase tracking-wider transition-colors flex items-center space-x-1 ${
+                    className={`px-3 sm:px-3.5 py-1.5 rounded-[22.5px] text-[10px] sm:text-[11px] font-mono uppercase tracking-wider transition-colors flex items-center space-x-1 shrink-0 whitespace-nowrap ${
                       filterMilestonesOnly
                         ? "bg-[var(--accent-ember)] text-[#ffedd7]"
                         : "border border-[var(--border-main)] text-[var(--text-secondary)] hover:text-[var(--accent-ember)]"

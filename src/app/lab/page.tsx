@@ -28,19 +28,19 @@ export default function LabWorkspacePage() {
   return (
     <main className="relative min-h-screen w-full bg-[var(--bg-canvas)] text-[var(--text-primary)] overflow-hidden flex flex-col justify-between transition-colors duration-300 selection:bg-[var(--btn-solid-bg)] selection:text-[var(--btn-solid-text)]">
       {/* 1. Fixed Top Navigation */}
-      <header className="fixed top-0 left-0 right-0 z-40 w-full px-6 sm:px-12 py-4 flex items-center justify-between bg-[var(--bg-canvas)]/85 backdrop-blur-md border-b border-[var(--border-main)]">
+      <header className="fixed top-0 left-0 right-0 z-40 w-full px-4 sm:px-8 lg:px-12 py-3 sm:py-4 flex items-center justify-between bg-[var(--bg-canvas)]/85 backdrop-blur-md border-b border-[var(--border-main)]">
         {/* Brand Lockup + Home Link */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3">
           <Link
             href="/"
-            className="flex items-center space-x-1.5 text-[11px] font-medium tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1 px-2.5 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)] mr-1"
+            className="flex items-center space-x-1.5 text-[11px] font-medium tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1 px-2.5 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)] mr-1 shrink-0"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>TRANG CHỦ</span>
+            <span className="hidden xs:inline">TRANG CHỦ</span>
           </Link>
 
-          <Link href="/" className="text-[14px] sm:text-[16px] font-medium tracking-[0.2em] uppercase text-[var(--text-primary)]">
-            ORYZO <span className="text-[var(--accent-ember)] font-normal">//</span> AI LAB
+          <Link href="/" className="text-[13px] sm:text-[16px] font-medium tracking-[0.18em] sm:tracking-[0.2em] uppercase text-[var(--text-primary)] whitespace-nowrap">
+            AUROS <span className="text-[var(--accent-ember)] font-normal">//</span> AI LAB
           </Link>
           <span className="hidden md:inline-block text-[10px] uppercase tracking-widest text-[var(--text-secondary)] border-l border-[var(--border-main)] pl-3 font-mono">
             3D ARCHITECTURE
@@ -70,17 +70,18 @@ export default function LabWorkspacePage() {
         </nav>
 
         {/* Right Controls: Radar Pill & Theme Switcher */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
           <button
             onClick={() => setIsRadarModalOpen(true)}
-            className="flex items-center px-3 py-1.5 rounded-[22.5px] border border-[var(--accent-ember)]/40 bg-[var(--accent-ember)]/10 text-[var(--accent-ember)] text-[10px] font-mono tracking-wider uppercase hover:bg-[var(--accent-ember)]/20 transition-colors"
+            className="flex items-center px-2.5 sm:px-3 py-1.5 rounded-[22.5px] border border-[var(--accent-ember)]/40 bg-[var(--accent-ember)]/10 text-[var(--accent-ember)] text-[10px] font-mono tracking-wider uppercase hover:bg-[var(--accent-ember)]/20 transition-colors whitespace-nowrap"
           >
-            <span>DAILY RADAR</span>
+            <span className="hidden xs:inline">DAILY RADAR</span>
+            <span className="xs:hidden">RADAR</span>
           </button>
 
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] transition-colors"
+            className="p-1.5 sm:p-2 rounded-full border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] transition-colors"
             title="Chuyển chế độ Sáng / Tối"
             aria-label="Toggle Theme"
           >
@@ -90,29 +91,29 @@ export default function LabWorkspacePage() {
       </header>
 
       {/* 2. Hero 3D Void-Mode Workspace Section (The exact screen in user's image) */}
-      <section className="relative w-full min-h-screen pt-24 pb-8 px-6 sm:px-12 flex flex-col justify-between">
+      <section className="relative w-full min-h-screen pt-20 sm:pt-24 pb-8 px-4 sm:px-8 lg:px-12 flex flex-col justify-between">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center flex-1 my-auto">
           {/* Left Column: Heading & Anchor CTA (4 cols) */}
-          <div className="lg:col-span-4 z-20 flex flex-col justify-center space-y-6">
+          <div className="lg:col-span-4 z-20 flex flex-col justify-center space-y-5 sm:space-y-6">
             <div className="flex items-center space-x-2 text-[11px] font-medium tracking-widest uppercase text-[var(--accent-ember)] font-mono">
               <span className="w-2 h-2 rounded-full bg-[var(--accent-ember)]" />
               <span>CHAPTER 01 // SILICON & TENSORS</span>
             </div>
 
-            <h1 className="text-[40px] sm:text-[48px] xl:text-[56px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-[0.92]">
+            <h1 className="text-[32px] sm:text-[44px] xl:text-[56px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-[0.94]">
               HOW SILICON <br />
               LEARNS TO <br />
               THINK.
             </h1>
 
-            <p className="text-[17px] sm:text-[20px] font-normal leading-[1.35] text-[var(--text-secondary)] max-w-md">
+            <p className="text-[15px] sm:text-[18px] xl:text-[20px] font-normal leading-[1.35] text-[var(--text-secondary)] max-w-md">
               Trước khi mô hình AI có thể suy luận, phần cứng bán dẫn phải tính toán hàng tỷ ma trận. Khám phá giải phẫu vi mạch của kỷ nguyên AI.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
               <Link
                 href="/lesson/day-01"
-                className="h-[50px] px-8 rounded-[36px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[12px] font-medium tracking-widest uppercase border border-[var(--border-main)] transition-all duration-200 shadow-xl flex items-center space-x-2.5 group cursor-pointer whitespace-nowrap shrink-0"
+                className="h-[46px] sm:h-[50px] px-6 sm:px-8 rounded-[36px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] sm:text-[12px] font-medium tracking-widest uppercase border border-[var(--border-main)] transition-all duration-200 shadow-xl flex items-center justify-center space-x-2.5 group cursor-pointer whitespace-nowrap shrink-0 text-center"
               >
                 <BookOpen className="w-4 h-4 text-[var(--accent-ember)] shrink-0" />
                 <span>BẮT ĐẦU BÀI HỌC DAY 01</span>
@@ -121,7 +122,7 @@ export default function LabWorkspacePage() {
 
               <button
                 onClick={() => setIsExploded(!isExploded)}
-                className="h-[50px] px-6 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)] bg-transparent text-[var(--text-primary)] text-[11px] font-medium tracking-widest uppercase transition-all duration-200 hover:bg-[var(--surface-card)] whitespace-nowrap shrink-0"
+                className="h-[46px] sm:h-[50px] px-5 sm:px-6 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)] bg-transparent text-[var(--text-primary)] text-[10px] sm:text-[11px] font-medium tracking-widest uppercase transition-all duration-200 hover:bg-[var(--surface-card)] whitespace-nowrap shrink-0 text-center"
               >
                 {isExploded ? "ĐÓNG LỚP LINH KIỆN" : "TÁCH LỚP 3D (EXPLODE)"}
               </button>
@@ -138,17 +139,17 @@ export default function LabWorkspacePage() {
           </div>
 
           {/* Center Column: 3D Product Artifact (5 cols) */}
-          <div className="lg:col-span-5 relative h-[420px] sm:h-[500px] xl:h-[580px] flex items-center justify-center">
+          <div className="lg:col-span-5 relative h-[360px] sm:h-[480px] xl:h-[580px] flex items-center justify-center">
             <ComputeDieScene isExploded={isExploded} quantMode={quantMode} />
 
             {/* Floating 3D Controls Pill */}
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-30 flex items-center bg-[var(--glass-bg)] backdrop-blur-md border border-[var(--border-main)] rounded-[36px] px-3.5 py-1.5 space-x-2 text-[11px] uppercase tracking-wider shadow-lg">
-              <span className="text-[var(--text-secondary)] px-1 font-mono">QUANT:</span>
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-30 flex items-center bg-[var(--glass-bg)] backdrop-blur-md border border-[var(--border-main)] rounded-[36px] px-2.5 sm:px-3.5 py-1 sm:py-1.5 space-x-1 sm:space-x-2 text-[10px] sm:text-[11px] uppercase tracking-wider shadow-lg max-w-[calc(100vw-32px)] overflow-x-auto no-scrollbar">
+              <span className="text-[var(--text-secondary)] px-1 font-mono shrink-0">QUANT:</span>
               {(["FP16", "INT8", "INT4"] as const).map((mode) => (
                 <button
                   key={mode}
                   onClick={() => setQuantMode(mode)}
-                  className={`px-3 py-1 rounded-[22.5px] transition-all font-mono ${
+                  className={`px-2.5 sm:px-3 py-1 rounded-[22.5px] transition-all font-mono shrink-0 ${
                     quantMode === mode
                       ? "bg-[var(--btn-solid-bg)] text-[var(--btn-solid-text)] border border-[var(--border-main)] font-medium"
                       : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
@@ -158,11 +159,11 @@ export default function LabWorkspacePage() {
                 </button>
               ))}
 
-              <div className="w-[1px] h-3 bg-[var(--border-main)] mx-1" />
+              <div className="w-[1px] h-3 bg-[var(--border-main)] mx-1 shrink-0" />
 
               <button
                 onClick={() => setIsExploded(!isExploded)}
-                className="px-2.5 py-1 text-[var(--text-primary)] hover:text-[var(--accent-ember)] flex items-center space-x-1 transition-colors whitespace-nowrap"
+                className="px-2 sm:px-2.5 py-1 text-[var(--text-primary)] hover:text-[var(--accent-ember)] flex items-center space-x-1 transition-colors whitespace-nowrap shrink-0"
                 title="Tách các tầng linh kiện"
               >
                 <Layers className="w-3.5 h-3.5 mr-1 text-[var(--accent-ember)] shrink-0" />

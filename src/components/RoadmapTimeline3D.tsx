@@ -420,10 +420,10 @@ export default function RoadmapTimeline3D({ onSelectMonth }: RoadmapTimeline3DPr
   return (
     <div className="relative w-full rounded-[16px] border border-[var(--border-main)] bg-[var(--surface-card)] overflow-hidden shadow-xl">
       {/* 1. Header Toolbar of the 3D Timeline */}
-      <div className="px-5 py-3.5 border-b border-[var(--border-main)] flex flex-wrap items-center justify-between gap-3 bg-[var(--bg-canvas)]/60 backdrop-blur-md">
-        <div className="flex items-center space-x-2.5 font-mono text-[11px] uppercase tracking-wider text-[var(--accent-ember)]">
-          <span className="w-2 h-2 rounded-full bg-[var(--accent-ember)] animate-pulse" />
-          <span>3D TIMELINE MATRIX // 6 GIAI ĐOẠN PHÁT TRIỂN NĂNG LỰC</span>
+      <div className="px-3.5 sm:px-5 py-3 sm:py-3.5 border-b border-[var(--border-main)] flex flex-wrap items-center justify-between gap-2.5 sm:gap-3 bg-[var(--bg-canvas)]/60 backdrop-blur-md">
+        <div className="flex items-center space-x-2 sm:space-x-2.5 font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-[var(--accent-ember)]">
+          <span className="w-2 h-2 rounded-full bg-[var(--accent-ember)] animate-pulse shrink-0" />
+          <span className="truncate">3D TIMELINE // 6 GIAI ĐOẠN PHÁT TRIỂN</span>
         </div>
 
         {/* Action Controls */}
@@ -468,11 +468,11 @@ export default function RoadmapTimeline3D({ onSelectMonth }: RoadmapTimeline3DPr
       </div>
 
       {/* 2. Three.js Canvas Stage */}
-      <div className="relative w-full h-[360px] sm:h-[440px] cursor-grab active:cursor-grabbing">
+      <div className="relative w-full h-[340px] sm:h-[440px] cursor-grab active:cursor-grabbing">
         <div ref={containerRef} className="w-full h-full" />
 
         {/* Subtle 3D Navigation Hint Pill */}
-        <div className="absolute top-4 left-4 z-20 pointer-events-none px-3 py-1 rounded-[22.5px] bg-[var(--surface-elevated)]/80 backdrop-blur-md border border-[var(--border-main)] text-[10px] font-mono uppercase tracking-wider text-[var(--text-secondary)]">
+        <div className="hidden sm:block absolute top-4 left-4 z-20 pointer-events-none px-3 py-1 rounded-[22.5px] bg-[var(--surface-elevated)]/80 backdrop-blur-md border border-[var(--border-main)] text-[10px] font-mono uppercase tracking-wider text-[var(--text-secondary)]">
           KÉO CHUỘT XOAY 3D • BẤM ĐỂ CHỌN TRẠM THÁNG
         </div>
 

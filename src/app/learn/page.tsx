@@ -107,19 +107,19 @@ export default function LearnLandingPage() {
   return (
     <main className="relative min-h-screen w-full bg-[var(--bg-canvas)] text-[var(--text-primary)] transition-colors duration-300 selection:bg-[var(--btn-solid-bg)] selection:text-[var(--btn-solid-text)] flex flex-col justify-between">
       {/* 1. Sticky Navigation Header */}
-      <header className="sticky top-0 z-50 w-full px-6 sm:px-12 py-4 flex items-center justify-between bg-[var(--bg-canvas)]/85 backdrop-blur-md border-b border-[var(--border-main)]">
+      <header className="sticky top-0 z-50 w-full px-4 sm:px-8 lg:px-12 py-3 sm:py-4 flex items-center justify-between bg-[var(--bg-canvas)]/85 backdrop-blur-md border-b border-[var(--border-main)]">
         {/* Brand Lockup */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3">
           <Link
             href="/"
-            className="flex items-center space-x-1.5 text-[11px] font-medium tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1 px-2.5 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)]"
+            className="flex items-center space-x-1.5 text-[11px] font-medium tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1 px-2.5 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)] shrink-0"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>TRANG CHỦ</span>
+            <span className="hidden xs:inline">TRANG CHỦ</span>
           </Link>
 
-          <Link href="/" className="text-[14px] sm:text-[16px] font-medium tracking-[0.2em] uppercase text-[var(--text-primary)]">
-            ORYZO <span className="text-[var(--accent-ember)] font-normal">//</span> AI LAB
+          <Link href="/" className="text-[13px] sm:text-[16px] font-medium tracking-[0.18em] sm:tracking-[0.2em] uppercase text-[var(--text-primary)] whitespace-nowrap">
+            AUROS <span className="text-[var(--accent-ember)] font-normal">//</span> AI LAB
           </Link>
         </div>
 
@@ -146,7 +146,7 @@ export default function LearnLandingPage() {
         </nav>
 
         {/* Right Controls */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
           {/* Progress Pill */}
           <div className="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-[22.5px] border border-[var(--border-main)] bg-[var(--surface-elevated)] text-[10px] font-mono uppercase tracking-wider text-[var(--text-secondary)]">
             <span>TIẾN ĐỘ:</span>
@@ -158,7 +158,7 @@ export default function LearnLandingPage() {
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] transition-colors"
+            className="p-1.5 sm:p-2 rounded-full border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] transition-colors"
             title="Chuyển chế độ Sáng / Tối"
             aria-label="Toggle Theme"
           >
@@ -168,7 +168,7 @@ export default function LearnLandingPage() {
       </header>
 
       {/* 2. Main Container */}
-      <section className="max-w-6xl mx-auto w-full px-6 sm:px-12 py-10 flex-1 space-y-10">
+      <section className="max-w-6xl mx-auto w-full px-4 sm:px-8 lg:px-12 py-6 sm:py-10 flex-1 space-y-8 sm:space-y-10">
         {/* Hero Section */}
         <div className="space-y-4 border-b border-[var(--border-main)] pb-8">
           <div className="flex items-center space-x-2.5 text-[11px] font-mono tracking-widest uppercase text-[var(--accent-ember)] font-medium">
@@ -238,16 +238,16 @@ export default function LearnLandingPage() {
           </div>
         </div>
 
-        {/* Month Filters Tabs */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between border-b border-[var(--border-main)] pb-3 flex-wrap gap-2">
+        {/* Month Filters Tabs (Horizontal Swipe on Mobile) */}
+        <div className="space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[var(--border-main)] pb-3 gap-2">
             <span className="text-[11px] font-mono uppercase tracking-wider text-[var(--text-secondary)] font-medium">
               LỌC THEO GIAI ĐOẠN HỌC TẬP:
             </span>
-            <div className="flex items-center space-x-1 font-mono text-[11px]">
+            <div className="overflow-x-auto no-scrollbar flex items-center space-x-1.5 font-mono text-[10px] sm:text-[11px] w-full sm:w-auto pb-1 sm:pb-0">
               <button
                 onClick={() => setSelectedMonth("all")}
-                className={`px-3 py-1 rounded-[22.5px] transition-colors ${
+                className={`px-3 py-1.5 rounded-[22.5px] transition-colors shrink-0 whitespace-nowrap ${
                   selectedMonth === "all"
                     ? "bg-[var(--btn-solid-bg)] text-[var(--btn-solid-text)] font-medium"
                     : "border border-[var(--border-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
@@ -259,7 +259,7 @@ export default function LearnLandingPage() {
                 <button
                   key={m}
                   onClick={() => setSelectedMonth(m)}
-                  className={`px-3 py-1 rounded-[22.5px] transition-colors ${
+                  className={`px-3 py-1.5 rounded-[22.5px] transition-colors shrink-0 whitespace-nowrap ${
                     selectedMonth === m
                       ? "bg-[var(--accent-ember)] text-white font-medium"
                       : "border border-[var(--border-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"

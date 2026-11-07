@@ -62,62 +62,67 @@ export default function RadarPage() {
   return (
     <div className="min-h-screen bg-[var(--bg-canvas)] text-[var(--text-primary)] transition-colors duration-300 selection:bg-[var(--btn-solid-bg)] selection:text-[var(--btn-solid-text)] flex flex-col justify-between">
       {/* Top Header */}
-      <header className="sticky top-0 z-40 w-full bg-[var(--bg-canvas)]/90 backdrop-blur-md border-b border-[var(--border-main)] px-6 sm:px-12 py-4 flex items-center justify-between">
-        <div className="flex items-center space-x-4">
+      <header className="sticky top-0 z-40 w-full bg-[var(--bg-canvas)]/90 backdrop-blur-md border-b border-[var(--border-main)] px-4 sm:px-8 lg:px-12 py-3 sm:py-4 flex items-center justify-between">
+        <div className="flex items-center space-x-2 sm:space-x-4">
           <Link
             href="/"
-            className="flex items-center space-x-1.5 text-[11px] font-medium tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-3 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)]"
+            className="flex items-center space-x-1.5 text-[11px] font-medium tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-2.5 sm:px-3 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)] shrink-0"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>TRANG CHỦ</span>
+            <span className="hidden xs:inline">TRANG CHỦ</span>
           </Link>
 
           <Link
             href="/learn"
-            className="hidden sm:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--accent-ember)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-3 rounded-[22.5px] border border-[var(--border-main)]"
+            className="hidden sm:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--accent-ember)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-3 rounded-[22.5px] border border-[var(--border-main)] shrink-0"
           >
             <span>BẮT ĐẦU HỌC</span>
           </Link>
 
           <Link
             href="/roadmap"
-            className="hidden md:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-3 rounded-[22.5px] border border-[var(--border-main)]"
+            className="hidden md:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-3 rounded-[22.5px] border border-[var(--border-main)] shrink-0"
           >
             <span>LỘ TRÌNH 26 TUẦN</span>
           </Link>
 
-          <div className="text-[12px] font-mono uppercase tracking-widest text-[var(--text-primary)] font-medium border-l border-[var(--border-main)] pl-4">
+          <div className="text-[12px] font-mono uppercase tracking-widest text-[var(--text-primary)] font-medium border-l border-[var(--border-main)] pl-3 sm:pl-4 hidden sm:block truncate">
             DAILY AI OBSERVATORY <span className="text-[var(--accent-ember)]">//</span> GITHUB RADAR
           </div>
         </div>
 
         {/* Right Controls */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
           <button
             onClick={() => setIsKeyModalOpen(true)}
-            className={`h-[36px] px-3.5 rounded-[22.5px] border text-[11px] font-mono uppercase tracking-wider transition-colors flex items-center space-x-1.5 ${
+            className={`h-[36px] px-2.5 sm:px-3.5 rounded-[22.5px] border text-[10px] sm:text-[11px] font-mono uppercase tracking-wider transition-colors flex items-center space-x-1.5 shrink-0 ${
               hasApiKey
                 ? "border-emerald-500/40 text-emerald-400 bg-emerald-950/20"
                 : "border-[var(--border-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
             }`}
+            title={hasApiKey ? "OpenAI API Key: Hoạt động" : "Cấu hình OpenAI Key"}
           >
-            <Key className="w-3.5 h-3.5 text-[var(--accent-ember)]" />
-            <span>{hasApiKey ? "OPENAI KEY: ACTIVE ✓" : "CẤU HÌNH KEY (BYOK)"}</span>
+            <Key className="w-3.5 h-3.5 text-[var(--accent-ember)] shrink-0" />
+            <span className="hidden sm:inline">{hasApiKey ? "KEY: ACTIVE ✓" : "CẤU HÌNH KEY (BYOK)"}</span>
+            <span className="sm:hidden">{hasApiKey ? "KEY ✓" : "KEY"}</span>
           </button>
 
           <button
             onClick={handleSyncLive}
             disabled={isSyncing}
-            className="h-[36px] px-4 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-mono uppercase tracking-wider transition-colors flex items-center space-x-2 disabled:opacity-50 shadow-sm"
+            className="h-[36px] px-3 sm:px-4 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[10px] sm:text-[11px] font-mono uppercase tracking-wider transition-colors flex items-center space-x-1.5 sm:space-x-2 disabled:opacity-50 shadow-sm shrink-0"
+            title="Quét lại GitHub Trending"
           >
-            <RefreshCw className={`w-3.5 h-3.5 text-[var(--accent-ember)] ${isSyncing ? "animate-spin" : ""}`} />
-            <span>{isSyncing ? "ĐANG QUÉT GITHUB..." : "QUÉT LẠI BẰNG AI"}</span>
+            <RefreshCw className={`w-3.5 h-3.5 text-[var(--accent-ember)] shrink-0 ${isSyncing ? "animate-spin" : ""}`} />
+            <span className="hidden sm:inline">{isSyncing ? "ĐANG QUÉT GITHUB..." : "QUÉT LẠI BẰNG AI"}</span>
+            <span className="sm:hidden">{isSyncing ? "QUÉT..." : "QUÉT"}</span>
           </button>
 
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] transition-colors"
+            className="p-1.5 sm:p-2 rounded-full border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] transition-colors shrink-0"
             title="Chuyển chế độ Sáng / Tối"
+            aria-label="Toggle Theme"
           >
             {theme === "dark" ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-stone-700" />}
           </button>
@@ -125,7 +130,7 @@ export default function RadarPage() {
       </header>
 
       {/* Main Content Area */}
-      <main className="max-w-6xl mx-auto w-full px-6 sm:px-12 py-10 flex-1">
+      <main className="max-w-6xl mx-auto w-full px-4 sm:px-8 lg:px-12 py-6 sm:py-10 flex-1">
         {isLoading ? (
           <div className="py-24 flex flex-col items-center justify-center space-y-4">
             <RefreshCw className="w-8 h-8 animate-spin text-[var(--accent-ember)]" />

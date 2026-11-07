@@ -104,10 +104,10 @@ function AnimatedNumber({
 
   return (
     <div className="relative flex items-baseline justify-center select-none">
-      <span className="text-[96px] sm:text-[140px] md:text-[180px] font-medium tracking-[-0.05em] text-[var(--accent-phosphor)] leading-none drop-shadow-[0_4px_30px_rgba(0,180,170,0.2)] tabular-nums">
+      <span className="text-[72px] sm:text-[110px] md:text-[150px] lg:text-[180px] font-medium tracking-[-0.05em] text-[var(--accent-phosphor)] leading-none drop-shadow-[0_4px_30px_rgba(0,180,170,0.2)] tabular-nums">
         {count}
       </span>
-      <span className="text-[52px] sm:text-[76px] md:text-[96px] font-medium text-[var(--accent-aqua)] tracking-tight leading-none ml-1">
+      <span className="text-[38px] sm:text-[58px] md:text-[78px] lg:text-[96px] font-medium text-[var(--accent-aqua)] tracking-tight leading-none ml-1">
         {suffix}
       </span>
     </div>
@@ -166,18 +166,18 @@ function StoryChapterItem({
     <div
       id={milestone.id}
       ref={chapterRef}
-      className="relative min-h-[92vh] sm:min-h-screen w-full flex flex-col items-center justify-center px-6 sm:px-12 py-20 border-b border-[var(--border-main)]/50 transition-colors duration-300"
+      className="relative min-h-[92vh] sm:min-h-screen w-full flex flex-col items-center justify-center px-4 sm:px-12 py-16 sm:py-20 border-b border-[var(--border-main)]/50 transition-colors duration-300"
     >
       {/* Center Stage Content */}
       <div
-        className={`relative max-w-4xl mx-auto flex flex-col items-center text-center space-y-6 z-10 transition-all duration-700 ${
+        className={`relative max-w-4xl mx-auto flex flex-col items-center text-center space-y-5 sm:space-y-6 z-10 transition-all duration-700 ${
           inView ? "opacity-100 translate-y-0 scale-100" : "opacity-40 translate-y-8 scale-95"
         }`}
       >
         {/* Chapter Eyebrow Badge */}
-        <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-[6px] bg-[var(--badge-bg)] border border-[var(--badge-border)] shadow-sm">
+        <div className="inline-flex items-center space-x-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-[6px] bg-[var(--badge-bg)] border border-[var(--badge-border)] shadow-sm">
           <span className="w-2 h-2 rounded-full bg-[var(--accent-aqua)] animate-ping" />
-          <span className="text-[11px] sm:text-[12px] font-mono tracking-[0.16em] uppercase text-[var(--text-mist)] font-medium">
+          <span className="text-[10px] sm:text-[12px] font-mono tracking-[0.16em] uppercase text-[var(--text-mist)] font-medium">
             {milestone.chapterTitle}
           </span>
         </div>
@@ -190,25 +190,25 @@ function StoryChapterItem({
         />
 
         {/* Metric Label */}
-        <div className="text-[13px] sm:text-[14px] font-mono uppercase tracking-[0.14em] text-[var(--text-mist)] font-medium">
+        <div className="text-[12px] sm:text-[14px] font-mono uppercase tracking-[0.14em] text-[var(--text-mist)] font-medium px-2">
           {milestone.metricLabel}
         </div>
 
         {/* Headline */}
-        <h2 className="text-[28px] sm:text-[38px] md:text-[44px] font-medium uppercase tracking-[-0.03em] text-[var(--text-primary)] leading-tight max-w-2xl">
+        <h2 className="text-[24px] sm:text-[34px] md:text-[44px] font-medium uppercase tracking-[-0.03em] text-[var(--text-primary)] leading-tight max-w-2xl px-2 sm:px-0">
           {milestone.headline}
         </h2>
 
         {/* Story Text */}
-        <p className="max-w-2xl text-[16px] sm:text-[18px] text-[var(--text-secondary)] leading-[1.55] font-normal">
+        <p className="max-w-2xl text-[15px] sm:text-[17px] md:text-[18px] text-[var(--text-secondary)] leading-[1.55] font-normal px-2 sm:px-0">
           {milestone.story}
         </p>
 
         {/* Feature Pill */}
-        <div className="pt-2">
-          <span className="inline-flex items-center space-x-2 px-4 py-2 rounded-[6px] bg-[var(--surface-card)] border border-[var(--border-main)] text-[12px] font-mono tracking-wider uppercase text-[var(--text-primary)] shadow-sm">
-            <CheckCircle2 className="w-4 h-4 text-[var(--accent-bioluminescent)] shrink-0" />
-            <span>{milestone.highlightTag}</span>
+        <div className="pt-2 px-2">
+          <span className="inline-flex items-center space-x-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-[6px] bg-[var(--surface-card)] border border-[var(--border-main)] text-[11px] sm:text-[12px] font-mono tracking-wider uppercase text-[var(--text-primary)] shadow-sm">
+            <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[var(--accent-bioluminescent)] shrink-0" />
+            <span className="break-words">{milestone.highlightTag}</span>
           </span>
         </div>
 

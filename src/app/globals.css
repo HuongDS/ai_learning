@@ -174,3 +174,12 @@ body {
   background: var(--border-secondary);
   border-radius: 3px;
 }
+
+/* Hide scrollbar for clean horizontal swipe on mobile */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

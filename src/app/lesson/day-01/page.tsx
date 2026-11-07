@@ -63,53 +63,56 @@ export default function DayOneLessonPage() {
   return (
     <div className="min-h-screen bg-[var(--bg-canvas)] text-[var(--text-primary)] transition-colors duration-300 selection:bg-[var(--btn-solid-bg)] selection:text-[var(--btn-solid-text)]">
       {/* Sticky Top Reading Bar */}
-      <header className="sticky top-0 z-40 w-full bg-[var(--bg-canvas)]/90 backdrop-blur-md border-b border-[var(--border-main)] px-6 sm:px-12 py-3.5 flex items-center justify-between">
-        <div className="flex items-center space-x-3">
+      <header className="sticky top-0 z-40 w-full bg-[var(--bg-canvas)]/90 backdrop-blur-md border-b border-[var(--border-main)] px-4 sm:px-8 lg:px-12 py-3 sm:py-3.5 flex items-center justify-between">
+        <div className="flex items-center space-x-2 sm:space-x-3">
           <Link
             href="/lab"
-            className="flex items-center space-x-1.5 text-[11px] font-medium tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1 px-2.5 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)]"
+            className="flex items-center space-x-1.5 text-[11px] font-medium tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1 px-2 sm:px-2.5 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)] shrink-0"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>PHÒNG LAB 3D</span>
+            <span className="hidden xs:inline">PHÒNG LAB 3D</span>
+            <span className="xs:hidden">LAB 3D</span>
           </Link>
 
           <Link
             href="/"
-            className="hidden sm:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1 px-2.5 rounded-[22.5px] border border-[var(--border-main)]"
+            className="hidden sm:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1 px-2.5 rounded-[22.5px] border border-[var(--border-main)] shrink-0"
           >
             <span>TRANG CHỦ</span>
           </Link>
 
           <Link
             href="/learn"
-            className="flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--accent-ember)] hover:text-[var(--text-primary)] transition-colors py-1 px-2.5 rounded-[22.5px] border border-[var(--border-main)]"
+            className="flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--accent-ember)] hover:text-[var(--text-primary)] transition-colors py-1 px-2 sm:px-2.5 rounded-[22.5px] border border-[var(--border-main)] shrink-0"
           >
-            <span>HUB BÀI HỌC</span>
+            <span className="hidden xs:inline">HUB BÀI HỌC</span>
+            <span className="xs:hidden">BÀI HỌC</span>
           </Link>
 
           <Link
             href="/roadmap"
-            className="hidden md:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--accent-ember)] transition-colors py-1 px-2.5 rounded-[22.5px] border border-[var(--border-main)]"
+            className="hidden md:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--accent-ember)] transition-colors py-1 px-2.5 rounded-[22.5px] border border-[var(--border-main)] shrink-0"
           >
             <span>LỘ TRÌNH 26 TUẦN</span>
           </Link>
 
-          <div className="hidden lg:block text-[11px] font-mono uppercase tracking-widest text-[var(--text-secondary)] border-l border-[var(--border-main)] pl-4">
+          <div className="hidden lg:block text-[11px] font-mono uppercase tracking-widest text-[var(--text-secondary)] border-l border-[var(--border-main)] pl-4 truncate">
             DAY 01 // SILICON & TENSORS
           </div>
         </div>
 
         {/* Progress & Theme Toggle */}
-        <div className="flex items-center space-x-4">
-          <div className="hidden md:flex items-center space-x-2 text-[11px] font-mono text-[var(--text-secondary)]">
-            <span>TIẾN ĐỘ ĐỌC:</span>
+        <div className="flex items-center space-x-3 sm:space-x-4 shrink-0">
+          <div className="hidden sm:flex items-center space-x-2 text-[11px] font-mono text-[var(--text-secondary)]">
+            <span>TIẾN ĐỘ:</span>
             <span className="text-[var(--text-primary)] font-medium">{Math.round(scrollProgress)}%</span>
           </div>
 
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] transition-colors"
+            className="p-1.5 sm:p-2 rounded-full border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] transition-colors shrink-0"
             title="Chuyển chế độ Sáng / Tối"
+            aria-label="Toggle Theme"
           >
             {theme === "dark" ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-stone-700" />}
           </button>
@@ -123,7 +126,7 @@ export default function DayOneLessonPage() {
       </header>
 
       {/* Main Reading Container */}
-      <main className="max-w-3xl mx-auto px-6 sm:px-8 py-12 space-y-12">
+      <main className="max-w-3xl mx-auto px-4 sm:px-8 py-8 sm:py-12 space-y-10 sm:space-y-12">
         {/* Header Section */}
         <section className="space-y-4 border-b border-[var(--border-main)] pb-8">
           <div className="flex items-center space-x-2 text-[11px] font-medium tracking-[0.2em] uppercase text-[var(--accent-ember)] font-mono">
@@ -131,7 +134,7 @@ export default function DayOneLessonPage() {
             <span>GIÁO TRÌNH NỀN TẢNG — DAY 01 / 75</span>
           </div>
 
-          <h1 className="text-[34px] sm:text-[44px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-[1.05]">
+          <h1 className="text-[26px] sm:text-[38px] md:text-[44px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-[1.08] sm:leading-[1.05]">
             TẠI SAO SILICON VÀ TENSOR QUYẾT ĐỊNH TƯ DUY CỦA AI?
           </h1>
 

@@ -660,7 +660,7 @@ export default function ObsidianGraphView({
         />
 
         {/* Floating Instruction Pill */}
-        <div className="absolute bottom-4 left-4 z-10 pointer-events-none px-3 py-1.5 rounded-[22.5px] bg-[var(--surface-elevated)]/85 backdrop-blur-md border border-[var(--border-main)] text-[10px] font-mono uppercase tracking-wider text-[var(--text-secondary)] flex items-center space-x-2">
+        <div className="hidden sm:flex absolute bottom-4 left-4 z-10 pointer-events-none px-3 py-1.5 rounded-[22.5px] bg-[var(--surface-elevated)]/85 backdrop-blur-md border border-[var(--border-main)] text-[10px] font-mono uppercase tracking-wider text-[var(--text-secondary)] items-center space-x-2">
           <Sparkles className="w-3 h-3 text-[var(--accent-ember)]" />
           <span>KÉO THẢ NODE • CUỘN ĐỂ PHÓNG TO • BẤM ĐỂ XEM CHI TIẾT</span>
         </div>
@@ -689,7 +689,7 @@ export default function ObsidianGraphView({
 
         {/* 3. Floating Detail Inspector Card (When Node is Clicked) */}
         {selectedNode && (
-          <div className="absolute bottom-4 right-4 z-30 w-full max-w-sm sm:max-w-md p-5 rounded-[14px] bg-[var(--surface-card)]/95 backdrop-blur-lg border border-[var(--accent-ember)]/60 shadow-2xl space-y-3.5 animate-in fade-in slide-in-from-bottom-4 duration-200">
+          <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-auto right-2 sm:right-4 z-30 max-w-none sm:max-w-md p-4 sm:p-5 rounded-[14px] bg-[var(--surface-card)]/95 backdrop-blur-lg border border-[var(--accent-ember)]/60 shadow-2xl space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-200">
             <div className="flex items-start justify-between border-b border-[var(--border-main)] pb-2.5">
               <div>
                 <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--accent-ember)] font-medium">
