@@ -81,15 +81,17 @@ export default function GlobalStoryNav() {
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      // 1. Mark as actively scrolling
-      setIsScrolling(true);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
+    const handleScroll = (isRealUserScroll = false) => {
+      // 1. Only mark as actively scrolling when triggered by an actual scroll event
+      if (isRealUserScroll) {
+        setIsScrolling(true);
+        if (scrollTimeoutRef.current) {
+          clearTimeout(scrollTimeoutRef.current);
+        }
+        scrollTimeoutRef.current = setTimeout(() => {
+          setIsScrolling(false);
+        }, 1500);
       }
-      scrollTimeoutRef.current = setTimeout(() => {
-        setIsScrolling(false);
-      }, 1600);
 
       // 2. Find the chapter currently closest to center screen
       const viewportCenter = window.innerHeight * 0.45;
@@ -116,11 +118,14 @@ export default function GlobalStoryNav() {
       setActiveChapterId(currentClosest);
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+    const onScrollListener = () => handleScroll(true);
+
+    window.addEventListener("scroll", onScrollListener, { passive: true });
+    // Initial mount check (F5) with isRealUserScroll = false so it starts collapsed
+    handleScroll(false);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", onScrollListener);
       if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
     };
   }, []);
@@ -158,10 +163,10 @@ export default function GlobalStoryNav() {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         aria-label="Story Chapter Navigation"
-        className={`hidden lg:flex fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 flex-col space-y-1.5 z-40 select-none transition-all duration-300 ease-out ${
+        className={`hidden lg:flex fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 flex-col space-y-1 z-40 select-none transition-all duration-300 ease-out ${
           isExpanded
-            ? "py-3.5 px-3 rounded-[14px] bg-[var(--surface-card)]/90 backdrop-blur-md border border-[var(--border-main)] shadow-xl"
-            : "py-3 px-1.5 rounded-full bg-transparent border-transparent"
+            ? "py-3.5 px-3 rounded-[16px] bg-[var(--surface-card)]/95 backdrop-blur-md border border-[var(--border-main)] shadow-2xl"
+            : "py-3 px-1 rounded-full bg-transparent border-transparent"
         }`}
       >
         {STORY_CHAPTERS.map((chapter) => {
@@ -171,36 +176,36 @@ export default function GlobalStoryNav() {
             <button
               key={chapter.id}
               onClick={() => scrollToChapter(chapter.id)}
-              className="relative flex items-center text-left cursor-pointer group focus:outline-none py-0.5"
+              className="relative flex items-center text-left cursor-pointer group focus:outline-none py-1 px-1 rounded-[8px] hover:bg-[var(--surface-hover)]/60 transition-colors"
               aria-label={`Jump to ${chapter.number}: ${chapter.fullTitle}`}
             >
-              {/* Dot & Halo Ring Indicator (Always visible) */}
-              <div className="relative flex items-center justify-center w-7 h-7 shrink-0">
+              {/* Dot & Halo Ring Indicator (Always visible, perfectly centered) */}
+              <div className="relative flex items-center justify-center w-6 h-6 shrink-0">
                 {isActive && (
                   <span className="absolute inset-0 rounded-full bg-[var(--accent-aqua)]/25 animate-pulse" />
                 )}
                 <div
                   className={`rounded-full transition-all duration-300 ${
                     isActive
-                      ? "w-3 h-3 bg-[var(--accent-aqua)] ring-4 ring-[var(--accent-bioluminescent)]/30 scale-110 shadow-[0_0_12px_rgba(0,180,170,0.5)]"
-                      : "w-2 h-2 bg-[var(--border-main)] group-hover:bg-[var(--accent-aqua)] group-hover:scale-125 opacity-40 group-hover:opacity-100"
+                      ? "w-2.5 h-2.5 bg-[var(--accent-aqua)] ring-4 ring-[var(--accent-bioluminescent)]/30 shadow-[0_0_12px_rgba(0,180,170,0.5)]"
+                      : "w-2 h-2 bg-[var(--border-main)] group-hover:bg-[var(--accent-aqua)] opacity-40 group-hover:opacity-100"
                   }`}
                 />
               </div>
 
-              {/* Text Label: Collapsed to width 0 normally, smoothly slides out on hover or scroll */}
+              {/* Text Label: Collapsed to width 0 normally, smoothly slides out on hover or scroll without clipping */}
               <div
                 className={`overflow-hidden transition-all duration-300 ease-out flex items-center ${
                   isExpanded
-                    ? "max-w-[170px] opacity-100 translate-x-0 ml-2"
-                    : "max-w-0 opacity-0 -translate-x-2 pointer-events-none"
+                    ? "max-w-[200px] opacity-100 translate-x-0 ml-3"
+                    : "max-w-0 opacity-0 -translate-x-2 pointer-events-none ml-0"
                 }`}
               >
                 <span
                   className={`text-[11px] font-mono uppercase tracking-wider whitespace-nowrap transition-colors duration-200 ${
                     isActive
-                      ? "text-[var(--text-primary)] font-semibold scale-105"
-                      : "text-[var(--text-secondary)] opacity-50 group-hover:opacity-90"
+                      ? "text-[var(--text-primary)] font-bold"
+                      : "text-[var(--text-secondary)] opacity-60 group-hover:opacity-100 font-medium"
                   }`}
                 >
                   {chapter.number} // {chapter.shortLabel}
