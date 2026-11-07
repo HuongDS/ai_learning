@@ -163,7 +163,7 @@ async def status_command(ctx):
 
 @bot.command(name="model")
 async def model_command(ctx, new_model: str = None):
-    """Xem hoặc đổi mô hình GPT đang sử dụng (gpt-4o, gpt-4o-mini, gpt-4.1)"""
+    """Xem hoặc đổi mô hình GPT đang sử dụng (gpt-6.1-sol, gpt-4o, gpt-4o-mini, gpt-4.1)"""
     global CURRENT_MODEL
     if not await check_auth_and_warn(ctx.send, ctx.author.id, ctx.author.name):
         return
@@ -177,6 +177,7 @@ async def model_command(ctx, new_model: str = None):
         embed.add_field(
             name="Các model khuyên dùng",
             value=(
+                "• `gpt-6.1-sol`: Mô hình cao cấp thế hệ mới, hỗ trợ max_completion_tokens\n"
                 "• `gpt-4o`: Cân bằng tốt nhất, suy luận logic cao, phân tích code chuẩn\n"
                 "• `gpt-4o-mini`: Siêu nhanh, phản hồi tức thì, tiết kiệm chi phí tối đa\n"
                 "• `gpt-4.1`: Phiên bản thế hệ mới nhất cho lập trình và context lớn"
@@ -310,9 +311,9 @@ async def on_message(message: discord.Message):
 
     async with message.channel.typing():
         try:
-            response = openai_client.chat.completions.create(
-                model=CURRENT_MODEL,
-                messages=[
+            call_params = {
+                "model": CURRENT_MODEL,
+                "messages": [
                     {
                         "role": "system",
                         "content": (
@@ -323,9 +324,19 @@ async def on_message(message: discord.Message):
                     },
                     {"role": "user", "content": message.content},
                 ],
-                temperature=0.7,
-                max_tokens=1500,
-            )
+                "max_completion_tokens": 1500,
+            }
+
+            try:
+                response = openai_client.chat.completions.create(
+                    temperature=0.7,
+                    **call_params,
+                )
+            except Exception as temp_err:
+                if "temperature" in str(temp_err).lower():
+                    response = openai_client.chat.completions.create(**call_params)
+                else:
+                    raise temp_err
 
             reply_text = response.choices[0].message.content
 

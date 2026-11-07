@@ -162,10 +162,10 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     try:
-        # Gọi GPT-4o để phân tích và trả lời
-        response = openai_client.chat.completions.create(
-            model="gpt-4o",
-            messages=[
+        # Gọi AI Agent để phân tích và trả lời
+        call_params = {
+            "model": "gpt-4o",
+            "messages": [
                 {
                     "role": "system",
                     "content": (
@@ -176,9 +176,18 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 },
                 {"role": "user", "content": user_prompt},
             ],
-            temperature=0.7,
-            max_tokens=1500,
-        )
+            "max_completion_tokens": 1500,
+        }
+        try:
+            response = openai_client.chat.completions.create(
+                temperature=0.7,
+                **call_params,
+            )
+        except Exception as temp_err:
+            if "temperature" in str(temp_err).lower():
+                response = openai_client.chat.completions.create(**call_params)
+            else:
+                raise temp_err
 
         reply_text = response.choices[0].message.content
         await status_msg.edit_text(reply_text)

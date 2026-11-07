@@ -49,7 +49,7 @@ export default function WelcomePage() {
   };
 
   return (
-    <main className="relative min-h-screen w-full bg-[var(--bg-canvas)] text-[var(--text-primary)] transition-colors duration-300 selection:bg-[var(--surface-card)] selection:text-[var(--accent-aqua)] flex flex-col justify-between overflow-x-hidden">
+    <main className="relative min-h-screen w-full bg-[var(--bg-canvas)] text-[var(--text-primary)] transition-colors duration-300 selection:bg-[var(--surface-card)] selection:text-[var(--accent-aqua)] flex flex-col justify-between overflow-x-clip">
       {/* 1. Transparent Navigation Bar (Auros Style) */}
       <header className="fixed top-0 left-0 right-0 z-50 w-full px-6 sm:px-12 py-5 flex items-center justify-between bg-[var(--header-bg)] backdrop-blur-md border-b border-[var(--border-main)] transition-colors duration-300">
         {/* Brand Lockup */}
@@ -229,7 +229,7 @@ export default function WelcomePage() {
       <StoryStatsSection />
 
       {/* 3. Explore Feature Chapters: 4 Pillars of AI Systems Mastery */}
-      <section className="relative w-full py-28 px-6 sm:px-12 border-b border-[var(--border-main)] bg-[var(--bg-canvas)] transition-colors duration-300">
+      <section id="story-pillars-section" className="relative w-full py-28 px-6 sm:px-12 border-b border-[var(--border-main)] bg-[var(--bg-canvas)] transition-colors duration-300">
         <div className="max-w-7xl mx-auto space-y-16">
           {/* Story Chapter Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-[var(--border-main)] pb-8">
