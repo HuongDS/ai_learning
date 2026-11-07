@@ -29,21 +29,35 @@
 }
 
 :root {
-  /* Crisp White Learning Palette (Inspired by Coursera & Duolingo: Fresh, Focused, High-Clarity) */
-  --bg-canvas: #f8fafc;
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --surface-card: #ffffff;
-  --surface-elevated: #f1f5f9;
-  --border-main: #e2e8f0;
-  --border-secondary: #cbd5e1;
-  --btn-solid-bg: #0056d2;
-  --btn-solid-hover: #00419e;
+  /* Default: Auros Abyssal Dark Mode (DESIGN_02.md) */
+  --bg-canvas: #012624;
+  --bg-recessed: #011d1c;
+  --surface-card: #003734;
+  --surface-hover: #004541;
+  --surface-elevated: #011d1c;
+  --border-main: rgba(0, 130, 124, 0.4);
+  --border-subtle: rgba(203, 255, 252, 0.12);
+  --border-secondary: #004541;
+  --text-primary: #ffffff;
+  --text-secondary: #bbc7c6;
+  --text-mist: #edfffe;
+  --accent-phosphor: #fde9ff;
+  --accent-bioluminescent: #00827c;
+  --accent-aqua: #cbfffc;
+  --accent-ember: #00b4aa;
+  --btn-solid-bg: #003734;
+  --btn-solid-hover: #004a46;
   --btn-solid-text: #ffffff;
-  --accent-ember: #0056d2;
-  --accent-highlight: #ff9600;
-  --accent-success: #16a34a;
-  --glass-bg: rgba(255, 255, 255, 0.92);
+  --btn-aurora-bg: linear-gradient(90deg, #cbfffc 0%, #edfffe 26%, #fffdfa 48%, #fad1ff 89%);
+  --btn-aurora-text: #012624;
+  --btn-surface-bg: #003734;
+  --btn-surface-hover: #004a46;
+  --btn-surface-text: #ffffff;
+  --badge-bg: rgba(0, 55, 52, 0.6);
+  --badge-border: #003734;
+  --icon-btn-bg: rgba(1, 38, 36, 0.7);
+  --icon-btn-hover: #012624;
+  --header-bg: rgba(1, 38, 36, 0.88);
 
   /* Typography Scale */
   --text-subheading: 18px;
@@ -59,39 +73,67 @@
 }
 
 html.dark {
-  /* Modern High-Contrast Dark Focus Mode (Deep Slate, Clean Obsidian & Cobalt) */
-  --bg-canvas: #090d16;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --surface-card: #0f172a;
-  --surface-elevated: #1e293b;
-  --border-main: #1e293b;
-  --border-secondary: #334155;
-  --btn-solid-bg: #2563eb;
-  --btn-solid-hover: #1d4ed8;
+  /* Auros Abyssal Dark Mode (Deep Ocean Terminal) */
+  --bg-canvas: #012624;
+  --bg-recessed: #011d1c;
+  --surface-card: #003734;
+  --surface-hover: #004541;
+  --surface-elevated: #011d1c;
+  --border-main: rgba(0, 130, 124, 0.4);
+  --border-subtle: rgba(203, 255, 252, 0.12);
+  --border-secondary: #004541;
+  --text-primary: #ffffff;
+  --text-secondary: #bbc7c6;
+  --text-mist: #edfffe;
+  --accent-phosphor: #fde9ff;
+  --accent-bioluminescent: #00827c;
+  --accent-aqua: #cbfffc;
+  --accent-ember: #00b4aa;
+  --btn-solid-bg: #003734;
+  --btn-solid-hover: #004a46;
   --btn-solid-text: #ffffff;
-  --accent-ember: #38bdf8;
-  --accent-highlight: #fb923c;
-  --accent-success: #22c55e;
-  --glass-bg: rgba(15, 23, 42, 0.9);
+  --btn-aurora-bg: linear-gradient(90deg, #cbfffc 0%, #edfffe 26%, #fffdfa 48%, #fad1ff 89%);
+  --btn-aurora-text: #012624;
+  --btn-surface-bg: #003734;
+  --btn-surface-hover: #004a46;
+  --btn-surface-text: #ffffff;
+  --badge-bg: rgba(0, 55, 52, 0.6);
+  --badge-border: #003734;
+  --icon-btn-bg: rgba(1, 38, 36, 0.7);
+  --icon-btn-hover: #012624;
+  --header-bg: rgba(1, 38, 36, 0.88);
 }
 
 html.light {
-  /* Crisp White Learning Palette (Pure White / Coursera & Duolingo Clean) */
-  --bg-canvas: #f8fafc;
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
+  /* Auros Glacial Aqua Light Mode (Pristine, High Clarity, Refreshing Oceanic) */
+  --bg-canvas: #f2f8f7;
+  --bg-recessed: #e4f0ee;
   --surface-card: #ffffff;
-  --surface-elevated: #f1f5f9;
-  --border-main: #e2e8f0;
-  --border-secondary: #cbd5e1;
-  --btn-solid-bg: #0056d2;
-  --btn-solid-hover: #00419e;
+  --surface-hover: #f7fbfa;
+  --surface-elevated: #e4f0ee;
+  --border-main: #c9e4e1;
+  --border-subtle: #dbeeed;
+  --border-secondary: #b5ded9;
+  --text-primary: #012624;
+  --text-secondary: #2c514f;
+  --text-mist: #006660;
+  --accent-phosphor: #025954;
+  --accent-bioluminescent: #00827c;
+  --accent-aqua: #0284c7;
+  --accent-ember: #00827c;
+  --btn-solid-bg: #00827c;
+  --btn-solid-hover: #006660;
   --btn-solid-text: #ffffff;
-  --accent-ember: #0056d2;
-  --accent-highlight: #ff9600;
-  --accent-success: #16a34a;
-  --glass-bg: rgba(255, 255, 255, 0.92);
+  --btn-aurora-bg: linear-gradient(90deg, #00827c 0%, #00a89f 50%, #7e22ce 100%);
+  --btn-aurora-text: #ffffff;
+  --btn-surface-bg: #ffffff;
+  --btn-surface-hover: #f0f7f6;
+  --btn-surface-text: #012624;
+  --badge-bg: #e4f2f0;
+  --badge-border: #c9e4e1;
+  --icon-btn-bg: #e4f2f0;
+  --icon-btn-hover: #d2ebe7;
+  --header-bg: rgba(242, 248, 247, 0.88);
 }
 
 body {

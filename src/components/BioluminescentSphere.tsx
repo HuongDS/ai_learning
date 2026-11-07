@@ -3,7 +3,15 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-export default function BioluminescentSphere({ className = "" }: { className?: string }) {
+interface BioluminescentSphereProps {
+  className?: string;
+  theme?: "dark" | "light";
+}
+
+export default function BioluminescentSphere({
+  className = "",
+  theme = "dark",
+}: BioluminescentSphereProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -33,15 +41,13 @@ export default function BioluminescentSphere({ className = "" }: { className?: s
     const colors = new Float32Array(particleCount * 3);
     const originalPositions = new Float32Array(particleCount * 3);
 
-    // Color definitions according to DESIGN_02.md tokens:
-    // Teal-Cyan: rgb(0, 180, 170)
-    // Pale Aqua: rgb(203, 255, 252)
-    // White: rgb(255, 255, 255)
-    // Lavender Phosphor: rgb(253, 233, 255) / rgb(250, 209, 255)
-    const colorTeal = new THREE.Color(0x00b4aa);
-    const colorAqua = new THREE.Color(0xcbfffc);
-    const colorWhite = new THREE.Color(0xffffff);
-    const colorLavender = new THREE.Color(0xfad1ff);
+    const isLight = theme === "light";
+
+    // Palette according to Theme
+    const colorTeal = isLight ? new THREE.Color(0x00827c) : new THREE.Color(0x00b4aa);
+    const colorAqua = isLight ? new THREE.Color(0x0284c7) : new THREE.Color(0xcbfffc);
+    const colorWhite = isLight ? new THREE.Color(0x0f766e) : new THREE.Color(0xffffff);
+    const colorLavender = isLight ? new THREE.Color(0x9333ea) : new THREE.Color(0xfad1ff);
 
     for (let i = 0; i < particleCount; i++) {
       // Golden Spiral distribution on sphere surface + minor radial jitter
@@ -61,7 +67,6 @@ export default function BioluminescentSphere({ className = "" }: { className?: s
       originalPositions[i * 3 + 1] = y;
       originalPositions[i * 3 + 2] = z;
 
-      // Color interpolation: mostly cyan/aqua, some white, lavender-pink near poles or accents
       let particleColor = new THREE.Color();
       const rand = Math.random();
       if (rand < 0.5) {
@@ -87,29 +92,36 @@ export default function BioluminescentSphere({ className = "" }: { className?: s
     const ctx = canvas.getContext("2d");
     if (ctx) {
       const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 30);
-      grad.addColorStop(0, "rgba(255,255,255,1)");
-      grad.addColorStop(0.3, "rgba(203,255,252,0.85)");
-      grad.addColorStop(0.7, "rgba(0,180,170,0.4)");
-      grad.addColorStop(1, "rgba(0,0,0,0)");
+      if (isLight) {
+        grad.addColorStop(0, "rgba(0,130,124,1)");
+        grad.addColorStop(0.35, "rgba(2,132,199,0.85)");
+        grad.addColorStop(0.7, "rgba(15,118,110,0.45)");
+        grad.addColorStop(1, "rgba(0,0,0,0)");
+      } else {
+        grad.addColorStop(0, "rgba(255,255,255,1)");
+        grad.addColorStop(0.3, "rgba(203,255,252,0.85)");
+        grad.addColorStop(0.7, "rgba(0,180,170,0.4)");
+        grad.addColorStop(1, "rgba(0,0,0,0)");
+      }
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, 64, 64);
     }
     const texture = new THREE.CanvasTexture(canvas);
 
     const material = new THREE.PointsMaterial({
-      size: 3.2,
+      size: isLight ? 3.6 : 3.2,
       map: texture,
       vertexColors: true,
       transparent: true,
-      opacity: 0.9,
-      blending: THREE.AdditiveBlending,
+      opacity: isLight ? 0.85 : 0.9,
+      blending: isLight ? THREE.NormalBlending : THREE.AdditiveBlending,
       depthWrite: false,
     });
 
     const particleSystem = new THREE.Points(geometry, material);
     scene.add(particleSystem);
 
-    // Secondary subtle outer ring for orbital depth
+    // Orbital ring
     const ringCount = 360;
     const ringGeo = new THREE.BufferGeometry();
     const ringPos = new Float32Array(ringCount * 3);
@@ -123,10 +135,10 @@ export default function BioluminescentSphere({ className = "" }: { className?: s
     ringGeo.setAttribute("position", new THREE.BufferAttribute(ringPos, 3));
     const ringMat = new THREE.PointsMaterial({
       size: 1.8,
-      color: 0xedfffe,
+      color: isLight ? 0x0f766e : 0xedfffe,
       transparent: true,
-      opacity: 0.35,
-      blending: THREE.AdditiveBlending,
+      opacity: isLight ? 0.4 : 0.35,
+      blending: isLight ? THREE.NormalBlending : THREE.AdditiveBlending,
     });
     const ringSystem = new THREE.Points(ringGeo, ringMat);
     ringSystem.rotation.x = Math.PI / 4;
@@ -148,7 +160,6 @@ export default function BioluminescentSphere({ className = "" }: { className?: s
 
     window.addEventListener("mousemove", handleMouseMove);
 
-    // Resize handler
     const handleResize = () => {
       if (!container) return;
       const width = container.clientWidth;
@@ -160,7 +171,6 @@ export default function BioluminescentSphere({ className = "" }: { className?: s
 
     window.addEventListener("resize", handleResize);
 
-    // Animation Loop
     let animationFrameId: number;
     let clock = new THREE.Clock();
 
@@ -168,7 +178,6 @@ export default function BioluminescentSphere({ className = "" }: { className?: s
       animationFrameId = requestAnimationFrame(animate);
       const elapsedTime = clock.getElapsedTime();
 
-      // Smooth lag rotation towards mouse
       mouseX += (targetX - mouseX) * 0.05;
       mouseY += (targetY - mouseY) * 0.05;
 
@@ -178,7 +187,6 @@ export default function BioluminescentSphere({ className = "" }: { className?: s
       ringSystem.rotation.z = -elapsedTime * 0.06;
       ringSystem.rotation.y = elapsedTime * 0.04;
 
-      // Subtle pulse on particles
       const posAttr = geometry.attributes.position as THREE.BufferAttribute;
       const arr = posAttr.array as Float32Array;
       for (let i = 0; i < particleCount; i += 4) {
@@ -207,7 +215,7 @@ export default function BioluminescentSphere({ className = "" }: { className?: s
       ringMat.dispose();
       renderer.dispose();
     };
-  }, []);
+  }, [theme]);
 
   return (
     <div
