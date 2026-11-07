@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { ChevronDown, ChevronUp, Compass } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 export interface StoryChapter {
   id: string;
@@ -76,10 +76,22 @@ export const STORY_CHAPTERS: StoryChapter[] = [
 export default function GlobalStoryNav() {
   const [activeChapterId, setActiveChapterId] = useState<string>("chapter-hero");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [isScrolling, setIsScrolling] = useState<boolean>(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Find the chapter currently closest to center screen
+      // 1. Mark as actively scrolling
+      setIsScrolling(true);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+      scrollTimeoutRef.current = setTimeout(() => {
+        setIsScrolling(false);
+      }, 1600);
+
+      // 2. Find the chapter currently closest to center screen
       const viewportCenter = window.innerHeight * 0.45;
       let currentClosest = STORY_CHAPTERS[0].id;
       let minDistance = Infinity;
@@ -88,7 +100,6 @@ export default function GlobalStoryNav() {
         const el = document.getElementById(chapter.id);
         if (el) {
           const rect = el.getBoundingClientRect();
-          // Check if top is around center or element covers center
           const elementCenter = rect.top + rect.height / 2;
           const dist = Math.abs(elementCenter - viewportCenter);
           if (rect.top <= viewportCenter && rect.bottom >= viewportCenter) {
@@ -108,7 +119,10 @@ export default function GlobalStoryNav() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
   }, []);
 
   const scrollToChapter = (id: string) => {
@@ -134,12 +148,21 @@ export default function GlobalStoryNav() {
     }
   };
 
+  // Expanded state: Show labels when hovered OR when actively scrolling
+  const isExpanded = isHovered || isScrolling;
+
   return (
     <>
-      {/* Desktop Floating Story Navigator (Fixed on Right) */}
+      {/* Desktop Floating Story Navigator (Collapsible Dot-Only on Idle) */}
       <aside
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         aria-label="Story Chapter Navigation"
-        className="hidden lg:flex fixed right-6 sm:right-10 top-1/2 -translate-y-1/2 flex-col space-y-3.5 z-40 select-none py-4 px-3 rounded-[12px] bg-[var(--bg-canvas)]/40 backdrop-blur-md border border-[var(--border-main)]/40 shadow-sm"
+        className={`hidden lg:flex fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 flex-col space-y-1.5 z-40 select-none transition-all duration-300 ease-out ${
+          isExpanded
+            ? "py-3.5 px-3 rounded-[14px] bg-[var(--surface-card)]/90 backdrop-blur-md border border-[var(--border-main)] shadow-xl"
+            : "py-3 px-1.5 rounded-full bg-transparent border-transparent"
+        }`}
       >
         {STORY_CHAPTERS.map((chapter) => {
           const isActive = chapter.id === activeChapterId;
@@ -148,39 +171,49 @@ export default function GlobalStoryNav() {
             <button
               key={chapter.id}
               onClick={() => scrollToChapter(chapter.id)}
-              className="relative flex items-center space-x-3 text-left cursor-pointer group focus:outline-none"
+              className="relative flex items-center text-left cursor-pointer group focus:outline-none py-0.5"
               aria-label={`Jump to ${chapter.number}: ${chapter.fullTitle}`}
             >
-              {/* Active / Inactive Ring and Dot Indicator */}
+              {/* Dot & Halo Ring Indicator (Always visible) */}
               <div className="relative flex items-center justify-center w-7 h-7 shrink-0">
                 {isActive && (
-                  <span className="absolute inset-0 rounded-full bg-[var(--accent-aqua)]/20 animate-pulse" />
+                  <span className="absolute inset-0 rounded-full bg-[var(--accent-aqua)]/25 animate-pulse" />
                 )}
                 <div
                   className={`rounded-full transition-all duration-300 ${
                     isActive
                       ? "w-3 h-3 bg-[var(--accent-aqua)] ring-4 ring-[var(--accent-bioluminescent)]/30 scale-110 shadow-[0_0_12px_rgba(0,180,170,0.5)]"
-                      : "w-2 h-2 bg-[var(--border-main)] group-hover:bg-[var(--text-secondary)]"
+                      : "w-2 h-2 bg-[var(--border-main)] group-hover:bg-[var(--accent-aqua)] group-hover:scale-125 opacity-40 group-hover:opacity-100"
                   }`}
                 />
               </div>
 
-              {/* Monospace Chapter Code */}
-              <span
-                className={`text-[11px] font-mono uppercase tracking-wider transition-all duration-200 whitespace-nowrap ${
-                  isActive
-                    ? "text-[var(--text-primary)] font-semibold scale-105"
-                    : "text-[var(--text-secondary)] opacity-40 group-hover:opacity-85"
+              {/* Text Label: Collapsed to width 0 normally, smoothly slides out on hover or scroll */}
+              <div
+                className={`overflow-hidden transition-all duration-300 ease-out flex items-center ${
+                  isExpanded
+                    ? "max-w-[170px] opacity-100 translate-x-0 ml-2"
+                    : "max-w-0 opacity-0 -translate-x-2 pointer-events-none"
                 }`}
               >
-                {chapter.number} // {chapter.shortLabel}
-              </span>
-
-              {/* Hover Tooltip Popup on the Left */}
-              <div className="absolute right-full mr-3 px-3 py-1.5 rounded-[6px] bg-[var(--surface-card)] border border-[var(--border-main)] text-[11px] font-mono text-[var(--text-primary)] whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 shadow-lg backdrop-blur-md translate-x-2 group-hover:translate-x-0">
-                <span className="text-[var(--accent-aqua)] mr-1.5">●</span>
-                <span>{chapter.fullTitle}</span>
+                <span
+                  className={`text-[11px] font-mono uppercase tracking-wider whitespace-nowrap transition-colors duration-200 ${
+                    isActive
+                      ? "text-[var(--text-primary)] font-semibold scale-105"
+                      : "text-[var(--text-secondary)] opacity-50 group-hover:opacity-90"
+                  }`}
+                >
+                  {chapter.number} // {chapter.shortLabel}
+                </span>
               </div>
+
+              {/* Hover Tooltip Popup on the Left (When Expanded) */}
+              {isExpanded && (
+                <div className="absolute right-full mr-3 px-3 py-1.5 rounded-[6px] bg-[var(--surface-card)] border border-[var(--border-main)] text-[11px] font-mono text-[var(--text-primary)] whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 shadow-lg backdrop-blur-md translate-x-2 group-hover:translate-x-0">
+                  <span className="text-[var(--accent-aqua)] mr-1.5">●</span>
+                  <span>{chapter.fullTitle}</span>
+                </div>
+              )}
             </button>
           );
         })}
