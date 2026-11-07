@@ -201,6 +201,12 @@ export default function WelcomePage() {
           >
             PHÒNG LAB 3D
           </Link>
+          <Link
+            href="/anatomy-3d"
+            className="px-3 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap text-[var(--accent-aqua)]"
+          >
+            GIẢI MÃ 3D
+          </Link>
           <button
             onClick={() => setIsRadarModalOpen(true)}
             className="px-3 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap cursor-pointer uppercase font-mono"
@@ -279,6 +285,14 @@ export default function WelcomePage() {
               <span>02. PHÒNG LAB 3D</span>
               <ArrowRight className="w-4 h-4 text-[var(--accent-aqua)]" />
             </Link>
+            <Link
+              href="/anatomy-3d"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center justify-between p-3 rounded-[8px] bg-[var(--bg-canvas)] border border-[var(--border-main)] text-[12px] font-mono uppercase tracking-wider text-[var(--accent-aqua)] hover:border-[var(--accent-aqua)] transition-colors"
+            >
+              <span>03. GIẢI MÃ KIẾN TRÚC 3D</span>
+              <ArrowRight className="w-4 h-4 text-[var(--accent-aqua)]" />
+            </Link>
             <button
               onClick={() => {
                 setIsMobileMenuOpen(false);
@@ -286,7 +300,7 @@ export default function WelcomePage() {
               }}
               className="flex items-center justify-between p-3 rounded-[8px] bg-[var(--bg-canvas)] border border-[var(--border-main)] text-[12px] font-mono uppercase tracking-wider text-[var(--text-primary)] hover:border-[var(--accent-aqua)] transition-colors w-full text-left cursor-pointer"
             >
-              <span>03. DAILY RADAR</span>
+              <span>04. DAILY RADAR</span>
               <ExternalLink className="w-4 h-4 text-[var(--accent-aqua)]" />
             </button>
             <Link
@@ -295,7 +309,7 @@ export default function WelcomePage() {
               style={{ background: "var(--btn-aurora-bg)", color: "var(--btn-aurora-text)" }}
               className="flex items-center justify-between p-3.5 rounded-[8px] text-[12px] font-medium uppercase tracking-wider transition-all shadow-md mt-1"
             >
-              <span>04. BẮT ĐẦU HỌC NGAY</span>
+              <span>05. BẮT ĐẦU HỌC NGAY</span>
               <ArrowUpRight className="w-4 h-4" />
             </Link>
           </div>
@@ -931,6 +945,9 @@ vllm serve meta-llama/Llama-3.2-3B-Instruct --port 8000</code>
             </Link>
             <Link href="/lab" className="hover:text-[var(--text-primary)] transition-colors">
               PHÒNG LAB 3D
+            </Link>
+            <Link href="/anatomy-3d" className="text-[var(--accent-aqua)] hover:underline transition-colors">
+              GIẢI MÃ 3D
             </Link>
             <Link href="/roadmap" className="hover:text-[var(--text-primary)] transition-colors">
               LỘ TRÌNH 26 TUẦN

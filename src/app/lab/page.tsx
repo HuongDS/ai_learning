@@ -55,17 +55,23 @@ export default function LabWorkspacePage() {
           >
             01. LỘ TRÌNH 26 TUẦN
           </Link>
+          <Link
+            href="/anatomy-3d"
+            className="relative py-1 text-[var(--accent-aqua)] hover:underline transition-colors"
+          >
+            02. GIẢI MÃ 3D
+          </Link>
           <button
             onClick={() => setIsRadarModalOpen(true)}
             className="relative py-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
           >
-            02. DAILY RADAR
+            03. DAILY RADAR
           </button>
           <Link
             href="/learn"
             className="relative py-1 text-[var(--accent-ember)] hover:text-[var(--text-primary)] transition-colors"
           >
-            03. BẮT ĐẦU HỌC
+            04. BẮT ĐẦU HỌC
           </Link>
         </nav>
 
