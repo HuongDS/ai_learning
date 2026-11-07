@@ -28,6 +28,34 @@ interface DailyRadarModalProps {
   onClose: () => void;
 }
 
+const TARGET_CLI_COMMANDS: Record<string, string[]> = {
+  vllm: [
+    "git clone https://github.com/vllm-project/vllm",
+    "pip install vllm",
+    "vllm serve meta-llama/Llama-3.2-3B-Instruct --port 8000",
+  ],
+  deepseek: [
+    "git clone https://github.com/deepseek-ai/DeepSeek-V3",
+    "pip install -r requirements.txt",
+    "python inference/generate.py --model-path deepseek-ai/DeepSeek-V3",
+  ],
+  llamacpp: [
+    "git clone https://github.com/ggerganov/llama.cpp",
+    "cmake -B build && cmake --build build --config Release",
+    "./build/bin/llama-cli -m model.gguf -p \"Hello AI Engineer\"",
+  ],
+  ollama: [
+    "curl -fsSL https://ollama.com/install.sh | sh",
+    "ollama run llama3.2:3b",
+    "ollama serve",
+  ],
+  mcp: [
+    "npx @modelcontextprotocol/create-server my-ai-server",
+    "npm install @modelcontextprotocol/sdk",
+    "node server.js",
+  ],
+};
+
 export default function DailyRadarModal({ isOpen, onClose }: DailyRadarModalProps) {
   const { theme } = useTheme();
   const [dontShowToday, setDontShowToday] = useState(false);
@@ -377,13 +405,15 @@ export default function DailyRadarModal({ isOpen, onClose }: DailyRadarModalProp
                       <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-secondary)] uppercase">
                         <span className="flex items-center space-x-1.5">
                           <Terminal className="w-3.5 h-3.5 text-[var(--accent-aqua)]" />
-                          <span>TERMINAL COMMAND EXECUTION</span>
+                          <span>TERMINAL COMMAND EXECUTION // {currentTarget.shortName}</span>
                         </span>
                         <button
                           onClick={() => {
-                            const cmds =
-                              dispatch?.hotRepo.howToTry?.join("\n") ||
-                              "pip install vllm\nvllm serve meta-llama/Llama-3.2-3B-Instruct";
+                            const cmds = (
+                              (selectedTargetId === "vllm" && dispatch?.hotRepo.howToTry) ||
+                              TARGET_CLI_COMMANDS[selectedTargetId] ||
+                              TARGET_CLI_COMMANDS.vllm
+                            ).join("\n");
                             handleCopyCommand(cmds);
                           }}
                           className="text-[var(--accent-aqua)] hover:underline uppercase flex items-center space-x-1 cursor-pointer"
@@ -402,21 +432,20 @@ export default function DailyRadarModal({ isOpen, onClose }: DailyRadarModalProp
                         </button>
                       </div>
 
-                      <div className="p-3.5 sm:p-4 rounded-[10px] bg-[#011b1a] border border-[var(--border-main)] font-mono text-[11px] sm:text-[12px] text-emerald-400 overflow-x-auto leading-relaxed shadow-inner">
-                        {dispatch?.hotRepo.howToTry?.map((cmd, idx) => (
+                      <div className="p-3.5 sm:p-4 rounded-[10px] bg-[#011d1c] border border-[var(--border-main)] font-mono text-[11px] sm:text-[12px] overflow-x-auto leading-relaxed shadow-inner">
+                        {(
+                          (selectedTargetId === "vllm" && dispatch?.hotRepo.howToTry) ||
+                          TARGET_CLI_COMMANDS[selectedTargetId] ||
+                          TARGET_CLI_COMMANDS.vllm
+                        ).map((cmd, idx) => (
                           <div key={idx} className="flex items-center space-x-2 py-0.5">
-                            <span className="text-[var(--accent-aqua)] select-none">$</span>
-                            <span className="text-[var(--text-primary)]">{cmd}</span>
+                            <span className="text-[#00ffd5] select-none font-semibold">$</span>
+                            <span className="text-[#e2fbf9] font-medium selection:bg-[#00ffd5]/25">{cmd}</span>
                           </div>
-                        )) || (
-                          <div>
-                            $ pip install vllm <br />
-                            $ vllm serve meta-llama/Llama-3.2-3B-Instruct --port 8000
-                          </div>
-                        )}
+                        ))}
                       </div>
 
-                      <p className="text-[11px] font-mono text-[var(--text-secondary)]">
+                      <p className="text-[11px] font-mono text-[var(--text-secondary)] leading-relaxed break-words">
                         Lưu ý: Yêu cầu môi trường Python 3.10+ và card đồ họa có hỗ trợ CUDA hoặc Apple Silicon MPS.
                       </p>
                     </div>
@@ -444,42 +473,47 @@ export default function DailyRadarModal({ isOpen, onClose }: DailyRadarModalProp
                   )}
 
                   {/* Bottom Actions Deck */}
-                  <div className="pt-4 border-t border-[var(--border-main)] space-y-3 mt-auto">
-                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-                      <div className="flex items-center gap-2">
-                        <Link
-                          href="/lesson/day-01"
-                          onClick={handleClose}
-                          style={{
-                            background: "var(--btn-aurora-bg)",
-                            color: "var(--btn-aurora-text)",
-                          }}
-                          className="h-[42px] px-5 sm:px-6 rounded-[6px] hover:opacity-95 text-[11px] sm:text-[12px] font-medium tracking-wider uppercase transition-all shadow-[0_0_20px_rgba(0,180,170,0.25)] flex items-center justify-center space-x-2 shrink-0 text-center"
-                        >
-                          <BookOpen className="w-4 h-4 shrink-0" />
-                          <span>VÀO BÀI HỌC LIÊN QUAN (DAY 01)</span>
-                        </Link>
+                  <div className="pt-4 border-t border-[var(--border-main)] space-y-2.5 mt-auto">
+                    {/* Row 1: Action Buttons (Responsive grid, strictly isolated) */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 w-full">
+                      <Link
+                        href="/lesson/day-01"
+                        onClick={handleClose}
+                        style={{
+                          background: "var(--btn-aurora-bg)",
+                          color: "var(--btn-aurora-text)",
+                        }}
+                        className="h-[44px] px-4 rounded-[6px] hover:opacity-95 text-[11px] sm:text-[12px] font-medium tracking-wider uppercase transition-all shadow-[0_0_20px_rgba(0,180,170,0.25)] flex items-center justify-center space-x-2 text-center whitespace-nowrap cursor-pointer"
+                      >
+                        <BookOpen className="w-4 h-4 shrink-0" />
+                        <span>VÀO BÀI HỌC (DAY 01)</span>
+                      </Link>
 
-                        <Link
-                          href="/radar"
-                          onClick={handleClose}
-                          className="h-[42px] px-4 rounded-[6px] border border-[var(--border-main)] hover:border-[var(--text-primary)] bg-[var(--surface-card)] hover:bg-[var(--surface-hover)] text-[var(--text-primary)] text-[11px] font-mono tracking-wider uppercase transition-colors flex items-center justify-center space-x-1.5 shrink-0"
-                        >
-                          <span>TẠP CHÍ RADAR</span>
-                          <ArrowUpRight className="w-3.5 h-3.5 text-[var(--accent-aqua)]" />
-                        </Link>
-                      </div>
+                      <Link
+                        href="/radar"
+                        onClick={handleClose}
+                        className="h-[44px] px-4 rounded-[6px] border border-[var(--border-main)] hover:border-[var(--text-primary)] bg-[var(--surface-card)] hover:bg-[var(--surface-hover)] text-[var(--text-primary)] text-[11px] font-mono tracking-wider uppercase transition-colors flex items-center justify-center space-x-1.5 text-center whitespace-nowrap cursor-pointer"
+                      >
+                        <span>TẠP CHÍ RADAR</span>
+                        <ArrowUpRight className="w-3.5 h-3.5 text-[var(--accent-aqua)] shrink-0" />
+                      </Link>
+                    </div>
 
-                      {/* Dont show again checkbox */}
-                      <label className="flex items-center space-x-2 text-[10px] sm:text-[11px] font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)] cursor-pointer select-none transition-colors">
+                    {/* Row 2: Secondary Checkbox and Telemetry Status (Zero collision guaranteed) */}
+                    <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-[var(--border-main)]/35 text-[10px] sm:text-[11px] font-mono text-[var(--text-secondary)]">
+                      <label className="flex items-center space-x-2 cursor-pointer hover:text-[var(--text-primary)] select-none transition-colors py-0.5">
                         <input
                           type="checkbox"
                           checked={dontShowToday}
                           onChange={(e) => setDontShowToday(e.target.checked)}
-                          className="rounded border-[var(--border-main)] bg-[var(--bg-canvas)] text-[var(--accent-aqua)] focus:ring-0 w-3.5 h-3.5 shrink-0"
+                          className="rounded border-[var(--border-main)] bg-[var(--bg-canvas)] text-[var(--accent-aqua)] focus:ring-0 w-3.5 h-3.5 shrink-0 cursor-pointer"
                         />
-                        <span>Không tự hiện lại hôm nay</span>
+                        <span className="whitespace-nowrap">Không tự động hiện lại hôm nay</span>
                       </label>
+
+                      <span className="text-[10px] font-mono text-[var(--text-mist)] uppercase tracking-wider hidden sm:inline">
+                        AUTO-SYNC 00:00 UTC // AI OBSERVATORY
+                      </span>
                     </div>
                   </div>
                 </>
