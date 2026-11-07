@@ -21,6 +21,7 @@ import {
 import { useTheme } from "@/context/ThemeContext";
 import DailyRadarModal from "@/components/DailyRadarModal";
 import BioluminescentSphere from "@/components/BioluminescentSphere";
+import StoryStatsSection from "@/components/StoryStatsSection";
 
 export default function WelcomePage() {
   const { theme, toggleTheme } = useTheme();
@@ -224,220 +225,190 @@ export default function WelcomePage() {
         </div>
       </section>
 
-      {/* 3. Large Statistics Counter Block */}
-      <section className="relative w-full py-16 px-6 sm:px-12 bg-[var(--bg-recessed)] border-b border-[var(--border-main)] transition-colors duration-300">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div className="space-y-2">
-            <div className="text-[54px] sm:text-[72px] lg:text-[84px] font-medium tracking-[-0.04em] text-[var(--accent-phosphor)] leading-none">
-              26W
-            </div>
-            <div className="text-[12px] sm:text-[13px] font-medium uppercase tracking-[0.08em] text-[var(--text-mist)]">
-              THỜI LƯỢNG 26 TUẦN
-            </div>
-            <div className="text-[12px] text-[var(--text-secondary)] leading-normal">
-              1 Lộ trình xuyên suốt từ nền tảng đến production.
-            </div>
-          </div>
+      {/* 2. Interactive Scrollytelling Story: 4 Focused Milestones (26W -> 180+ -> 16x -> 100%) */}
+      <StoryStatsSection />
 
-          <div className="space-y-2">
-            <div className="text-[54px] sm:text-[72px] lg:text-[84px] font-medium tracking-[-0.04em] text-[var(--accent-phosphor)] leading-none">
-              180+
-            </div>
-            <div className="text-[12px] sm:text-[13px] font-medium uppercase tracking-[0.08em] text-[var(--text-mist)]">
-              TỔNG THỜI LƯỢNG HỌC
-            </div>
-            <div className="text-[12px] text-[var(--text-secondary)] leading-normal">
-              70% Thời lượng code thực hành & dự án Capstone.
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <div className="text-[54px] sm:text-[72px] lg:text-[84px] font-medium tracking-[-0.04em] text-[var(--accent-phosphor)] leading-none">
-              16x
-            </div>
-            <div className="text-[12px] sm:text-[13px] font-medium uppercase tracking-[0.08em] text-[var(--text-mist)]">
-              TENSOR CORES 3D LAB
-            </div>
-            <div className="text-[12px] text-[var(--text-secondary)] leading-normal">
-              Giải phẫu vi mạch tính toán bán dẫn tương tác xoay 360°.
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <div className="text-[54px] sm:text-[72px] lg:text-[84px] font-medium tracking-[-0.04em] text-[var(--accent-phosphor)] leading-none">
-              100%
-            </div>
-            <div className="text-[12px] sm:text-[13px] font-medium uppercase tracking-[0.08em] text-[var(--text-mist)]">
-              PRODUCTION READY
-            </div>
-            <div className="text-[12px] text-[var(--text-secondary)] leading-normal">
-              Đóng gói và triển khai mô hình với vLLM & Triton Server.
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Explore Feature Surface Cards */}
-      <section className="relative w-full py-24 px-6 sm:px-12 border-b border-[var(--border-main)] bg-[var(--bg-canvas)] transition-colors duration-300">
-        <div className="max-w-7xl mx-auto space-y-14">
-          {/* Section Header */}
+      {/* 3. Explore Feature Chapters: 4 Pillars of AI Systems Mastery */}
+      <section className="relative w-full py-28 px-6 sm:px-12 border-b border-[var(--border-main)] bg-[var(--bg-canvas)] transition-colors duration-300">
+        <div className="max-w-7xl mx-auto space-y-16">
+          {/* Story Chapter Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-[var(--border-main)] pb-8">
-            <div className="space-y-2">
-              <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-[var(--text-mist)] block">
-                FOUNDATIONAL PILLARS // 4 TRỤ CỘT CHIẾN LƯỢC
+            <div className="space-y-3">
+              <span className="text-[11px] font-mono tracking-[0.2em] uppercase text-[var(--text-mist)] block">
+                HỒI 02 // CÂU CHUYỆN 4 TRỤ CỘT NĂNG LỰC
               </span>
-              <h2 className="text-[32px] sm:text-[44px] font-medium uppercase tracking-[-0.04em] text-[var(--text-primary)] leading-tight">
-                CÁC KHỐI KIẾN THỨC CỐT LÕI
+              <h2 className="text-[32px] sm:text-[46px] font-medium uppercase tracking-[-0.04em] text-[var(--text-primary)] leading-tight">
+                BẢN THÂN BẠN SẼ LÀM CHỦ NHỮNG GÌ?
               </h2>
             </div>
-            <p className="text-[14px] text-[var(--text-secondary)] max-w-md leading-relaxed">
-              Thiết kế chuyên biệt cho Kỹ sư Phần mềm muốn làm chủ tầng sâu của hệ thống AI hiện đại thay vì chỉ dừng ở Prompt Engineering.
+            <p className="text-[14px] sm:text-[15px] text-[var(--text-secondary)] max-w-lg leading-relaxed">
+              Một Kỹ sư AI thực thụ không tích lũy kiến thức chắp vá. 4 trụ cột dưới đây là 4 nấc thang tiến hóa logic: từ thấu cảm vi mạch bán dẫn đến chỉ huy hệ thống tác tử tự hành.
             </p>
           </div>
 
-          {/* 4 Surface Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
-            {/* Card 1 */}
-            <div className="bg-[var(--surface-card)] rounded-[16px] p-8 sm:p-10 flex flex-col justify-between space-y-6 hover:bg-[var(--surface-hover)] border border-[var(--border-main)] transition-all duration-200 shadow-sm group">
+          {/* 4 Story Chapters Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Story Chapter 1 */}
+            <div className="bg-[var(--surface-card)] rounded-[16px] p-8 sm:p-10 flex flex-col justify-between space-y-7 hover:bg-[var(--surface-hover)] border border-[var(--border-main)] transition-all duration-300 shadow-sm group">
               <div className="flex items-start justify-between">
-                <div className="p-3 rounded-[6px] bg-[var(--icon-btn-bg)] text-[var(--accent-bioluminescent)]">
-                  <Cpu className="w-6 h-6" />
+                <div className="flex items-center space-x-3">
+                  <div className="p-3 rounded-[6px] bg-[var(--icon-btn-bg)] text-[var(--accent-bioluminescent)]">
+                    <Cpu className="w-6 h-6" />
+                  </div>
+                  <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-[var(--text-mist)] font-medium">
+                    TRỤ CỘT I // PHẦN CỨNG
+                  </span>
                 </div>
                 <Link
                   href="/lab"
-                  className="w-8 h-8 rounded-[6px] bg-[var(--icon-btn-bg)] hover:bg-[var(--icon-btn-hover)] text-[var(--text-primary)] flex items-center justify-center transition-colors"
+                  className="w-9 h-9 rounded-[6px] bg-[var(--icon-btn-bg)] hover:bg-[var(--icon-btn-hover)] text-[var(--text-primary)] flex items-center justify-center transition-colors"
                   aria-label="Open 3D Lab"
                 >
                   <ArrowUpRight className="w-4 h-4" />
                 </Link>
               </div>
 
-              <div className="space-y-3">
-                <span className="text-[10px] font-mono tracking-widest text-[var(--text-mist)] uppercase">
-                  PILLAR 01 // 25% THỜI LƯỢNG
-                </span>
-                <h3 className="text-[26px] sm:text-[30px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-tight">
-                  GIẢI PHẪU PHẦN CỨNG & VĂN HÓA MEMORY-BOUND
+              <div className="space-y-4">
+                <h3 className="text-[24px] sm:text-[28px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-tight">
+                  GIẢI PHẪU PHẦN CỨNG & NGHẼN BĂNG THÔNG BỘ NHỚ
                 </h3>
+                <blockquote className="border-l-2 border-[var(--accent-bioluminescent)] pl-3 text-[13px] font-mono text-[var(--text-mist)] italic">
+                  "Vì sao cùng một model 70B, người chạy cần 4 GPU A100 trong khi hệ thống tối ưu chỉ cần 1 GPU?"
+                </blockquote>
                 <p className="text-[15px] text-[var(--text-secondary)] leading-relaxed">
-                  Hiểu cặn kẽ vì sao suy luận LLM bị nghẽn ở băng thông bộ nhớ (Memory Bandwidth) thay vì xung nhịp. Nắm vững phép nhân ma trận GEMM, lượng tử hóa FP16/INT8/INT4/FP8 và cách vLLM PagedAttention triệt tiêu phân mảnh VRAM.
+                  Bạn sẽ thấu suốt vì sao suy luận LLM bị nghẽn ở băng thông bộ nhớ (Memory Bandwidth) chứ không phải xung nhịp chip. Bạn sẽ làm chủ phép nhân ma trận GEMM, lượng tử hóa FP16/INT8/INT4/FP8 và cách vLLM PagedAttention triệt tiêu phân mảnh VRAM.
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-[var(--border-main)] flex items-center justify-between text-[12px] font-mono">
-                <Link href="/lab" className="text-[var(--text-mist)] hover:text-[var(--accent-aqua)] uppercase flex items-center space-x-1">
-                  <span>Khám phá 3D Compute Die</span>
+              <div className="pt-3 border-t border-[var(--border-main)] flex items-center justify-between text-[12px] font-mono">
+                <Link href="/lab" className="text-[var(--text-mist)] hover:text-[var(--accent-aqua)] uppercase flex items-center space-x-1.5 font-medium">
+                  <span>Khám phá 3D Compute Die Lab</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
-                <span className="text-[var(--text-secondary)]">MODULE 01</span>
+                <span className="text-[var(--text-secondary)]">25% THỜI LƯỢNG</span>
               </div>
             </div>
 
-            {/* Card 2 */}
-            <div className="bg-[var(--surface-card)] rounded-[16px] p-8 sm:p-10 flex flex-col justify-between space-y-6 hover:bg-[var(--surface-hover)] border border-[var(--border-main)] transition-all duration-200 shadow-sm group">
+            {/* Story Chapter 2 */}
+            <div className="bg-[var(--surface-card)] rounded-[16px] p-8 sm:p-10 flex flex-col justify-between space-y-7 hover:bg-[var(--surface-hover)] border border-[var(--border-main)] transition-all duration-300 shadow-sm group">
               <div className="flex items-start justify-between">
-                <div className="p-3 rounded-[6px] bg-[var(--icon-btn-bg)] text-[var(--accent-bioluminescent)]">
-                  <Workflow className="w-6 h-6" />
+                <div className="flex items-center space-x-3">
+                  <div className="p-3 rounded-[6px] bg-[var(--icon-btn-bg)] text-[var(--accent-bioluminescent)]">
+                    <Workflow className="w-6 h-6" />
+                  </div>
+                  <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-[var(--text-mist)] font-medium">
+                    TRỤ CỘT II // MÔ HÌNH
+                  </span>
                 </div>
                 <Link
                   href="/roadmap"
-                  className="w-8 h-8 rounded-[6px] bg-[var(--icon-btn-bg)] hover:bg-[var(--icon-btn-hover)] text-[var(--text-primary)] flex items-center justify-center transition-colors"
+                  className="w-9 h-9 rounded-[6px] bg-[var(--icon-btn-bg)] hover:bg-[var(--icon-btn-hover)] text-[var(--text-primary)] flex items-center justify-center transition-colors"
                   aria-label="Open Multi-Agent Roadmap"
                 >
                   <ArrowUpRight className="w-4 h-4" />
                 </Link>
               </div>
 
-              <div className="space-y-3">
-                <span className="text-[10px] font-mono tracking-widest text-[var(--text-mist)] uppercase">
-                  PILLAR 02 // 15% THỜI LƯỢNG
-                </span>
-                <h3 className="text-[26px] sm:text-[30px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-tight">
-                  AI ORCHESTRATION & AUTONOMOUS AGENTS
+              <div className="space-y-4">
+                <h3 className="text-[24px] sm:text-[28px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-tight">
+                  TỰ CODE TRANSFORMER TỪ CON SỐ 0
                 </h3>
+                <blockquote className="border-l-2 border-[var(--accent-bioluminescent)] pl-3 text-[13px] font-mono text-[var(--text-mist)] italic">
+                  "Chỉ khi tự tay nhân ma trận Q, K, V và mã hóa RoPE, bạn mới thực sự làm chủ con quái vật LLM."
+                </blockquote>
                 <p className="text-[15px] text-[var(--text-secondary)] leading-relaxed">
-                  Vượt xa việc gọi API đơn lẻ. Xây dựng hệ thống Multi-Agent có thể tự lập kế hoạch (Planning), gọi công cụ động (Dynamic Tool Calling), tự phản biện (Self-Reflection) và điều phối phức tạp qua LangGraph với Human-in-the-loop.
+                  Thay vì sử dụng thư viện đóng kín, bạn sẽ code hoàn chỉnh một Transformer Decoder-only: từ Positional Encoding (RoPE), Multi-Head Attention, FlashAttention đến BPE Tokenizer và KV-Caching để hiểu chính xác từng phép toán bên trong.
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-[var(--border-main)] flex items-center justify-between text-[12px] font-mono">
-                <Link href="/roadmap" className="text-[var(--text-mist)] hover:text-[var(--accent-aqua)] uppercase flex items-center space-x-1">
-                  <span>Xem Module Agents (Tháng 5)</span>
+              <div className="pt-3 border-t border-[var(--border-main)] flex items-center justify-between text-[12px] font-mono">
+                <Link href="/roadmap" className="text-[var(--text-mist)] hover:text-[var(--accent-aqua)] uppercase flex items-center space-x-1.5 font-medium">
+                  <span>Xem Chi tiết Module Transformer</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
-                <span className="text-[var(--text-secondary)]">MODULE 05</span>
+                <span className="text-[var(--text-secondary)]">THÁNG 02</span>
               </div>
             </div>
 
-            {/* Card 3 */}
-            <div className="bg-[var(--surface-card)] rounded-[16px] p-8 sm:p-10 flex flex-col justify-between space-y-6 hover:bg-[var(--surface-hover)] border border-[var(--border-main)] transition-all duration-200 shadow-sm group">
+            {/* Story Chapter 3 */}
+            <div className="bg-[var(--surface-card)] rounded-[16px] p-8 sm:p-10 flex flex-col justify-between space-y-7 hover:bg-[var(--surface-hover)] border border-[var(--border-main)] transition-all duration-300 shadow-sm group">
               <div className="flex items-start justify-between">
-                <div className="p-3 rounded-[6px] bg-[var(--icon-btn-bg)] text-[var(--accent-bioluminescent)]">
-                  <Database className="w-6 h-6" />
+                <div className="flex items-center space-x-3">
+                  <div className="p-3 rounded-[6px] bg-[var(--icon-btn-bg)] text-[var(--accent-bioluminescent)]">
+                    <Database className="w-6 h-6" />
+                  </div>
+                  <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-[var(--text-mist)] font-medium">
+                    TRỤ CỘT III // DỮ LIỆU
+                  </span>
                 </div>
                 <Link
                   href="/roadmap"
-                  className="w-8 h-8 rounded-[6px] bg-[var(--icon-btn-bg)] hover:bg-[var(--icon-btn-hover)] text-[var(--text-primary)] flex items-center justify-center transition-colors"
+                  className="w-9 h-9 rounded-[6px] bg-[var(--icon-btn-bg)] hover:bg-[var(--icon-btn-hover)] text-[var(--text-primary)] flex items-center justify-center transition-colors"
                   aria-label="Open RAG Roadmap"
                 >
                   <ArrowUpRight className="w-4 h-4" />
                 </Link>
               </div>
 
-              <div className="space-y-3">
-                <span className="text-[10px] font-mono tracking-widest text-[var(--text-mist)] uppercase">
-                  PILLAR 03 // 50% THỜI LƯỢNG
-                </span>
-                <h3 className="text-[26px] sm:text-[30px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-tight">
-                  PRODUCTION RAG & EMBEDDINGS ARCHITECTURE
+              <div className="space-y-4">
+                <h3 className="text-[24px] sm:text-[28px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-tight">
+                  PRODUCTION ENTERPRISE RAG ARCHITECTURE
                 </h3>
+                <blockquote className="border-l-2 border-[var(--accent-bioluminescent)] pl-3 text-[13px] font-mono text-[var(--text-mist)] italic">
+                  "90% PoC thất bại khi lên production vì ảo giác dữ liệu và câu hỏi phức tạp."
+                </blockquote>
                 <p className="text-[15px] text-[var(--text-secondary)] leading-relaxed">
-                  Nửa thời lượng toàn khóa tập trung vào RAG doanh nghiệp: Semantic Chunking, Vector DBs (Qdrant, Milvus), Hybrid Search (Dense + Sparse BM25), Cross-Encoder Re-ranking và GraphRAG triệt tiêu hoàn toàn ảo giác (Hallucination).
+                  50% thời lượng toàn khóa tập trung giải quyết bài toán cốt tử này: Semantic Chunking, Vector DBs (Qdrant, Milvus), Hybrid Search (Dense + Sparse BM25), Cross-Encoder Re-ranking và GraphRAG nhằm triệt tiêu hoàn toàn ảo giác trong doanh nghiệp.
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-[var(--border-main)] flex items-center justify-between text-[12px] font-mono">
-                <Link href="/roadmap" className="text-[var(--text-mist)] hover:text-[var(--accent-aqua)] uppercase flex items-center space-x-1">
+              <div className="pt-3 border-t border-[var(--border-main)] flex items-center justify-between text-[12px] font-mono">
+                <Link href="/roadmap" className="text-[var(--text-mist)] hover:text-[var(--accent-aqua)] uppercase flex items-center space-x-1.5 font-medium">
                   <span>Xem Chi tiết Module RAG (Tháng 3)</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
-                <span className="text-[var(--text-secondary)]">MODULE 03</span>
+                <span className="text-[var(--text-secondary)]">50% THỜI LƯỢNG</span>
               </div>
             </div>
 
-            {/* Card 4 */}
-            <div className="bg-[var(--surface-card)] rounded-[16px] p-8 sm:p-10 flex flex-col justify-between space-y-6 hover:bg-[var(--surface-hover)] border border-[var(--border-main)] transition-all duration-200 shadow-sm group">
+            {/* Story Chapter 4 */}
+            <div className="bg-[var(--surface-card)] rounded-[16px] p-8 sm:p-10 flex flex-col justify-between space-y-7 hover:bg-[var(--surface-hover)] border border-[var(--border-main)] transition-all duration-300 shadow-sm group">
               <div className="flex items-start justify-between">
-                <div className="p-3 rounded-[6px] bg-[var(--icon-btn-bg)] text-[var(--accent-bioluminescent)]">
-                  <Boxes className="w-6 h-6" />
+                <div className="flex items-center space-x-3">
+                  <div className="p-3 rounded-[6px] bg-[var(--icon-btn-bg)] text-[var(--accent-bioluminescent)]">
+                    <Boxes className="w-6 h-6" />
+                  </div>
+                  <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-[var(--text-mist)] font-medium">
+                    TRỤ CỘT IV // ĐIỀU PHỐI
+                  </span>
                 </div>
                 <Link
                   href="/roadmap"
-                  className="w-8 h-8 rounded-[6px] bg-[var(--icon-btn-bg)] hover:bg-[var(--icon-btn-hover)] text-[var(--text-primary)] flex items-center justify-center transition-colors"
+                  className="w-9 h-9 rounded-[6px] bg-[var(--icon-btn-bg)] hover:bg-[var(--icon-btn-hover)] text-[var(--text-primary)] flex items-center justify-center transition-colors"
                   aria-label="Open Serving Roadmap"
                 >
                   <ArrowUpRight className="w-4 h-4" />
                 </Link>
               </div>
 
-              <div className="space-y-3">
-                <span className="text-[10px] font-mono tracking-widest text-[var(--text-mist)] uppercase">
-                  PILLAR 04 // 10% THỜI LƯỢNG
-                </span>
-                <h3 className="text-[26px] sm:text-[30px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-tight">
-                  CAPSTONE PLATFORM & PRODUCTION SERVING
+              <div className="space-y-4">
+                <h3 className="text-[24px] sm:text-[28px] font-medium uppercase tracking-tight text-[var(--text-primary)] leading-tight">
+                  AUTONOMOUS MULTI-AGENT SWARMS & HITL
                 </h3>
+                <blockquote className="border-l-2 border-[var(--accent-bioluminescent)] pl-3 text-[13px] font-mono text-[var(--text-mist)] italic">
+                  "Không phải một chatbot đơn độc, mà là cả một tập thể AI tự phối hợp và tự sửa sai."
+                </blockquote>
                 <p className="text-[15px] text-[var(--text-secondary)] leading-relaxed">
-                  Đưa mô hình ra phục vụ thực tế: vLLM, Triton Inference Server, Continuous Batching, PagedAttention, Docker/K8s và hệ thống giám sát Observability (Langfuse) đạt chuẩn SLA chịu tải 100+ req/sec với p99 latency thấp.
+                  Thiết kế mạng lưới tác tử tự hành qua LangGraph: vòng lặp phản biện (Self-Reflection), gọi công cụ động (Dynamic Tool Calling), fan-out chạy song song và chốt chặn phê duyệt của con người (Human-in-the-loop) để giải quyết các task kỹ thuật phức tạp.
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-[var(--border-main)] flex items-center justify-between text-[12px] font-mono">
-                <Link href="/roadmap" className="text-[var(--text-mist)] hover:text-[var(--accent-aqua)] uppercase flex items-center space-x-1">
-                  <span>Xem Chi tiết Capstone (Tháng 6)</span>
+              <div className="pt-3 border-t border-[var(--border-main)] flex items-center justify-between text-[12px] font-mono">
+                <Link href="/roadmap" className="text-[var(--text-mist)] hover:text-[var(--accent-aqua)] uppercase flex items-center space-x-1.5 font-medium">
+                  <span>Xem Chi tiết Multi-Agent Swarms</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
-                <span className="text-[var(--text-secondary)]">MODULE 06</span>
+                <span className="text-[var(--text-secondary)]">THÁNG 05</span>
               </div>
             </div>
           </div>
