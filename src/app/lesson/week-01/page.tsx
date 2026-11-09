@@ -516,11 +516,19 @@ while True:
             </div>
 
             {showCelebration && (
-              <div className="p-4 rounded-[8px] bg-emerald-950/20 border border-emerald-800/40 text-emerald-300 text-[12px] font-mono flex items-center space-x-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>
-                  Chúc mừng! Bạn đã hoàn thành Bài học Tuần 01: Python Căn Bản &amp; Môi Trường. Bài học Tuần 02 (Cấu trúc dữ liệu &amp; JSON/CSV I/O) đã sẵn sàng!
-                </span>
+              <div className="p-4 rounded-[8px] bg-emerald-950/20 border border-emerald-800/40 text-emerald-300 text-[12px] font-mono flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>
+                    Chúc mừng! Bạn đã hoàn thành Bài học Tuần 01: Python Căn Bản &amp; Môi Trường. Bài học Tuần 02 (Cấu trúc dữ liệu &amp; JSON/CSV I/O) đã sẵn sàng!
+                  </span>
+                </div>
+                <Link
+                  href="/lesson/week-02"
+                  className="px-4 py-1.5 rounded-[6px] bg-emerald-500 text-black font-semibold text-[11px] uppercase tracking-wider hover:bg-emerald-400 transition-colors shrink-0"
+                >
+                  HỌC TIẾP TUẦN 02 &rarr;
+                </Link>
               </div>
             )}
           </div>
