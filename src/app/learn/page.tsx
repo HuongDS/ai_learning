@@ -360,6 +360,12 @@ export default function LearnLandingPage() {
                           <span>DỰ ÁN: TODO CLI v2 (JSON &amp; CSV I/O)</span>
                         </span>
                       )}
+                      {week.week === 3 && (
+                        <span className="px-2.5 py-1 rounded-[6px] bg-[var(--surface-elevated)] border border-[var(--border-main)] text-[var(--accent-aqua)] flex items-center space-x-1">
+                          <Layers className="w-3 h-3 text-[var(--accent-aqua)]" />
+                          <span>DỰ ÁN: TODO CLI v3 (OOP &amp; UNITTEST)</span>
+                        </span>
+                      )}
                       {(week.week === 8 || week.week === 25) && (
                         <span className="px-2.5 py-1 rounded-[6px] bg-[var(--surface-elevated)] border border-[var(--border-main)] text-[var(--accent-aqua)] flex items-center space-x-1">
                           <Cpu className="w-3 h-3 text-[var(--accent-aqua)]" />
@@ -402,6 +408,17 @@ export default function LearnLandingPage() {
                           >
                             <Terminal className="w-3.5 h-3.5 text-[var(--accent-aqua)] shrink-0" />
                             <span>BẮT ĐẦU TUẦN 02: CẤU TRÚC DỮ LIỆU &amp; JSON/CSV</span>
+                            <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+                          </Link>
+                        </div>
+                      ) : week.week === 3 ? (
+                        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                          <Link
+                            href="/lesson/week-03"
+                            className="h-[38px] px-5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 shadow-md whitespace-nowrap shrink-0"
+                          >
+                            <Layers className="w-3.5 h-3.5 text-[var(--accent-aqua)] shrink-0" />
+                            <span>BẮT ĐẦU TUẦN 03: OOP, LOGGING &amp; TESTING</span>
                             <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                           </Link>
                         </div>
