@@ -937,10 +937,10 @@ if __name__ == "__main__":
                   </span>
                 </div>
                 <Link
-                  href="/learn"
+                  href="/lesson/week-04"
                   className="px-4 py-1.5 rounded-[6px] bg-emerald-500 text-black font-semibold text-[11px] uppercase tracking-wider hover:bg-emerald-400 transition-colors shrink-0"
                 >
-                  VỀ HUB BÀI HỌC &rarr;
+                  HỌC TIẾP TUẦN 04 &rarr;
                 </Link>
               </div>
             )}
