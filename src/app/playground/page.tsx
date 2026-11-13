@@ -96,12 +96,12 @@ export default function PythonPlaygroundPage() {
   return (
     <div className="min-h-screen bg-[var(--bg-canvas)] text-[var(--text-primary)] transition-colors duration-300 selection:bg-[var(--btn-solid-bg)] selection:text-[var(--btn-solid-text)] flex flex-col justify-between">
       {/* 1. Header Bar */}
-      <header className="sticky top-0 z-40 w-full bg-[var(--header-bg)] backdrop-blur-md border-b border-[var(--border-main)] px-4 sm:px-8 lg:px-12 py-3 sm:py-3.5 flex items-center justify-between transition-colors">
+      <header className="sticky top-0 z-40 w-full bg-[var(--header-bg)] backdrop-blur-md border-b border-[var(--border-main)] px-3 sm:px-6 lg:px-8 py-3 sm:py-3.5 flex items-center justify-between transition-colors">
         {/* Brand Lockup */}
-        <div className="flex items-center space-x-2 sm:space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
           <Link
             href="/"
-            className="flex items-center space-x-1.5 text-[11px] font-medium tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-3 rounded-[6px] border border-[var(--border-main)] hover:border-[var(--text-primary)] shrink-0"
+            className="flex items-center space-x-1.5 text-[11px] font-medium tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1.5 px-2.5 rounded-[6px] border border-[var(--border-main)] hover:border-[var(--text-primary)] shrink-0"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span className="hidden xs:inline">TRANG CHỦ</span>
@@ -116,55 +116,51 @@ export default function PythonPlaygroundPage() {
             <span className="text-[var(--text-secondary)] text-[11px] sm:text-[13px]">AI LAB</span>
           </Link>
 
-          <span className="hidden md:inline-block text-[10px] uppercase tracking-widest text-[var(--accent-aqua)] border-l border-[var(--border-main)] pl-3 font-mono">
-            PYTHON WASM PLAYGROUND
+          <span className="hidden xl:inline-block text-[10px] uppercase tracking-widest text-[var(--accent-aqua)] border-l border-[var(--border-main)] pl-3 font-mono">
+            PYTHON WASM
           </span>
         </div>
 
         {/* Center Nav Links */}
-        <nav className="hidden lg:flex items-center space-x-2 text-[12px] font-mono tracking-[0.12em] uppercase text-[var(--text-secondary)]">
+        <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 text-[11px] xl:text-[12px] font-mono tracking-[0.08em] xl:tracking-[0.12em] uppercase text-[var(--text-secondary)]">
           <Link
             href="/roadmap"
-            className="px-3 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap"
+            className="px-2.5 xl:px-3 py-1.5 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap"
           >
-            LỘ TRÌNH 26 TUẦN
+            <span className="hidden xl:inline">LỘ TRÌNH 26 TUẦN</span>
+            <span className="xl:hidden">LỘ TRÌNH</span>
           </Link>
           <Link
             href="/lab"
-            className="px-3 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap"
+            className="px-2.5 xl:px-3 py-1.5 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap"
           >
-            PHÒNG LAB 3D
+            <span className="hidden xl:inline">PHÒNG LAB 3D</span>
+            <span className="xl:hidden">LAB 3D</span>
           </Link>
           <Link
             href="/anatomy-3d"
-            className="px-3 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap"
+            className="px-2.5 xl:px-3 py-1.5 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap"
           >
             GIẢI MÃ 3D
           </Link>
           <Link
             href="/playground"
-            className="px-3 py-2 rounded-[6px] text-[var(--accent-aqua)] font-medium bg-[var(--surface-hover)] transition-all whitespace-nowrap"
+            className="px-2.5 xl:px-3 py-1.5 rounded-[6px] text-[var(--accent-aqua)] font-medium bg-[var(--surface-hover)] transition-all whitespace-nowrap"
           >
-            PLAYGROUND PYTHON
+            <span className="hidden xl:inline">PLAYGROUND PYTHON</span>
+            <span className="xl:hidden">PLAYGROUND</span>
           </Link>
           <button
             onClick={() => setIsRadarModalOpen(true)}
-            className="px-3 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap cursor-pointer uppercase font-mono"
+            className="px-2.5 xl:px-3 py-1.5 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap cursor-pointer uppercase font-mono"
           >
-            DAILY RADAR
+            <span className="hidden xl:inline">DAILY RADAR</span>
+            <span className="xl:hidden">RADAR</span>
           </button>
         </nav>
 
         {/* Right Controls */}
-        <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
-          <button
-            onClick={() => setIsRadarModalOpen(true)}
-            className="hidden sm:flex items-center px-3 py-1.5 rounded-[6px] border border-[var(--border-main)] bg-[var(--badge-bg)] hover:bg-[var(--surface-hover)] hover:border-[var(--text-primary)] text-[var(--text-primary)] text-[11px] font-mono tracking-widest uppercase transition-all cursor-pointer whitespace-nowrap"
-          >
-            <Radio className="w-3.5 h-3.5 text-[var(--accent-aqua)] mr-1.5 animate-pulse" />
-            <span>RADAR</span>
-          </button>
-
+        <div className="flex items-center space-x-2 sm:space-x-2.5 shrink-0">
           <button
             onClick={toggleTheme}
             className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-[6px] border border-[var(--border-main)] bg-[var(--badge-bg)] hover:bg-[var(--surface-hover)] text-[var(--text-primary)] transition-all cursor-pointer shrink-0"
@@ -181,10 +177,11 @@ export default function PythonPlaygroundPage() {
           <Link
             href="/learn"
             style={{ background: "var(--btn-aurora-bg)", color: "var(--btn-aurora-text)" }}
-            className="h-8 sm:h-9 px-3 sm:px-4 rounded-[6px] hover:opacity-95 text-[11px] sm:text-[12px] font-medium tracking-[0.08em] uppercase transition-all shadow-[0_0_18px_rgba(0,180,170,0.25)] flex items-center space-x-1.5 whitespace-nowrap shrink-0"
+            className="h-8 sm:h-9 px-3 sm:px-4 rounded-[6px] hover:opacity-95 text-[11px] sm:text-[12px] font-medium tracking-[0.06em] uppercase transition-all shadow-[0_0_18px_rgba(0,180,170,0.25)] flex items-center space-x-1.5 whitespace-nowrap shrink-0"
           >
             <BookOpen className="w-3.5 h-3.5 shrink-0" />
-            <span>BẮT ĐẦU HỌC</span>
+            <span className="hidden sm:inline">BẮT ĐẦU HỌC</span>
+            <span className="sm:hidden">HỌC</span>
           </Link>
         </div>
       </header>

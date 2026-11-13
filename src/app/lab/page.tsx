@@ -28,9 +28,9 @@ export default function LabWorkspacePage() {
   return (
     <main className="relative min-h-screen w-full bg-[var(--bg-canvas)] text-[var(--text-primary)] overflow-hidden flex flex-col justify-between transition-colors duration-300 selection:bg-[var(--btn-solid-bg)] selection:text-[var(--btn-solid-text)]">
       {/* 1. Fixed Top Navigation */}
-      <header className="fixed top-0 left-0 right-0 z-40 w-full px-4 sm:px-8 lg:px-12 py-3 sm:py-4 flex items-center justify-between bg-[var(--bg-canvas)]/85 backdrop-blur-md border-b border-[var(--border-main)]">
+      <header className="fixed top-0 left-0 right-0 z-40 w-full px-3 sm:px-6 lg:px-8 py-3 sm:py-3.5 flex items-center justify-between bg-[var(--bg-canvas)]/85 backdrop-blur-md border-b border-[var(--border-main)]">
         {/* Brand Lockup + Home Link */}
-        <div className="flex items-center space-x-2 sm:space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
           <Link
             href="/"
             className="flex items-center space-x-1.5 text-[11px] font-medium tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1 px-2.5 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)] mr-1 shrink-0"
@@ -42,18 +42,19 @@ export default function LabWorkspacePage() {
           <Link href="/" className="text-[13px] sm:text-[16px] font-medium tracking-[0.18em] sm:tracking-[0.2em] uppercase text-[var(--text-primary)] whitespace-nowrap">
             AUROS <span className="text-[var(--accent-ember)] font-normal">//</span> AI LAB
           </Link>
-          <span className="hidden md:inline-block text-[10px] uppercase tracking-widest text-[var(--text-secondary)] border-l border-[var(--border-main)] pl-3 font-mono">
+          <span className="hidden xl:inline-block text-[10px] uppercase tracking-widest text-[var(--text-secondary)] border-l border-[var(--border-main)] pl-3 font-mono">
             3D ARCHITECTURE
           </span>
         </div>
 
         {/* Minimal Center Navigation */}
-        <nav className="hidden lg:flex items-center space-x-8 text-[11px] sm:text-[12px] font-medium tracking-wider uppercase">
+        <nav className="hidden lg:flex items-center space-x-3 lg:space-x-4 xl:space-x-6 text-[11px] xl:text-[12px] font-medium tracking-wider uppercase">
           <Link
             href="/roadmap"
             className="relative py-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
           >
-            01. LỘ TRÌNH 26 TUẦN
+            <span className="hidden xl:inline">01. LỘ TRÌNH 26 TUẦN</span>
+            <span className="xl:hidden">01. LỘ TRÌNH</span>
           </Link>
           <Link
             href="/anatomy-3d"
@@ -63,15 +64,17 @@ export default function LabWorkspacePage() {
           </Link>
           <button
             onClick={() => setIsRadarModalOpen(true)}
-            className="relative py-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+            className="relative py-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer"
           >
-            03. DAILY RADAR
+            <span className="hidden xl:inline">03. DAILY RADAR</span>
+            <span className="xl:hidden">03. RADAR</span>
           </button>
           <Link
             href="/learn"
             className="relative py-1 text-[var(--accent-ember)] hover:text-[var(--text-primary)] transition-colors"
           >
-            04. BẮT ĐẦU HỌC
+            <span className="hidden xl:inline">04. BẮT ĐẦU HỌC</span>
+            <span className="xl:hidden">04. BÀI HỌC</span>
           </Link>
           <Link
             href="/playground"
@@ -86,7 +89,7 @@ export default function LabWorkspacePage() {
         <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
           <button
             onClick={() => setIsRadarModalOpen(true)}
-            className="flex items-center px-2.5 sm:px-3 py-1.5 rounded-[22.5px] border border-[var(--accent-ember)]/40 bg-[var(--accent-ember)]/10 text-[var(--accent-ember)] text-[10px] font-mono tracking-wider uppercase hover:bg-[var(--accent-ember)]/20 transition-colors whitespace-nowrap"
+            className="lg:hidden flex items-center px-2.5 sm:px-3 py-1.5 rounded-[22.5px] border border-[var(--accent-ember)]/40 bg-[var(--accent-ember)]/10 text-[var(--accent-ember)] text-[10px] font-mono tracking-wider uppercase hover:bg-[var(--accent-ember)]/20 transition-colors whitespace-nowrap"
           >
             <span className="hidden xs:inline">DAILY RADAR</span>
             <span className="xs:hidden">RADAR</span>

@@ -170,7 +170,7 @@ export default function WelcomePage() {
       <GlobalStoryNav />
 
       {/* 1. Transparent Navigation Bar (Auros Style) */}
-      <header className="fixed top-0 left-0 right-0 z-50 w-full h-[64px] sm:h-[70px] px-4 sm:px-8 lg:px-12 flex items-center justify-between bg-[var(--header-bg)] backdrop-blur-md border-b border-[var(--border-main)] transition-colors duration-300">
+      <header className="fixed top-0 left-0 right-0 z-50 w-full h-[64px] sm:h-[70px] px-3 sm:px-6 lg:px-8 flex items-center justify-between bg-[var(--header-bg)] backdrop-blur-md border-b border-[var(--border-main)] transition-colors duration-300">
         {/* Left: Brand Lockup */}
         <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
           <Link
@@ -181,58 +181,52 @@ export default function WelcomePage() {
             <span className="text-[var(--accent-bioluminescent)] font-light">//</span>
             <span>AI LAB</span>
           </Link>
-          <span className="hidden xl:inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-[6px] bg-[var(--badge-bg)] border border-[var(--border-main)] text-[10px] font-mono uppercase tracking-widest text-[var(--text-mist)] whitespace-nowrap">
+          <span className="hidden 2xl:inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-[6px] bg-[var(--badge-bg)] border border-[var(--border-main)] text-[10px] font-mono uppercase tracking-widest text-[var(--text-mist)] whitespace-nowrap">
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-aqua)] animate-pulse" />
             <span>26W CURRICULUM</span>
           </span>
         </div>
 
         {/* Center: Clean Ghost Navigation Links (Desktop) */}
-        <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 text-[12px] font-mono tracking-[0.12em] uppercase text-[var(--text-secondary)]">
+        <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 text-[11px] xl:text-[12px] font-mono tracking-[0.08em] xl:tracking-[0.12em] uppercase text-[var(--text-secondary)]">
           <Link
             href="/roadmap"
-            className="px-3 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap"
+            className="px-2.5 xl:px-3 py-1.5 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap"
           >
-            LỘ TRÌNH 26 TUẦN
+            <span className="hidden xl:inline">LỘ TRÌNH 26 TUẦN</span>
+            <span className="xl:hidden">LỘ TRÌNH</span>
           </Link>
           <Link
             href="/lab"
-            className="px-3 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap"
+            className="px-2.5 xl:px-3 py-1.5 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap"
           >
-            PHÒNG LAB 3D
+            <span className="hidden xl:inline">PHÒNG LAB 3D</span>
+            <span className="xl:hidden">LAB 3D</span>
           </Link>
           <Link
             href="/anatomy-3d"
-            className="px-3 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap text-[var(--accent-aqua)]"
+            className="px-2.5 xl:px-3 py-1.5 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap text-[var(--accent-aqua)]"
           >
             GIẢI MÃ 3D
           </Link>
           <Link
             href="/playground"
-            className="px-3 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap flex items-center space-x-1.5 text-emerald-400 font-medium"
+            className="px-2.5 xl:px-3 py-1.5 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap flex items-center space-x-1 text-emerald-400 font-medium"
           >
             <span>PLAYGROUND</span>
-            <span className="text-[9px] px-1 py-0.5 rounded bg-emerald-950/60 border border-emerald-700/50">WASM</span>
+            <span className="text-[9px] px-1 py-0.2 rounded bg-emerald-950/60 border border-emerald-700/50">WASM</span>
           </Link>
           <button
             onClick={() => setIsRadarModalOpen(true)}
-            className="px-3 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap cursor-pointer uppercase font-mono"
+            className="px-2.5 xl:px-3 py-1.5 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap cursor-pointer uppercase font-mono"
           >
-            DAILY RADAR
+            <span className="hidden xl:inline">DAILY RADAR</span>
+            <span className="xl:hidden">RADAR</span>
           </button>
         </nav>
 
         {/* Right: Controls & Primary Action */}
-        <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
-          {/* Daily Radar Quick Button (Hidden on small mobile to avoid crowd) */}
-          <button
-            onClick={() => setIsRadarModalOpen(true)}
-            className="hidden sm:flex items-center px-3 py-1.5 rounded-[6px] border border-[var(--border-main)] bg-[var(--badge-bg)] hover:bg-[var(--surface-hover)] hover:border-[var(--text-primary)] text-[var(--text-primary)] text-[11px] font-mono tracking-widest uppercase transition-all cursor-pointer whitespace-nowrap"
-            title="Mở bản tin Daily AI Radar"
-          >
-            <span>RADAR</span>
-          </button>
-
+        <div className="flex items-center space-x-2 sm:space-x-2.5 shrink-0">
           {/* Theme Switcher Button (Sun/Moon) */}
           <button
             onClick={toggleTheme}
@@ -251,17 +245,17 @@ export default function WelcomePage() {
           <Link
             href="/learn"
             style={{ background: "var(--btn-aurora-bg)", color: "var(--btn-aurora-text)" }}
-            className="h-8 sm:h-9 px-3 sm:px-5 rounded-[6px] hover:opacity-95 text-[11px] sm:text-[12px] font-medium tracking-[0.08em] uppercase transition-all shadow-[0_0_18px_rgba(0,180,170,0.25)] flex items-center space-x-1.5 whitespace-nowrap shrink-0"
+            className="h-8 sm:h-9 px-3 sm:px-4 rounded-[6px] hover:opacity-95 text-[11px] sm:text-[12px] font-medium tracking-[0.06em] uppercase transition-all shadow-[0_0_18px_rgba(0,180,170,0.25)] flex items-center space-x-1.5 whitespace-nowrap shrink-0"
           >
-            <span className="hidden xs:inline">BẮT ĐẦU HỌC</span>
-            <span className="xs:hidden">HỌC NGAY</span>
+            <span className="hidden sm:inline">BẮT ĐẦU HỌC</span>
+            <span className="sm:hidden">HỌC</span>
             <ArrowUpRight className="w-3.5 h-3.5 shrink-0" />
           </Link>
 
           {/* Mobile Hamburger Toggle Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden w-8 h-8 flex items-center justify-center rounded-[6px] border border-[var(--border-main)] bg-[var(--badge-bg)] text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-colors cursor-pointer"
+            className="lg:hidden w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-[6px] border border-[var(--border-main)] bg-[var(--badge-bg)] text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-colors cursor-pointer shrink-0"
             aria-label="Toggle Mobile Navigation"
           >
             {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -271,7 +265,7 @@ export default function WelcomePage() {
 
       {/* Mobile Navigation Dropdown Sheet */}
       {isMobileMenuOpen && (
-        <div className="fixed top-[64px] sm:top-[70px] left-0 right-0 z-40 bg-[var(--surface-card)]/98 backdrop-blur-xl border-b border-[var(--border-main)] px-5 py-5 space-y-3 shadow-2xl md:hidden">
+        <div className="fixed top-[64px] sm:top-[70px] left-0 right-0 z-40 bg-[var(--surface-card)]/98 backdrop-blur-xl border-b border-[var(--border-main)] px-5 py-5 space-y-3 shadow-2xl lg:hidden">
           <div className="text-[10px] font-mono uppercase tracking-widest text-[var(--text-mist)] pb-2 border-b border-[var(--border-main)]">
             ĐIỀU HƯỚNG TRANG // NAVIGATION
           </div>

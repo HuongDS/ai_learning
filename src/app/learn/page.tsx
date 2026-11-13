@@ -109,9 +109,9 @@ export default function LearnLandingPage() {
   return (
     <main className="relative min-h-screen w-full bg-[var(--bg-canvas)] text-[var(--text-primary)] transition-colors duration-300 selection:bg-[var(--btn-solid-bg)] selection:text-[var(--btn-solid-text)] flex flex-col justify-between">
       {/* 1. Sticky Navigation Header */}
-      <header className="sticky top-0 z-50 w-full px-4 sm:px-8 lg:px-12 py-3 sm:py-4 flex items-center justify-between bg-[var(--bg-canvas)]/85 backdrop-blur-md border-b border-[var(--border-main)]">
+      <header className="sticky top-0 z-50 w-full px-3 sm:px-6 lg:px-8 py-3 sm:py-3.5 flex items-center justify-between bg-[var(--bg-canvas)]/85 backdrop-blur-md border-b border-[var(--border-main)]">
         {/* Brand Lockup */}
-        <div className="flex items-center space-x-2 sm:space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
           <Link
             href="/"
             className="flex items-center space-x-1.5 text-[11px] font-medium tracking-wider uppercase text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1 px-2.5 rounded-[22.5px] border border-[var(--border-main)] hover:border-[var(--text-primary)] shrink-0"
@@ -126,24 +126,27 @@ export default function LearnLandingPage() {
         </div>
 
         {/* Center Links */}
-        <nav className="hidden lg:flex items-center space-x-8 text-[11px] sm:text-[12px] font-medium tracking-wider uppercase">
+        <nav className="hidden lg:flex items-center space-x-3 lg:space-x-4 xl:space-x-6 text-[11px] xl:text-[12px] font-medium tracking-wider uppercase">
           <Link
             href="/roadmap"
             className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
           >
-            01. LỘ TRÌNH 26 TUẦN
+            <span className="hidden xl:inline">01. LỘ TRÌNH 26 TUẦN</span>
+            <span className="xl:hidden">01. LỘ TRÌNH</span>
           </Link>
           <button
             onClick={() => setIsRadarModalOpen(true)}
-            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors flex items-center space-x-1"
+            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors flex items-center space-x-1 cursor-pointer"
           >
-            <span>02. DAILY RADAR</span>
+            <span className="hidden xl:inline">02. DAILY RADAR</span>
+            <span className="xl:hidden">02. RADAR</span>
           </button>
           <Link
             href="/learn"
             className="text-[var(--accent-ember)] hover:text-[var(--text-primary)] transition-colors font-medium"
           >
-            03. BẮT ĐẦU HỌC
+            <span className="hidden xl:inline">03. BẮT ĐẦU HỌC</span>
+            <span className="xl:hidden">03. BÀI HỌC</span>
           </Link>
           <Link
             href="/playground"
@@ -155,7 +158,7 @@ export default function LearnLandingPage() {
         </nav>
 
         {/* Right Controls */}
-        <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
+        <div className="flex items-center space-x-2 sm:space-x-2.5 shrink-0">
           {/* Progress Pill */}
           <div className="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-[22.5px] border border-[var(--border-main)] bg-[var(--surface-elevated)] text-[10px] font-mono uppercase tracking-wider text-[var(--text-secondary)]">
             <span>TIẾN ĐỘ:</span>
