@@ -364,25 +364,27 @@ export default function WelcomePage() {
               <Link
                 href="/learn"
                 style={{ background: "var(--btn-aurora-bg)", color: "var(--btn-aurora-text)" }}
-                className="h-[46px] sm:h-[48px] px-5 sm:px-6 rounded-[6px] hover:opacity-95 text-[12px] sm:text-[13px] font-medium tracking-[0.06em] uppercase transition-all shadow-[0_0_24px_rgba(0,180,170,0.3)] flex items-center justify-center space-x-2 whitespace-nowrap cursor-pointer text-center"
+                className="h-[46px] sm:h-[48px] px-4 sm:px-6 rounded-[6px] hover:opacity-95 text-[12px] sm:text-[13px] font-medium tracking-[0.06em] uppercase transition-all shadow-[0_0_24px_rgba(0,180,170,0.3)] flex items-center justify-center space-x-2 cursor-pointer text-center max-w-full"
               >
                 <BookOpen className="w-4 h-4 shrink-0" />
-                <span>BẮT ĐẦU HỌC (CHỌN BÀI HỌC)</span>
+                <span className="truncate hidden sm:inline">BẮT ĐẦU HỌC (CHỌN BÀI HỌC)</span>
+                <span className="truncate sm:hidden">BẮT ĐẦU HỌC</span>
                 <ArrowRight className="w-4 h-4 shrink-0" />
               </Link>
 
               <Link
                 href="/roadmap"
                 style={{ background: "var(--btn-surface-bg)", color: "var(--btn-surface-text)" }}
-                className="h-[46px] sm:h-[48px] px-4 sm:px-5 rounded-[6px] hover:opacity-90 text-[12px] sm:text-[13px] font-medium tracking-[0.06em] uppercase border border-[var(--border-main)] transition-colors flex items-center justify-center space-x-2 whitespace-nowrap shadow-sm text-center"
+                className="h-[46px] sm:h-[48px] px-4 sm:px-5 rounded-[6px] hover:opacity-90 text-[12px] sm:text-[13px] font-medium tracking-[0.06em] uppercase border border-[var(--border-main)] transition-colors flex items-center justify-center space-x-2 shadow-sm text-center max-w-full"
               >
                 <Compass className="w-4 h-4 text-[var(--text-mist)] shrink-0" />
-                <span>XEM LỘ TRÌNH 26 TUẦN</span>
+                <span className="truncate hidden sm:inline">XEM LỘ TRÌNH 26 TUẦN</span>
+                <span className="truncate sm:hidden">LỘ TRÌNH 26 TUẦN</span>
               </Link>
 
               <button
                 onClick={() => setIsRadarModalOpen(true)}
-                className="h-[46px] sm:h-[48px] px-4 rounded-[6px] bg-[var(--badge-bg)] hover:bg-[var(--surface-hover)] text-[var(--text-mist)] hover:text-[var(--text-primary)] text-[11px] sm:text-[12px] font-mono tracking-wider uppercase border border-[var(--border-main)] transition-colors flex items-center justify-center space-x-2 whitespace-nowrap cursor-pointer text-center"
+                className="h-[46px] sm:h-[48px] px-3.5 sm:px-4 rounded-[6px] bg-[var(--badge-bg)] hover:bg-[var(--surface-hover)] text-[var(--text-mist)] hover:text-[var(--text-primary)] text-[11px] sm:text-[12px] font-mono tracking-wider uppercase border border-[var(--border-main)] transition-colors flex items-center justify-center space-x-2 cursor-pointer text-center max-w-full"
               >
                 <Radio className="w-3.5 h-3.5 text-[var(--accent-aqua)] shrink-0 animate-pulse" />
                 <span>DAILY RADAR</span>
@@ -662,18 +664,20 @@ export default function WelcomePage() {
                   <Link
                     href="/lesson/week-01"
                     style={{ background: "var(--btn-aurora-bg)", color: "var(--btn-aurora-text)" }}
-                    className="inline-flex items-center space-x-2.5 h-[46px] sm:h-[48px] px-6 sm:px-7 rounded-[6px] hover:opacity-95 text-[11px] sm:text-[12px] font-medium tracking-wider uppercase transition-all whitespace-nowrap shrink-0 shadow-lg"
+                    className="inline-flex items-center space-x-2.5 h-[46px] sm:h-[48px] px-4 sm:px-6 rounded-[6px] hover:opacity-95 text-[11px] sm:text-[12px] font-medium tracking-wider uppercase transition-all shadow-lg max-w-full"
                   >
                     <BookOpen className="w-4 h-4 shrink-0" />
-                    <span>BẮT ĐẦU TUẦN 01 (PYTHON & MÔI TRƯỜNG)</span>
+                    <span className="truncate hidden sm:inline">BẮT ĐẦU TUẦN 01 (PYTHON & MÔI TRƯỜNG)</span>
+                    <span className="truncate sm:hidden">BẮT ĐẦU TUẦN 01</span>
                     <ArrowRight className="w-4 h-4 shrink-0" />
                   </Link>
 
                   <Link
                     href="/lab"
-                    className="inline-flex items-center space-x-2 h-[46px] sm:h-[48px] px-4.5 rounded-[6px] border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] text-[11px] sm:text-[12px] font-mono tracking-wider uppercase transition-all whitespace-nowrap bg-[var(--badge-bg)]"
+                    className="inline-flex items-center space-x-2 h-[46px] sm:h-[48px] px-4 sm:px-4.5 rounded-[6px] border border-[var(--border-main)] hover:border-[var(--text-primary)] text-[var(--text-primary)] text-[11px] sm:text-[12px] font-mono tracking-wider uppercase transition-all bg-[var(--badge-bg)] max-w-full"
                   >
-                    <span>VÀO PHÒNG LAB 3D (THAM KHẢO)</span>
+                    <span className="truncate hidden sm:inline">VÀO PHÒNG LAB 3D (THAM KHẢO)</span>
+                    <span className="truncate sm:hidden">PHÒNG LAB 3D</span>
                   </Link>
                 </div>
               </div>
@@ -923,19 +927,21 @@ vllm serve meta-llama/Llama-3.2-3B-Instruct --port 8000</code>
             <Link
               href="/learn"
               style={{ background: "var(--btn-aurora-bg)", color: "var(--btn-aurora-text)" }}
-              className="h-[48px] sm:h-[50px] px-6 sm:px-8 rounded-[6px] hover:opacity-95 text-[12px] sm:text-[13px] font-medium tracking-[0.08em] uppercase transition-all shadow-[0_0_24px_rgba(0,180,170,0.3)] flex items-center justify-center space-x-2.5 whitespace-nowrap cursor-pointer text-center"
+              className="h-[48px] sm:h-[50px] px-5 sm:px-8 rounded-[6px] hover:opacity-95 text-[12px] sm:text-[13px] font-medium tracking-[0.08em] uppercase transition-all shadow-[0_0_24px_rgba(0,180,170,0.3)] flex items-center justify-center space-x-2.5 cursor-pointer text-center max-w-full"
             >
               <BookOpen className="w-4 h-4 shrink-0" />
-              <span>BẮT ĐẦU HỌC (CHỌN BÀI HỌC)</span>
+              <span className="truncate hidden sm:inline">BẮT ĐẦU HỌC (CHỌN BÀI HỌC)</span>
+              <span className="truncate sm:hidden">BẮT ĐẦU HỌC</span>
               <ArrowRight className="w-4 h-4 ml-1 shrink-0" />
             </Link>
 
             <Link
               href="/roadmap"
               style={{ background: "var(--btn-surface-bg)", color: "var(--btn-surface-text)" }}
-              className="h-[48px] sm:h-[50px] px-6 sm:px-7 rounded-[6px] border border-[var(--border-main)] hover:opacity-90 text-[12px] sm:text-[13px] font-medium tracking-widest uppercase transition-colors flex items-center justify-center space-x-2 whitespace-nowrap shadow-sm text-center"
+              className="h-[48px] sm:h-[50px] px-5 sm:px-7 rounded-[6px] border border-[var(--border-main)] hover:opacity-90 text-[12px] sm:text-[13px] font-medium tracking-widest uppercase transition-colors flex items-center justify-center space-x-2 shadow-sm text-center max-w-full"
             >
-              <span>XEM TOÀN BỘ GIÁO TRÌNH</span>
+              <span className="truncate hidden sm:inline">XEM TOÀN BỘ GIÁO TRÌNH</span>
+              <span className="truncate sm:hidden">TOÀN BỘ GIÁO TRÌNH</span>
             </Link>
           </div>
         </div>

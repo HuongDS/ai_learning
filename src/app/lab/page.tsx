@@ -126,13 +126,14 @@ export default function LabWorkspacePage() {
               Trước khi mô hình AI suy luận, phần cứng bán dẫn và VRAM phải xử lý hàng tỷ phép toán ma trận tensor song song. Mô-đun 3D này bổ trợ cho Tuần 08 (Deep Learning/GPU) và Tuần 25 (Tối ưu Inference/Quantization).
             </p>
 
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-2">
               <Link
                 href="/lesson/week-01"
-                className="h-[46px] sm:h-[50px] px-6 sm:px-8 rounded-[36px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] sm:text-[12px] font-medium tracking-widest uppercase border border-[var(--border-main)] transition-all duration-200 shadow-xl flex items-center justify-center space-x-2.5 group cursor-pointer whitespace-nowrap shrink-0 text-center"
+                className="h-[46px] sm:h-[50px] px-4 sm:px-8 rounded-[36px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] sm:text-[12px] font-medium tracking-widest uppercase border border-[var(--border-main)] transition-all duration-200 shadow-xl flex items-center justify-center space-x-2 group cursor-pointer max-w-full text-center"
               >
                 <BookOpen className="w-4 h-4 text-[var(--accent-ember)] shrink-0" />
-                <span>BẮT ĐẦU TUẦN 01 (PYTHON)</span>
+                <span className="truncate hidden sm:inline">BẮT ĐẦU TUẦN 01 (PYTHON)</span>
+                <span className="truncate sm:hidden">TUẦN 01 (PYTHON)</span>
                 <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1 shrink-0" />
               </Link>
 

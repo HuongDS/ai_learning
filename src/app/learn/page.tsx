@@ -403,61 +403,61 @@ export default function LearnLandingPage() {
                   </div>
 
                   {/* Card Bottom Actions */}
-                  <div className="pt-4 border-t border-[var(--border-main)] flex flex-wrap items-center justify-between gap-3">
+                  <div className="pt-4 border-t border-[var(--border-main)] flex flex-wrap items-center justify-between gap-2.5 w-full">
                     {/* Unlocked State Actions */}
                     {isUnlocked ? (
                       week.week === 1 ? (
-                        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                        <div className="flex items-center gap-2 max-w-full">
                           <Link
                             href="/lesson/week-01"
-                            className="h-[38px] px-5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 shadow-md whitespace-nowrap shrink-0"
+                            className="h-[38px] px-4 sm:px-5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 shadow-md max-w-full"
                           >
                             <Terminal className="w-3.5 h-3.5 text-[var(--accent-ember)] shrink-0" />
-                            <span>BẮT ĐẦU TUẦN 01: PYTHON CĂN BẢN</span>
+                            <span className="truncate">VÀO HỌC TUẦN 01</span>
                             <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                           </Link>
                         </div>
                       ) : week.week === 2 ? (
-                        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                        <div className="flex items-center gap-2 max-w-full">
                           <Link
                             href="/lesson/week-02"
-                            className="h-[38px] px-5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 shadow-md whitespace-nowrap shrink-0"
+                            className="h-[38px] px-4 sm:px-5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 shadow-md max-w-full"
                           >
                             <Terminal className="w-3.5 h-3.5 text-[var(--accent-aqua)] shrink-0" />
-                            <span>BẮT ĐẦU TUẦN 02: CẤU TRÚC DỮ LIỆU &amp; JSON/CSV</span>
+                            <span className="truncate">VÀO HỌC TUẦN 02</span>
                             <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                           </Link>
                         </div>
                       ) : week.week === 3 ? (
-                        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                        <div className="flex items-center gap-2 max-w-full">
                           <Link
                             href="/lesson/week-03"
-                            className="h-[38px] px-5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 shadow-md whitespace-nowrap shrink-0"
+                            className="h-[38px] px-4 sm:px-5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 shadow-md max-w-full"
                           >
                             <Layers className="w-3.5 h-3.5 text-[var(--accent-aqua)] shrink-0" />
-                            <span>BẮT ĐẦU TUẦN 03: OOP, LOGGING &amp; TESTING</span>
+                            <span className="truncate">VÀO HỌC TUẦN 03</span>
                             <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                           </Link>
                         </div>
                       ) : week.week === 4 ? (
-                        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                        <div className="flex items-center gap-2 max-w-full">
                           <Link
                             href="/lesson/week-04"
-                            className="h-[38px] px-5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 shadow-md whitespace-nowrap shrink-0"
+                            className="h-[38px] px-4 sm:px-5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 shadow-md max-w-full"
                           >
                             <BarChart3 className="w-3.5 h-3.5 text-[var(--accent-aqua)] shrink-0" />
-                            <span>BẮT ĐẦU TUẦN 04: NUMPY &amp; DATA CLEANING</span>
+                            <span className="truncate">VÀO HỌC TUẦN 04</span>
                             <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                           </Link>
                         </div>
                       ) : (
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-2 max-w-full">
                           <Link
                             href={`/roadmap`}
-                            className="h-[38px] px-4.5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 shadow-md whitespace-nowrap shrink-0"
+                            className="h-[38px] px-4 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-medium tracking-wider uppercase transition-colors flex items-center space-x-1.5 shadow-md max-w-full"
                           >
                             <BookOpen className="w-3.5 h-3.5 text-[var(--accent-ember)] shrink-0" />
-                            <span>BẮT ĐẦU TUẦN {week.week}</span>
+                            <span className="truncate">XEM TUẦN {week.week}</span>
                             <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                           </Link>
                         </div>

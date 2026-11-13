@@ -288,11 +288,11 @@ export default function PythonPlaygroundPage() {
             </p>
           </div>
 
-          <div className="flex items-center space-x-3 shrink-0">
+          <div className="flex items-center justify-center w-full md:w-auto shrink-0">
             <Link
               href="/learn"
               style={{ background: "var(--btn-aurora-bg)", color: "var(--btn-aurora-text)" }}
-              className="h-[44px] px-5 rounded-[6px] hover:opacity-95 text-[11px] sm:text-[12px] font-medium tracking-wider uppercase transition-all shadow-[0_0_18px_rgba(0,180,170,0.25)] flex items-center space-x-1.5 whitespace-nowrap cursor-pointer"
+              className="h-[44px] px-5 rounded-[6px] hover:opacity-95 text-[11px] sm:text-[12px] font-medium tracking-wider uppercase transition-all shadow-[0_0_18px_rgba(0,180,170,0.25)] flex items-center justify-center space-x-1.5 cursor-pointer w-full md:w-auto text-center"
             >
               <BookOpen className="w-3.5 h-3.5 shrink-0" />
               <span>VÀO HUB BÀI HỌC</span>

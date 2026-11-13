@@ -357,38 +357,41 @@ while True:
           </h2>
 
           {/* Interactive Mode Switcher Tabs */}
-          <div className="flex flex-wrap items-center justify-between gap-3 p-1.5 rounded-[10px] bg-[var(--surface-card)] border border-[var(--border-main)]">
-            <div className="flex items-center space-x-1.5">
+          <div className="flex flex-wrap items-center justify-between gap-2 p-1.5 rounded-[10px] bg-[var(--surface-card)] border border-[var(--border-main)]">
+            <div className="flex flex-wrap items-center gap-1.5">
               <button
                 onClick={() => setInteractiveMode("wasm")}
-                className={`px-3.5 py-1.5 rounded-[6px] font-mono text-[11px] uppercase tracking-wider transition-all flex items-center space-x-1.5 ${
+                className={`px-3 py-1.5 rounded-[6px] font-mono text-[10px] sm:text-[11px] uppercase tracking-wider transition-all flex items-center space-x-1.5 ${
                   interactiveMode === "wasm"
                     ? "bg-[var(--accent-aqua)] text-black font-semibold shadow-sm"
                     : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                 }`}
               >
                 <Terminal className="w-3.5 h-3.5" />
-                <span>⚡ CHẠY CODE PYTHON THẬT (WASM)</span>
+                <span className="hidden sm:inline">⚡ CHẠY CODE PYTHON THẬT (WASM)</span>
+                <span className="sm:hidden">⚡ PYTHON WASM</span>
               </button>
 
               <button
                 onClick={() => setInteractiveMode("simulator")}
-                className={`px-3.5 py-1.5 rounded-[6px] font-mono text-[11px] uppercase tracking-wider transition-all flex items-center space-x-1.5 ${
+                className={`px-3 py-1.5 rounded-[6px] font-mono text-[10px] sm:text-[11px] uppercase tracking-wider transition-all flex items-center space-x-1.5 ${
                   interactiveMode === "simulator"
                     ? "bg-[var(--accent-ember)] text-white font-semibold shadow-sm"
                     : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                 }`}
               >
                 <Code2 className="w-3.5 h-3.5" />
-                <span>MÔ PHỎNG TODO CLI</span>
+                <span className="hidden sm:inline">MÔ PHỎNG TODO CLI</span>
+                <span className="sm:hidden">TODO CLI</span>
               </button>
             </div>
 
             <Link
               href="/playground"
-              className="text-[11px] font-mono text-[var(--accent-aqua)] hover:underline uppercase flex items-center space-x-1 px-2.5 py-1"
+              className="text-[10px] sm:text-[11px] font-mono text-[var(--accent-aqua)] hover:underline uppercase flex items-center space-x-1 px-2 py-1"
             >
-              <span>MỞ PLAYGROUND ĐẦY ĐỦ ↗</span>
+              <span className="hidden sm:inline">MỞ PLAYGROUND ĐẦY ĐỦ ↗</span>
+              <span className="sm:hidden">PLAYGROUND ↗</span>
             </Link>
           </div>
 

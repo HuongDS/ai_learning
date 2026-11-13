@@ -642,16 +642,17 @@ export default function RoadmapPage() {
                         {w.monthTitle}
                       </span>
 
-                      {w.week === 1 ? (
+                      {w.week <= 4 ? (
                         <Link
-                          href="/lesson/week-01"
-                          className="px-4 py-1.5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] uppercase font-medium flex items-center space-x-1 transition-colors"
+                          href={`/lesson/week-0${w.week}`}
+                          className="px-3 sm:px-4 py-1.5 rounded-[22.5px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] uppercase font-medium flex items-center space-x-1 transition-colors text-[10px] sm:text-[11px] max-w-full"
                         >
-                          <span>VÀO BÀI HỌC TUẦN 01 (PYTHON)</span>
-                          <ArrowRight className="w-3 h-3 ml-1" />
+                          <span className="hidden sm:inline">VÀO BÀI HỌC TUẦN 0{w.week}</span>
+                          <span className="sm:hidden">HỌC TUẦN 0{w.week}</span>
+                          <ArrowRight className="w-3 h-3 ml-1 shrink-0" />
                         </Link>
                       ) : (
-                        <span className="text-[var(--text-secondary)] uppercase">
+                        <span className="text-[var(--text-secondary)] uppercase text-[10px] sm:text-[11px]">
                           KẾ HOẠCH HỌC TẬP
                         </span>
                       )}

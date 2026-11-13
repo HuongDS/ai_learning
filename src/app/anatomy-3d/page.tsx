@@ -637,14 +637,15 @@ export default function Anatomy3DPage() {
             Mỗi khối 3D bạn vừa khám phá sẽ là một bài thực hành từng dòng code thực tế trong 26 tuần giáo trình.
           </p>
 
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-3.5">
+          <div className="pt-4 flex flex-wrap items-center justify-center gap-3 sm:gap-3.5">
             <Link
               href="/lesson/week-01"
               style={{ background: "var(--btn-aurora-bg)", color: "var(--btn-aurora-text)" }}
-              className="h-[48px] px-6 sm:px-7 rounded-[6px] hover:opacity-95 text-[12px] sm:text-[13px] font-medium tracking-[0.08em] uppercase transition-all shadow-[0_0_24px_rgba(0,180,170,0.3)] flex items-center justify-center space-x-2.5 cursor-pointer text-center"
+              className="h-[48px] px-4 sm:px-7 rounded-[6px] hover:opacity-95 text-[12px] sm:text-[13px] font-medium tracking-[0.08em] uppercase transition-all shadow-[0_0_24px_rgba(0,180,170,0.3)] flex items-center justify-center space-x-2.5 cursor-pointer text-center max-w-full"
             >
               <BookOpen className="w-4 h-4 shrink-0" />
-              <span>BẮT ĐẦU TUẦN 01: PYTHON CĂN BẢN</span>
+              <span className="truncate hidden sm:inline">BẮT ĐẦU TUẦN 01: PYTHON CĂN BẢN</span>
+              <span className="truncate sm:hidden">BẮT ĐẦU TUẦN 01</span>
               <ArrowRight className="w-4 h-4 shrink-0" />
             </Link>
 
