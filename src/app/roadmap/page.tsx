@@ -57,6 +57,14 @@ export default function RoadmapPage() {
             <span>BẮT ĐẦU HỌC</span>
           </Link>
 
+          <Link
+            href="/playground"
+            className="hidden lg:flex items-center space-x-1.5 text-[11px] font-mono tracking-wider uppercase text-emerald-400 hover:text-emerald-300 transition-colors py-1.5 px-3 rounded-[22.5px] border border-emerald-800/40 shrink-0"
+          >
+            <Terminal className="w-3.5 h-3.5" />
+            <span>PLAYGROUND</span>
+          </Link>
+
           <div className="text-[12px] font-mono uppercase tracking-widest text-[var(--text-primary)] font-medium border-l border-[var(--border-main)] pl-3 sm:pl-4 hidden sm:block truncate">
             AUROS <span className="text-[var(--accent-ember)]">//</span> 26 TUẦN TOÀN DIỆN
           </div>

@@ -19,6 +19,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
+import PythonWasmRunner from "@/components/PythonWasmRunner";
 
 interface TodoItem {
   id: number;
@@ -29,6 +30,7 @@ interface TodoItem {
 export default function WeekOneLessonPage() {
   const { theme, toggleTheme } = useTheme();
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [interactiveMode, setInteractiveMode] = useState<"wasm" | "simulator">("wasm");
 
   // Interactive Todo CLI Simulator State
   const [todos, setTodos] = useState<TodoItem[]>([
@@ -354,82 +356,127 @@ while True:
             5. Thử Nghiệm Console & Kiểm Tra Trắc Nghiệm
           </h2>
 
-          {/* Interactive Console Sandbox */}
-          <div className="p-5 rounded-[12px] bg-[var(--surface-elevated)] border border-[var(--border-main)] space-y-4">
-            <div className="flex items-center justify-between border-b border-[var(--border-main)] pb-3">
-              <span className="text-[12px] font-mono text-[var(--accent-ember)] font-medium">
-                INTERACTIVE CONSOLE: TODO CLI SIMULATOR
-              </span>
-              <span className="text-[10px] font-mono text-[var(--text-secondary)]">V1.0 EMULATOR</span>
-            </div>
-
-            {/* Input row */}
-            <div className="flex flex-col sm:flex-row gap-2">
-              <input
-                type="text"
-                placeholder="Nhập tên công việc mới (ví dụ: Viết unit test cho todo)..."
-                value={inputTitle}
-                onChange={(e) => setInputTitle(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleAddTodo()}
-                className="flex-1 px-3.5 py-2 rounded-[6px] bg-[var(--bg-canvas)] border border-[var(--border-main)] text-[13px] text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-ember)] font-mono"
-              />
+          {/* Interactive Mode Switcher Tabs */}
+          <div className="flex flex-wrap items-center justify-between gap-3 p-1.5 rounded-[10px] bg-[var(--surface-card)] border border-[var(--border-main)]">
+            <div className="flex items-center space-x-1.5">
               <button
-                onClick={handleAddTodo}
-                className="h-[38px] px-5 rounded-[6px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-mono uppercase font-medium tracking-wider transition-colors shrink-0"
+                onClick={() => setInteractiveMode("wasm")}
+                className={`px-3.5 py-1.5 rounded-[6px] font-mono text-[11px] uppercase tracking-wider transition-all flex items-center space-x-1.5 ${
+                  interactiveMode === "wasm"
+                    ? "bg-[var(--accent-aqua)] text-black font-semibold shadow-sm"
+                    : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                }`}
               >
-                + THÊM TASK
+                <Terminal className="w-3.5 h-3.5" />
+                <span>⚡ CHẠY CODE PYTHON THẬT (WASM)</span>
+              </button>
+
+              <button
+                onClick={() => setInteractiveMode("simulator")}
+                className={`px-3.5 py-1.5 rounded-[6px] font-mono text-[11px] uppercase tracking-wider transition-all flex items-center space-x-1.5 ${
+                  interactiveMode === "simulator"
+                    ? "bg-[var(--accent-ember)] text-white font-semibold shadow-sm"
+                    : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                }`}
+              >
+                <Code2 className="w-3.5 h-3.5" />
+                <span>MÔ PHỎNG TODO CLI</span>
               </button>
             </div>
 
-            {cliError && (
-              <div className="text-[11px] font-mono text-red-400 bg-red-950/20 p-2.5 rounded-[6px] border border-red-800/30">
-                {cliError}
-              </div>
-            )}
+            <Link
+              href="/playground"
+              className="text-[11px] font-mono text-[var(--accent-aqua)] hover:underline uppercase flex items-center space-x-1 px-2.5 py-1"
+            >
+              <span>MỞ PLAYGROUND ĐẦY ĐỦ ↗</span>
+            </Link>
+          </div>
 
-            {/* Tasks list */}
-            <div className="space-y-2 pt-2">
-              <div className="text-[11px] font-mono text-[var(--text-secondary)] uppercase">
-                DANH SÁCH CÔNG VIỆC HIỆN TẠI ({todos.length}):
+          {/* Tab 1: Real Pyodide WebAssembly Runner */}
+          {interactiveMode === "wasm" && (
+            <div className="space-y-3 animate-in fade-in duration-200">
+              <PythonWasmRunner initialPresetId="week-01" showPresets={false} />
+            </div>
+          )}
+
+          {/* Tab 2: Interactive Console Sandbox (GUI Simulator) */}
+          {interactiveMode === "simulator" && (
+            <div className="p-5 rounded-[12px] bg-[var(--surface-elevated)] border border-[var(--border-main)] space-y-4 animate-in fade-in duration-200">
+              <div className="flex items-center justify-between border-b border-[var(--border-main)] pb-3">
+                <span className="text-[12px] font-mono text-[var(--accent-ember)] font-medium">
+                  INTERACTIVE CONSOLE: TODO CLI SIMULATOR
+                </span>
+                <span className="text-[10px] font-mono text-[var(--text-secondary)]">V1.0 EMULATOR</span>
               </div>
-              <div className="space-y-1.5 max-h-48 overflow-y-auto">
-                {todos.map((t) => (
-                  <div
-                    key={t.id}
-                    className="flex items-center justify-between p-2.5 rounded-[6px] bg-[var(--bg-canvas)] border border-[var(--border-main)] text-[12px] font-mono"
-                  >
+
+              {/* Input row */}
+              <div className="flex flex-col sm:flex-row gap-2">
+                <input
+                  type="text"
+                  placeholder="Nhập tên công việc mới (ví dụ: Viết unit test cho todo)..."
+                  value={inputTitle}
+                  onChange={(e) => setInputTitle(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleAddTodo()}
+                  className="flex-1 px-3.5 py-2 rounded-[6px] bg-[var(--bg-canvas)] border border-[var(--border-main)] text-[13px] text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-ember)] font-mono"
+                />
+                <button
+                  onClick={handleAddTodo}
+                  className="h-[38px] px-5 rounded-[6px] bg-[var(--btn-solid-bg)] hover:bg-[var(--btn-solid-hover)] text-[var(--btn-solid-text)] text-[11px] font-mono uppercase font-medium tracking-wider transition-colors shrink-0"
+                >
+                  + THÊM TASK
+                </button>
+              </div>
+
+              {cliError && (
+                <div className="text-[11px] font-mono text-red-400 bg-red-950/20 p-2.5 rounded-[6px] border border-red-800/30">
+                  {cliError}
+                </div>
+              )}
+
+              {/* Tasks list */}
+              <div className="space-y-2 pt-2">
+                <div className="text-[11px] font-mono text-[var(--text-secondary)] uppercase">
+                  DANH SÁCH CÔNG VIỆC HIỆN TẠI ({todos.length}):
+                </div>
+                <div className="space-y-1.5 max-h-48 overflow-y-auto">
+                  {todos.map((t) => (
                     <div
-                      onClick={() => handleToggleTodo(t.id)}
-                      className="flex items-center space-x-2.5 cursor-pointer select-none flex-1 truncate"
+                      key={t.id}
+                      className="flex items-center justify-between p-2.5 rounded-[6px] bg-[var(--bg-canvas)] border border-[var(--border-main)] text-[12px] font-mono"
                     >
                       <div
-                        className={`w-4 h-4 rounded-[4px] border flex items-center justify-center transition-colors ${
-                          t.completed ? "bg-emerald-600 border-emerald-600 text-white" : "border-[var(--border-main)]"
-                        }`}
+                        onClick={() => handleToggleTodo(t.id)}
+                        className="flex items-center space-x-2.5 cursor-pointer select-none flex-1 truncate"
                       >
-                        {t.completed && <Check className="w-3 h-3" />}
+                        <div
+                          className={`w-4 h-4 rounded-[4px] border flex items-center justify-center transition-colors ${
+                            t.completed ? "bg-emerald-600 border-emerald-600 text-white" : "border-[var(--border-main)]"
+                          }`}
+                        >
+                          {t.completed && <Check className="w-3 h-3" />}
+                        </div>
+                        <span className={`truncate ${t.completed ? "line-through text-[var(--text-secondary)]" : "text-[var(--text-primary)]"}`}>
+                          #{t.id}. {t.title}
+                        </span>
                       </div>
-                      <span className={`truncate ${t.completed ? "line-through text-[var(--text-secondary)]" : "text-[var(--text-primary)]"}`}>
-                        #{t.id}. {t.title}
-                      </span>
-                    </div>
 
-                    <button
-                      onClick={() => handleDeleteTodo(t.id)}
-                      className="text-red-400 hover:text-red-300 text-[10px] uppercase font-mono px-2 py-0.5"
-                    >
-                      XÓA
-                    </button>
-                  </div>
-                ))}
+                      <button
+                        onClick={() => handleDeleteTodo(t.id)}
+                        className="text-red-400 hover:text-red-300 text-[10px] uppercase font-mono px-2 py-0.5"
+                      >
+                        XÓA
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Terminal output log */}
+              <div className="p-3 rounded-[6px] bg-[#0c0805] text-[#ffedd7] font-mono text-[11px] border border-[#2a1c12]">
+                <span className="text-[var(--accent-ember)]">&gt;</span> {cliOutput}
               </div>
             </div>
-
-            {/* Terminal output log */}
-            <div className="p-3 rounded-[6px] bg-[#0c0805] text-[#ffedd7] font-mono text-[11px] border border-[#2a1c12]">
-              <span className="text-[var(--accent-ember)]">&gt;</span> {cliOutput}
-            </div>
-          </div>
+          )}
 
           {/* Quick Quiz */}
           <div className="p-5 rounded-[12px] bg-[var(--surface-card)] border border-[var(--border-main)] space-y-4">

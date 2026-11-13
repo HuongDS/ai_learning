@@ -207,6 +207,13 @@ export default function WelcomePage() {
           >
             GIẢI MÃ 3D
           </Link>
+          <Link
+            href="/playground"
+            className="px-3 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap flex items-center space-x-1.5 text-emerald-400 font-medium"
+          >
+            <span>PLAYGROUND</span>
+            <span className="text-[9px] px-1 py-0.5 rounded bg-emerald-950/60 border border-emerald-700/50">WASM</span>
+          </Link>
           <button
             onClick={() => setIsRadarModalOpen(true)}
             className="px-3 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap cursor-pointer uppercase font-mono"
@@ -293,6 +300,14 @@ export default function WelcomePage() {
               <span>03. GIẢI MÃ KIẾN TRÚC 3D</span>
               <ArrowRight className="w-4 h-4 text-[var(--accent-aqua)]" />
             </Link>
+            <Link
+              href="/playground"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center justify-between p-3 rounded-[8px] bg-[var(--bg-canvas)] border border-emerald-800/40 text-[12px] font-mono uppercase tracking-wider text-emerald-400 hover:border-emerald-400 transition-colors"
+            >
+              <span>04. PLAYGROUND PYTHON (WASM)</span>
+              <ArrowRight className="w-4 h-4 text-emerald-400" />
+            </Link>
             <button
               onClick={() => {
                 setIsMobileMenuOpen(false);
@@ -300,7 +315,7 @@ export default function WelcomePage() {
               }}
               className="flex items-center justify-between p-3 rounded-[8px] bg-[var(--bg-canvas)] border border-[var(--border-main)] text-[12px] font-mono uppercase tracking-wider text-[var(--text-primary)] hover:border-[var(--accent-aqua)] transition-colors w-full text-left cursor-pointer"
             >
-              <span>04. DAILY RADAR</span>
+              <span>05. DAILY RADAR</span>
               <ExternalLink className="w-4 h-4 text-[var(--accent-aqua)]" />
             </button>
             <Link
@@ -309,7 +324,7 @@ export default function WelcomePage() {
               style={{ background: "var(--btn-aurora-bg)", color: "var(--btn-aurora-text)" }}
               className="flex items-center justify-between p-3.5 rounded-[8px] text-[12px] font-medium uppercase tracking-wider transition-all shadow-md mt-1"
             >
-              <span>05. BẮT ĐẦU HỌC NGAY</span>
+              <span>06. BẮT ĐẦU HỌC NGAY</span>
               <ArrowUpRight className="w-4 h-4" />
             </Link>
           </div>
@@ -953,6 +968,9 @@ vllm serve meta-llama/Llama-3.2-3B-Instruct --port 8000</code>
             </Link>
             <Link href="/anatomy-3d" className="text-[var(--accent-aqua)] hover:underline transition-colors">
               GIẢI MÃ 3D
+            </Link>
+            <Link href="/playground" className="text-emerald-400 hover:underline transition-colors font-semibold">
+              PLAYGROUND
             </Link>
             <Link href="/roadmap" className="hover:text-[var(--text-primary)] transition-colors">
               LỘ TRÌNH 26 TUẦN

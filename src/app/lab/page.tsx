@@ -73,6 +73,13 @@ export default function LabWorkspacePage() {
           >
             04. BẮT ĐẦU HỌC
           </Link>
+          <Link
+            href="/playground"
+            className="relative py-1 text-emerald-400 hover:text-emerald-300 transition-colors flex items-center space-x-1"
+          >
+            <span>05. PLAYGROUND</span>
+            <span className="text-[9px] px-1 py-0.2 rounded bg-emerald-950/60 border border-emerald-700/50">WASM</span>
+          </Link>
         </nav>
 
         {/* Right Controls: Radar Pill & Theme Switcher */}

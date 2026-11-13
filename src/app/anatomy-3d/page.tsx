@@ -85,6 +85,13 @@ export default function Anatomy3DPage() {
           >
             PHÒNG LAB 3D
           </Link>
+          <Link
+            href="/playground"
+            className="px-3 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap flex items-center space-x-1.5 text-emerald-400 font-medium"
+          >
+            <span>PLAYGROUND</span>
+            <span className="text-[9px] px-1 py-0.5 rounded bg-emerald-950/60 border border-emerald-700/50">WASM</span>
+          </Link>
           <button
             onClick={() => setIsRadarModalOpen(true)}
             className="px-3 py-2 rounded-[6px] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] transition-all whitespace-nowrap cursor-pointer uppercase font-mono"
@@ -680,6 +687,9 @@ export default function Anatomy3DPage() {
             </Link>
             <Link href="/anatomy-3d" className="text-[var(--accent-aqua)] hover:underline">
               GIẢI MÃ 3D
+            </Link>
+            <Link href="/playground" className="text-emerald-400 hover:underline">
+              PLAYGROUND
             </Link>
             <Link href="/lab" className="hover:text-[var(--text-primary)] transition-colors">
               PHÒNG LAB 3D

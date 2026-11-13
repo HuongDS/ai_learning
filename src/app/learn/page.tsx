@@ -145,6 +145,13 @@ export default function LearnLandingPage() {
           >
             03. BẮT ĐẦU HỌC
           </Link>
+          <Link
+            href="/playground"
+            className="text-emerald-400 hover:text-emerald-300 transition-colors font-medium flex items-center space-x-1"
+          >
+            <span>04. PLAYGROUND</span>
+            <span className="text-[9px] px-1 py-0.2 rounded bg-emerald-950/60 border border-emerald-700/50">WASM</span>
+          </Link>
         </nav>
 
         {/* Right Controls */}
@@ -493,6 +500,9 @@ export default function LearnLandingPage() {
             </Link>
             <Link href="/lab" className="hover:text-[var(--text-primary)] transition-colors">
               PHÒNG LAB 3D
+            </Link>
+            <Link href="/playground" className="hover:text-emerald-400 text-emerald-500 transition-colors">
+              PLAYGROUND
             </Link>
             <Link href="/roadmap" className="hover:text-[var(--text-primary)] transition-colors">
               LỘ TRÌNH 26 TUẦN
